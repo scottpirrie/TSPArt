@@ -15,11 +15,11 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        File inputImage = new File("black with circle.png");
+        File inputImage = new File("mona-lisa.jpg");
         BufferedImage image = ImageIO.read(inputImage);
         BufferedImage greyImage = convertToGreyscale(image);
         HashSet<Node> nodes = new HashSet();
-
+        //displayImage(image);
         displayImage(greyImage);
         nodes = displayImageAsNodes(greyImage);
 
@@ -70,12 +70,12 @@ public class Main {
                 int gridTotal = 0;
                 for(int i=0; i<gridSize; i++){
                     for (int j=0; j<gridSize; j++){
-                        gridTotal += imageArray[x+i][y+j];
+                        gridTotal += 255-imageArray[x+i][y+j];
                     }
                 }
                 int gridAverage = gridTotal/(gridSize*gridSize);
-                int gridNodeNum = (gridAverage*(gridSize*gridSize))/255;
-                //System.out.println(gridNodeNum);
+                int gridNodeNum = ((gridAverage*(gridSize*gridSize))/2550);
+                System.out.println(gridNodeNum);
                 for(int i=0; i<gridNodeNum; i++){
                     nodes.add(new Node(rnd.nextInt(gridSize)+x,rnd.nextInt(gridSize)+y));
                 }
