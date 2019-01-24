@@ -45,7 +45,7 @@ public class Main {
     private static HashSet<Node> randomNodeMap(){
         HashSet<Node> nodes = new HashSet<>();
         Random rnd = new Random();
-        for(int x=0; x<50; x++){
+        for(int x=0; x<1000; x++){
             nodes.add(new Node(rnd.nextInt(800),rnd.nextInt(800)));
         }
         return nodes;
