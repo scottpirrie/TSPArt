@@ -19,7 +19,6 @@ public class Main {
         BufferedImage image = ImageIO.read(inputImage);
         BufferedImage greyImage = convertToGreyscale(image);
         HashSet<Node> nodes = new HashSet();
-        //displayImage(image);
         displayImage(greyImage);
         nodes = displayImageAsNodes(greyImage);
 
@@ -64,7 +63,7 @@ public class Main {
                 imageArray[x][y] = new Color(image.getRGB(x,y)).getBlue();
             }
         }
-        int gridSize = 5;
+        int gridSize = 4;
         for(int x=0; x<image.getWidth()-(image.getWidth()%gridSize); x=x+gridSize){
             for(int y=0; y<image.getHeight()-(image.getHeight()%gridSize); y=y+gridSize){
                 int gridTotal = 0;
