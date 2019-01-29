@@ -20,8 +20,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         File inputImage = new File("mona-closeup.jpg");
-        HashSet<Node> nodes = new HashSet();
-        HashSet<Edge> edges = new HashSet<>();
+        HashSet<Node> nodes;
+        HashSet<Edge> edges;
 
         image = ImageIO.read(inputImage);
         image = convertToGreyscale(image);
@@ -82,7 +82,7 @@ public class Main {
                 imageArray[x][y] = new Color(image.getRGB(x,y)).getBlue();
             }
         }
-        int gridSize = 4;
+        int gridSize = 5;
         for(int x=0; x<image.getWidth()-(image.getWidth()%gridSize); x=x+gridSize){
             for(int y=0; y<image.getHeight()-(image.getHeight()%gridSize); y=y+gridSize){
                 int gridTotal = 0;
@@ -204,11 +204,18 @@ public class Main {
         JPanel panel = new JPanel() {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-//                for(Node node : nodes){
-//                    g.fillOval((int)node.getXpos()-3,(int)node.getYpos()-3,6,6);
-//                }
+                Graphics2D g2 = (Graphics2D) g;
                 for(Edge edge : edges){
-                    g.drawLine((int)edge.getStart().getXpos(), (int)edge.getStart().getYpos(), (int)edge.getEnd().getXpos(), (int)edge.getEnd().getYpos());
+                    int thickness;
+                    if(edge.getWeight()<10){
+                        thickness=2;
+//                    }else if(edge.getWeight()<50){
+//                        thickness=2;
+                    }else{
+                        thickness=1;
+                    }
+                    g2.setStroke(new BasicStroke(thickness));
+                    g2.drawLine((int)edge.getStart().getXpos(), (int)edge.getStart().getYpos(), (int)edge.getEnd().getXpos(), (int)edge.getEnd().getYpos());
                 }
             }
         };
