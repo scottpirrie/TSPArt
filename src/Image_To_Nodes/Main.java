@@ -1,5 +1,6 @@
 package Image_To_Nodes;
 
+import LloydsAlgorithmTest.Cluster;
 import TSP_Solver.Edge;
 import TSP_Solver.Node;
 
@@ -11,6 +12,7 @@ import java.awt.image.RescaleOp;
 import java.io.File;
 import java.io.IOException;
 import java.nio.Buffer;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 
@@ -18,10 +20,19 @@ public class Main {
 
     static BufferedImage image = null;
 
+    static int contrastFactor=2;
+
+    static int gridSize = 5;
+
+    static double stipplingReductionFactor=1.5;
+    static int iterations=2;
+
+
     public static void main(String[] args) throws IOException {
         File inputImage = new File("mona-closeup.jpg");
         HashSet<Node> nodes;
         HashSet<Edge> edges;
+        HashSet<Node> centres;
 
         image = ImageIO.read(inputImage);
         image = convertToGreyscale(image);
@@ -30,10 +41,13 @@ public class Main {
         displayImage(image);
 
         nodes = displayImageAsNodes(image);
-        drawNodes(image,nodes);
+        centres=findCentres(nodes);
 
-        edges=plotRoute(nodes);
-        displayTSP(edges);
+        drawNodes(image,nodes);
+        drawNodes(image,centres);
+
+//        edges=plotRoute(centres);
+//        displayTSP(edges);
 
     }
 
@@ -52,7 +66,7 @@ public class Main {
 
     private static BufferedImage boostContrast(BufferedImage input){
         BufferedImage output=input;
-        RescaleOp rescale = new RescaleOp(2, 0, null);
+        RescaleOp rescale = new RescaleOp(contrastFactor, 0, null);
         rescale.filter(input,output);
         return output;
     }
@@ -82,7 +96,6 @@ public class Main {
                 imageArray[x][y] = new Color(image.getRGB(x,y)).getBlue();
             }
         }
-        int gridSize = 5;
         for(int x=0; x<image.getWidth()-(image.getWidth()%gridSize); x=x+gridSize){
             for(int y=0; y<image.getHeight()-(image.getHeight()%gridSize); y=y+gridSize){
                 int gridTotal = 0;
@@ -92,7 +105,7 @@ public class Main {
                     }
                 }
                 int gridAverage = gridTotal/(gridSize*gridSize);
-                int gridNodeNum = ((gridAverage*(gridSize*gridSize))/(255*6));
+                int gridNodeNum = ((gridAverage*(gridSize*gridSize))/(255*gridSize));
                 for(int i=0; i<gridNodeNum; i++){
                     nodes.add(new Node(rnd.nextInt(gridSize)+x,rnd.nextInt(gridSize)+y));
                 }
@@ -224,5 +237,59 @@ public class Main {
         panel.setBorder(BorderFactory.createLineBorder(Color.black));
         frame.setSize(new Dimension(image.getWidth()+50,image.getHeight()+50));
         frame.setVisible(true);
+    }
+
+    private static HashSet<Node> findCentres(HashSet<Node> input){
+        double numberOfCentres=input.size()/stipplingReductionFactor;
+        HashSet<Node> centres = new HashSet();
+        HashSet<Cluster> clusters = new HashSet<>();
+        ArrayList<Node> inputList = new ArrayList<>(input);
+        Random rnd = new Random();
+        while(clusters.size()!=numberOfCentres){
+            int num = rnd.nextInt(inputList.size());
+            Node node = new Node(inputList.get(num).getXpos(),inputList.get(num).getYpos());
+            clusters.add(new Cluster(node));
+        }
+
+        for(int x=0; x<iterations; x++){
+            //assign nodes to centre to form clusters
+            for(Node node: input){
+                Node closestCentre=null;
+                for(Cluster cluster: clusters){
+                    if (closestCentre==null){
+                        closestCentre=cluster.getCentre();
+                    }else if(getDistance(node,cluster.getCentre())<getDistance(node,closestCentre)){
+                        closestCentre=cluster.getCentre();
+                    }
+                }
+                for(Cluster cluster: clusters){
+                    if(cluster.getCentre()==closestCentre){
+                        cluster.addNode(node);
+                    }
+                }
+            }
+
+            //move centre to CoM of cluster
+            for(Cluster cluster: clusters){
+                double totalX=0;
+                double totalY=0;
+                for(Node node: cluster.getNodes()){
+                    totalX+=node.getXpos();
+                    totalY+=node.getYpos();
+                }
+                double averageX=totalX/cluster.getNodes().size();
+                double averageY=totalY/cluster.getNodes().size();
+                cluster.getCentre().setXpos(averageX);
+                cluster.getCentre().setYpos(averageY);
+                cluster.clearNodes();
+            }
+            System.out.println("Iterating "+x+"/"+iterations+" complete");
+        }
+
+        for(Cluster cluster: clusters){
+            centres.add(cluster.getCentre());
+        }
+        System.out.println("Total number of nodes after Lloyd's algorithm: "+centres.size());
+        return centres;
     }
 }
