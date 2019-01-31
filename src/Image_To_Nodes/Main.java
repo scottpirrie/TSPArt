@@ -24,7 +24,7 @@ public class Main {
 
     static int gridSize = 5;
 
-    static double stipplingReductionFactor=1.5;
+    static double maxNodes=2500;
     static int iterations=2;
 
 
@@ -41,14 +41,55 @@ public class Main {
         displayImage(image);
 
         nodes = displayImageAsNodes(image);
+//        nodes = threeClusters();
         centres=findCentres(nodes);
 
         drawNodes(image,nodes);
         drawNodes(image,centres);
 
-//        edges=plotRoute(centres);
-//        displayTSP(edges);
+        edges=plotRoute(centres);
+        displayTSP(edges);
 
+    }
+
+    private static HashSet<Node> threeClusters(){
+        HashSet<Node> nodes = new HashSet<>();
+
+        Node node0 = new Node(50,80);
+        Node node1 = new Node(80,60);
+        Node node2 = new Node(60,30);
+        Node node3 = new Node(30,30);
+        Node node4 = new Node(20,60);
+
+        Node node5 = new Node(450,80);
+        Node node6 = new Node(480,60);
+        Node node7 = new Node(460,30);
+        Node node8 = new Node(430,30);
+        Node node9 = new Node(420,60);
+
+        Node node10 = new Node(250,280);
+        Node node11 = new Node(280,260);
+        Node node12 = new Node(260,230);
+        Node node13 = new Node(230,230);
+        Node node14 = new Node(220,260);
+
+        nodes.add(node0);
+        nodes.add(node1);
+        nodes.add(node2);
+        nodes.add(node3);
+        nodes.add(node4);
+        nodes.add(node5);
+        nodes.add(node6);
+        nodes.add(node7);
+        nodes.add(node8);
+        nodes.add(node9);
+        nodes.add(node10);
+        nodes.add(node11);
+        nodes.add(node12);
+        nodes.add(node13);
+        nodes.add(node14);
+
+        return nodes;
     }
 
     private static BufferedImage convertToGreyscale(BufferedImage image){
@@ -182,7 +223,6 @@ public class Main {
             double smallestChange=Double.MAX_VALUE;
             Edge smallestEdge=null;
             for(Edge edge : edges){
-                //Was checking only distance to start node and not to end node
                 double distDiff=getDistance(edge.getStart(),farthestNode)+getDistance(farthestNode,edge.getEnd())-edge.getWeight();
                 if(distDiff<smallestChange){
                     smallestChange=distDiff;
@@ -198,7 +238,7 @@ public class Main {
             unvisited.remove(farthestNode);
 
             if(visited.size()%100==0){
-                System.out.println("Current node count: "+visited.size());
+                System.out.println("Current node count: "+visited.size()+"/"+maxNodes);
             }
         }
 
@@ -219,16 +259,16 @@ public class Main {
                 super.paintComponent(g);
                 Graphics2D g2 = (Graphics2D) g;
                 for(Edge edge : edges){
-                    int thickness;
-                    if(edge.getWeight()<10){
-                        thickness=2;
-//                    }else if(edge.getWeight()<50){
+//                    int thickness;
+//                    if(edge.getWeight()<10){
 //                        thickness=2;
-                    }else{
-                        thickness=1;
-                    }
-                    g2.setStroke(new BasicStroke(thickness));
-                    g2.drawLine((int)edge.getStart().getXpos(), (int)edge.getStart().getYpos(), (int)edge.getEnd().getXpos(), (int)edge.getEnd().getYpos());
+////                    }else if(edge.getWeight()<50){
+////                        thickness=2;
+//                    }else{
+//                        thickness=1;
+//                    }
+//                    g2.setStroke(new BasicStroke(thickness));
+                    g.drawLine((int)edge.getStart().getXpos(), (int)edge.getStart().getYpos(), (int)edge.getEnd().getXpos(), (int)edge.getEnd().getYpos());
                 }
             }
         };
@@ -240,56 +280,64 @@ public class Main {
     }
 
     private static HashSet<Node> findCentres(HashSet<Node> input){
-        double numberOfCentres=input.size()/stipplingReductionFactor;
+        double numberOfCentres=maxNodes;
         HashSet<Node> centres = new HashSet();
         HashSet<Cluster> clusters = new HashSet<>();
         ArrayList<Node> inputList = new ArrayList<>(input);
         Random rnd = new Random();
-        while(clusters.size()!=numberOfCentres){
-            int num = rnd.nextInt(inputList.size());
-            Node node = new Node(inputList.get(num).getXpos(),inputList.get(num).getYpos());
-            clusters.add(new Cluster(node));
-        }
-
-        for(int x=0; x<iterations; x++){
-            //assign nodes to centre to form clusters
-            for(Node node: input){
-                Node closestCentre=null;
-                for(Cluster cluster: clusters){
-                    if (closestCentre==null){
-                        closestCentre=cluster.getCentre();
-                    }else if(getDistance(node,cluster.getCentre())<getDistance(node,closestCentre)){
-                        closestCentre=cluster.getCentre();
-                    }
-                }
-                for(Cluster cluster: clusters){
-                    if(cluster.getCentre()==closestCentre){
-                        cluster.addNode(node);
-                    }
-                }
+        if(maxNodes<input.size()) {
+            System.out.println("Performing Lloyds algorithm");
+            while (clusters.size() != numberOfCentres) {
+                int num = rnd.nextInt(inputList.size());
+                Node node = new Node(inputList.get(num).getXpos(), inputList.get(num).getYpos());
+                clusters.add(new Cluster(node));
+                inputList.remove(num);
             }
 
-            //move centre to CoM of cluster
-            for(Cluster cluster: clusters){
-                double totalX=0;
-                double totalY=0;
-                for(Node node: cluster.getNodes()){
-                    totalX+=node.getXpos();
-                    totalY+=node.getYpos();
+            for (int x = 0; x < iterations; x++) {
+                //assign nodes to centre to form clusters
+                for (Node node : input) {
+                    Node closestCentre = null;
+                    for (Cluster cluster : clusters) {
+                        if (closestCentre == null) {
+                            closestCentre = cluster.getCentre();
+                        } else if (getDistance(node, cluster.getCentre()) < getDistance(node, closestCentre)) {
+                            closestCentre = cluster.getCentre();
+                        }
+                    }
+                    for (Cluster cluster : clusters) {
+                        if (cluster.getCentre() == closestCentre) {
+                            cluster.addNode(node);
+                        }
+                    }
                 }
-                double averageX=totalX/cluster.getNodes().size();
-                double averageY=totalY/cluster.getNodes().size();
-                cluster.getCentre().setXpos(averageX);
-                cluster.getCentre().setYpos(averageY);
-                cluster.clearNodes();
-            }
-            System.out.println("Iterating "+x+"/"+iterations+" complete");
-        }
 
-        for(Cluster cluster: clusters){
-            centres.add(cluster.getCentre());
+                //move centre to CoM of cluster
+                for (Cluster cluster : clusters) {
+                    if (cluster.getNodes().size() != 0){
+                        double totalX = 0;
+                        double totalY = 0;
+                        for (Node node : cluster.getNodes()) {
+                            totalX += node.getXpos();
+                            totalY += node.getYpos();
+                        }
+                        double averageX = totalX / cluster.getNodes().size();
+                        double averageY = totalY / cluster.getNodes().size();
+                        cluster.getCentre().setXpos(averageX);
+                        cluster.getCentre().setYpos(averageY);
+                        cluster.clearNodes();
+                    }
+                }
+                System.out.println("Iterating " + (x+1) + "/" + iterations + " complete");
+            }
+
+            for (Cluster cluster : clusters) {
+                centres.add(cluster.getCentre());
+            }
+            System.out.println("Total number of nodes after Lloyd's algorithm: " + centres.size());
+            return centres;
+        }else{
+            return input;
         }
-        System.out.println("Total number of nodes after Lloyd's algorithm: "+centres.size());
-        return centres;
     }
 }
