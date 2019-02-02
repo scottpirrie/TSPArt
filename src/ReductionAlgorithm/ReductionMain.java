@@ -1,4 +1,4 @@
-package LloydsAlgorithmTest;
+package ReductionAlgorithm;
 
 import TSP_Solver.Node;
 
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 
-public class LloydsMain {
+public class ReductionMain {
     public static void main(String[] args) {
 //        HashSet<Node> nodes = generatePoints();
         HashSet<Node> nodes = createStarNodeMap();

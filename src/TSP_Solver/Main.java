@@ -14,8 +14,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //nodes=createStarNodeMap();
-        nodes=randomNodeMap();
+        nodes=createStarNodeMap();
+        //nodes=randomNodeMap();
         edges=plotRoute(nodes);
         displayTSP(edges);
     }
@@ -30,6 +30,7 @@ public class Main {
         Node node4 = new Node(90,30);
         Node node5 = new Node(50,10);
         Node node6 = new Node(50,90);
+        Node node7 = new Node(55,85);
 
         nodes.add(node0);
         nodes.add(node1);
@@ -38,6 +39,7 @@ public class Main {
         nodes.add(node4);
         nodes.add(node5);
         nodes.add(node6);
+        nodes.add(node7);
 
         return nodes;
     }
@@ -45,7 +47,7 @@ public class Main {
     private static HashSet<Node> randomNodeMap(){
         HashSet<Node> nodes = new HashSet<>();
         Random rnd = new Random();
-        for(int x=0; x<1000; x++){
+        for(int x=0; x<500; x++){
             nodes.add(new Node(rnd.nextInt(800),rnd.nextInt(800)));
         }
         return nodes;
@@ -137,11 +139,21 @@ public class Main {
         JPanel panel = new JPanel() {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
+                Graphics2D g2 = (Graphics2D) g;
                 for(Node node : nodes){
-                    g.fillOval((int)node.getXpos()-3,(int)node.getYpos()-3,6,6);
+                    g.fillOval((int)node.getXpos()-1,(int)node.getYpos()-1,2,2);
                 }
                 for(Edge edge : edges){
-                    g.drawLine((int)edge.getStart().getXpos(), (int)edge.getStart().getYpos(), (int)edge.getEnd().getXpos(), (int)edge.getEnd().getYpos());
+                    int thickness;
+                    if(edge.getWeight()<10){
+                        thickness=3;
+                    }else if(edge.getWeight()<50){
+                        thickness=2;
+                    }else{
+                        thickness=1;
+                    }
+                    g2.setStroke(new BasicStroke(thickness));
+                    g2.drawLine((int)edge.getStart().getXpos(), (int)edge.getStart().getYpos(), (int)edge.getEnd().getXpos(), (int)edge.getEnd().getYpos());
                 }
             }
         };

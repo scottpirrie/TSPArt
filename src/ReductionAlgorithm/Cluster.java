@@ -1,4 +1,4 @@
-package LloydsAlgorithmTest;
+package ReductionAlgorithm;
 
 import TSP_Solver.Node;
 
