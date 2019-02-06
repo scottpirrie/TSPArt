@@ -16,8 +16,8 @@ public class LloydsAlgoMain {
     static int width=40;
 
     public static void main(String[] args) {
-//        HashSet<Node> nodes = generateRandomNodes();
-        HashSet<Node> nodes = generateNodes();
+        HashSet<Node> nodes = generateRandomNodes();
+//        HashSet<Node> nodes = generateNodes();
         HashSet<Cell> cells = createDiagram(nodes);;
 
         display(nodes,cells);
@@ -34,7 +34,7 @@ public class LloydsAlgoMain {
 
     private static HashSet<Node> generateNodes(){
         HashSet<Node> nodes = new HashSet<>();
-        nodes.add(new Node(10,10));
+        nodes.add(new Node(10,15));
         nodes.add(new Node(30,30));
         return nodes;
     }
@@ -84,10 +84,8 @@ public class LloydsAlgoMain {
             System.out.println("New site x: "+site.getXpos()+" y: "+site.getYpos());
             Cell tempCell = new Cell(site);
             for(Cell cell: cells){
-                System.out.println("Inspecting node at ("+cell.getSite().getXpos()+","+cell.getSite().getYpos()+")");
                 Node pbMid = new Node((site.getXpos()+cell.getSite().getXpos())/2,(site.getYpos()+cell.getSite().getYpos())/2);
                 double grad = ((site.getYpos()-cell.getSite().getYpos())/(site.getXpos()-cell.getSite().getXpos()));
-
                 double pbGrad;
                 if(grad==0){
                     pbGrad=1/0;
@@ -116,8 +114,11 @@ public class LloydsAlgoMain {
                             intersect = new Node(edge.getStart().getXpos(),(pbGrad*edge.getStart().getXpos())+yIntercept);
                         }else{
                             double edgeYIntercept = edge.getStart().getYpos()-(edgeGrad*edge.getStart().getXpos());
-                            double x = (pbGrad-edgeGrad)/(yIntercept-edgeYIntercept);
+                            double x = (yIntercept-edgeYIntercept)/(edgeGrad-pbGrad);
                             double y = (edgeGrad*x)+edgeYIntercept;
+//                            double y = ((edgeGrad*edge.getStart().getXpos())+edgeYIntercept)-((pbGrad*pbMid.getXpos())+yIntercept);
+//                            double x = (y-edgeYIntercept)/edgeGrad;
+
                             intersect = new Node(x,y);
                         }
                         intersectionPoints.add(intersect);
@@ -136,7 +137,7 @@ public class LloydsAlgoMain {
                                 cell.addEdge(tempEdge);
                             }
                             for(Edge cellEdge: cell.getEdges()){
-                                if(cellEdge.getStart()==edge.getEnd() || cellEdge.getEnd()==edge.getEnd()){
+                                if((cellEdge.getStart().getXpos()==edge.getEnd().getXpos() && cellEdge.getStart().getYpos()==edge.getEnd().getYpos()) || (cellEdge.getEnd().getXpos()==edge.getEnd().getXpos() && cellEdge.getEnd().getYpos()==edge.getEnd().getYpos())){
                                     edgesToRemove.add(cellEdge);
                                 }
                             }
@@ -149,7 +150,7 @@ public class LloydsAlgoMain {
                                 cell.addEdge(tempEdge);
                             }
                             for(Edge cellEdge:cell.getEdges()){
-                                if(cellEdge.getStart()==edge.getStart() || cellEdge.getEnd()==edge.getStart()){
+                                if((cellEdge.getStart().getXpos()==edge.getStart().getXpos() && cellEdge.getStart().getYpos()==edge.getStart().getYpos()) || (cellEdge.getEnd().getXpos()==edge.getStart().getXpos() && cellEdge.getEnd().getYpos()==edge.getStart().getYpos())){
                                     edgesToRemove.add(cellEdge);                                }
                             }
                         }
@@ -172,10 +173,6 @@ public class LloydsAlgoMain {
 //        cells.remove(cell2);
 //        cells.remove(cell3);
 //        cells.remove(cell4);
-
-        for(Cell cell: cells){
-            System.out.println("("+cell.getSite().getXpos()+","+cell.getSite().getYpos()+")  Num of edges: "+cell.getEdges().size());
-        }
         return cells;
     }
 
@@ -194,6 +191,11 @@ public class LloydsAlgoMain {
                 Graphics2D g2 = (Graphics2D) g;
                 g2.setStroke(new BasicStroke(2));
                 for(Cell cell: cells){
+                    if(cell.getSite().getXpos()==30){
+                        g2.setStroke(new BasicStroke(2));
+                    }else{
+                        g2.setStroke(new BasicStroke(2));
+                    }
                     g.fillOval((int)cell.getSite().getXpos()-2+(500),(int)cell.getSite().getYpos()-2+(500),4,4);
                     for(Edge edge: cell.getEdges()){
                         g2.drawLine((int)edge.getStart().getXpos()+500, (int)edge.getStart().getYpos()+500, (int)edge.getEnd().getXpos()+500, (int)edge.getEnd().getYpos()+500);
