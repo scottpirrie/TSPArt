@@ -16,8 +16,8 @@ public class LloydsAlgoMain {
     static int width=40;
 
     public static void main(String[] args) {
-//        HashSet<Node> nodes = generateRandomNodes();
-        HashSet<Node> nodes = generateNodes();
+        HashSet<Node> nodes = generateRandomNodes();
+//        HashSet<Node> nodes = generateNodes();
         HashSet<Cell> cells = createDiagram(nodes);
 
         display(nodes,cells);
@@ -26,7 +26,7 @@ public class LloydsAlgoMain {
     private static HashSet<Node> generateRandomNodes() {
         HashSet<Node> nodes = new HashSet<>();
         Random rnd = new Random();
-        for (int x = 0; x < 4; x++) {
+        for (int x = 0; x < 3; x++) {
             nodes.add(new Node(rnd.nextInt(height), rnd.nextInt(width)));
         }
         return nodes;

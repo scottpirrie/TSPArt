@@ -23,6 +23,10 @@ public class Cell {
         edges.add(edge);
     }
 
+    public void removeEdge(Edge edge){
+        edges.remove(edge);
+    }
+
     public HashSet<Edge> getEdges() {
         return edges;
     }
