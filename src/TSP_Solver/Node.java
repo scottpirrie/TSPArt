@@ -26,4 +26,17 @@ public class Node {
         this.ypos = ypos;
     }
 
+    public String toString(){
+        return "("+xpos+","+ypos+")";
+    }
+
+    public Boolean equalss(Node input){
+        if(Math.abs(xpos-input.getXpos())<0.001){
+            if(Math.abs(ypos-input.getYpos())<0.001){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

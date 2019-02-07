@@ -18,7 +18,7 @@ public class LloydsAlgoMain {
     public static void main(String[] args) {
 //        HashSet<Node> nodes = generateRandomNodes();
         HashSet<Node> nodes = generateNodes();
-        HashSet<Cell> cells = createDiagram(nodes);;
+        HashSet<Cell> cells = createDiagram(nodes);
 
         display(nodes,cells);
     }
@@ -49,33 +49,27 @@ public class LloydsAlgoMain {
         Cell cell3 = new Cell(new Node(2*width,2*height));
         Cell cell4 = new Cell(new Node(-width, 2*height));
 
-        Edge edge11 = new Edge(new Node(width/2,height/2),new Node(width/2,-10*height));
-        Edge edge12 = new Edge(new Node(width/2,-10*height),new Node(-10*width,height/2));
-        Edge edge13 = new Edge(new Node(-10*width,height/2),new Node(width/2,height/2));
-        cell1.addEdge(edge11);
-        cell1.addEdge(edge12);
-        cell1.addEdge(edge13);
+        Node nodeMiddle = new Node(width/2,height/2);
+        Node nodeTop = new Node(width/2,-10*height);
+        Node nodeBottom = new Node(width/2,10*height);
+        Node nodeLeft = new Node(-10*width,height/2);
+        Node nodeRight = new Node(10*width,height/2);
 
-        Edge edge21 = new Edge(new Node(width/2,height/2),new Node(width/2,-10*height));
-        Edge edge22 = new Edge(new Node(width/2,-10*height),new Node(10*width,height/2));
-        Edge edge23 = new Edge(new Node(10*width,height/2),new Node(width/2,height/2));
-        cell2.addEdge(edge21);
-        cell2.addEdge(edge22);
-        cell2.addEdge(edge23);
+        cell1.addEdge(new Edge(nodeMiddle,nodeTop));
+        cell1.addEdge(new Edge(nodeTop,nodeLeft));
+        cell1.addEdge(new Edge(nodeLeft,nodeMiddle));
 
-        Edge edge31 = new Edge(new Node(width/2,height/2),new Node(width/2,10*height));
-        Edge edge32 = new Edge(new Node(width/2,10*height),new Node(10*width,height/2));
-        Edge edge33 = new Edge(new Node(10*width,height/2),new Node(width/2,height/2));
-        cell3.addEdge(edge31);
-        cell3.addEdge(edge32);
-        cell3.addEdge(edge33);
+        cell2.addEdge(new Edge(nodeMiddle,nodeTop));
+        cell2.addEdge(new Edge(nodeTop,nodeRight));
+        cell2.addEdge(new Edge(nodeRight,nodeMiddle));
 
-        Edge edge41 = new Edge(new Node(width/2,height/2),new Node(width/2,10*height));
-        Edge edge42 = new Edge(new Node(width/2,10*height),new Node(-10*width,height/2));
-        Edge edge43 = new Edge(new Node(-10*width,height/2),new Node(width/2,height/2));
-        cell4.addEdge(edge41);
-        cell4.addEdge(edge42);
-        cell4.addEdge(edge43);
+        cell3.addEdge(new Edge(nodeMiddle,nodeBottom));
+        cell3.addEdge(new Edge(nodeBottom,nodeRight));
+        cell3.addEdge(new Edge(nodeRight,nodeMiddle));
+
+        cell4.addEdge(new Edge(nodeMiddle,nodeBottom));
+        cell4.addEdge(new Edge(nodeBottom,nodeLeft));
+        cell4.addEdge(new Edge(nodeLeft,nodeMiddle));
 
         cells.add(cell1);
         cells.add(cell2);
@@ -83,11 +77,9 @@ public class LloydsAlgoMain {
         cells.add(cell4);
 
         for (Node site: sites){
-            System.out.println("New site x: "+site.getXpos()+" y: "+site.getYpos());
             Cell tempCell = new Cell(site);
             for(Cell cell: cells){
                 HashSet<Edge> edgesToRemove = new HashSet<>();
-                System.out.println("Inspecting cell with site ("+cell.getSite().getXpos()+","+cell.getSite().getYpos()+")");
                 Node pbMid = new Node((site.getXpos()+cell.getSite().getXpos())/2,(site.getYpos()+cell.getSite().getYpos())/2);
                 double grad = ((site.getYpos()-cell.getSite().getYpos())/(site.getXpos()-cell.getSite().getXpos()));
                 double pbGrad;
@@ -102,7 +94,6 @@ public class LloydsAlgoMain {
                 Node pbPoint1 = new Node((-10*width),(pbGrad*(-10*width))+yIntercept);
                 Node pbPoint2 = new Node(10*width,(pbGrad*(10*width))+yIntercept);
                 Line2D.Double pb = new Line2D.Double(pbPoint1.getXpos(),pbPoint1.getYpos(),pbPoint2.getXpos(),pbPoint2.getYpos());
-
                 ArrayList<Node> intersectionPoints = new ArrayList<>();
                 HashSet<Edge> intersectedEdges = new HashSet<>();
 
@@ -138,8 +129,9 @@ public class LloydsAlgoMain {
                                 cell.addEdge(tempEdge);
                             }
                             for(Edge cellEdge: cell.getEdges()){
-                                if((cellEdge.getStart().getXpos()==edge.getEnd().getXpos() && cellEdge.getStart().getYpos()==edge.getEnd().getYpos()) || ((cellEdge.getEnd().getXpos()==edge.getEnd().getXpos() && cellEdge.getEnd().getYpos()==edge.getEnd().getYpos()))){
+                                if(cellEdge.getStart().equalss(edge.getEnd()) || cellEdge.getEnd().equalss(edge.getEnd())){
                                     edgesToRemove.add(cellEdge);
+                                }else{
                                 }
                             }
                             edgesToRemove.add(edge);
@@ -152,8 +144,9 @@ public class LloydsAlgoMain {
                                 cell.addEdge(tempEdge);
                             }
                             for(Edge cellEdge:cell.getEdges()){
-                                if((cellEdge.getStart().getXpos()==edge.getStart().getXpos() && cellEdge.getStart().getYpos()==edge.getStart().getYpos()) || ((cellEdge.getEnd().getXpos()==edge.getStart().getXpos() && cellEdge.getEnd().getYpos()==edge.getStart().getYpos()))){
+                                if(cellEdge.getStart().equalss(edge.getStart()) || cellEdge.getEnd().equalss(edge.getStart())){
                                     edgesToRemove.add(cellEdge);
+                                }else{
                                 }
                             }
                             edgesToRemove.add(edge);
@@ -208,7 +201,7 @@ public class LloydsAlgoMain {
                 super.paintComponent(g);
                 Graphics2D g2 = (Graphics2D) g;
                 for(Cell cell: cells){
-                    if(cell.getSite().getXpos()==30){
+                    if(cell.getSite().getYpos()==35){
                         g2.setStroke(new BasicStroke(2));
                     }else{
                         g2.setStroke(new BasicStroke(1));
