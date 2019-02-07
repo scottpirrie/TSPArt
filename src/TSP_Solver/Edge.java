@@ -25,4 +25,11 @@ public class Edge {
     public double getWeight() {
         return weight;
     }
+
+    public Boolean hasNode(Node node){
+        if (start.equalss(node) || end.equalss(node)){
+            return true;
+        }
+        return false;
+    }
 }
