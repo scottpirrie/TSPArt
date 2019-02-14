@@ -1,10 +1,12 @@
 package Image_To_Nodes;
 
+import LloydsAlgorithm.LloydsAlgoMain;
 import ReductionAlgorithm.Cluster;
 import TSP_Solver.Edge;
 import TSP_Solver.Node;
 
 import javax.imageio.ImageIO;
+import javax.sound.midi.Soundbank;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -23,17 +25,18 @@ public class Main {
 
     static int gridSize = 5;
 
-    static double maxNodes=5000;
+    static double maxNodes=3000;
     static int iterations=1;
 
 
     public static void main(String[] args) throws IOException {
-        File inputImage = new File("mona-closeup.jpg");
+        File inputImage = new File("linear_gradient.png");
         HashSet<Node> nodes;
         HashSet<Edge> edges;
         HashSet<Node> centres;
 
         image = ImageIO.read(inputImage);
+//        displayImage(image);
         image = convertToGreyscale(image);
         image = boostContrast(image);
 
@@ -43,8 +46,27 @@ public class Main {
 //        nodes = threeClusters();
         centres= reduceNodes(nodes);
 
-        drawNodes(image,nodes);
         drawNodes(image,centres);
+
+        LloydsAlgoMain la = new LloydsAlgoMain(image.getWidth(),image.getHeight());
+//        LloydsAlgoMain.display(LloydsAlgoMain.createDiagram(centres));
+        for(int x=0; x<50; x++) {
+            centres = la.voronoiRedistribute(centres);
+            System.out.println("Interation "+ (x+1) + " complete");
+            int nullCounter=0;
+            for(Node node: centres){
+                if(Double.isNaN(node.getXpos())){
+                    nullCounter++;
+                }
+            }
+            System.out.println(nullCounter);
+        }
+        drawNodes(image,centres);
+
+
+
+//        drawNodes(image,nodes);
+//        drawNodes(image,centres);
 
 //        edges=plotRoute(centres);
 //        displayTSP(edges);
@@ -151,6 +173,21 @@ public class Main {
                 }
             }
         }
+
+        HashSet<Node> nodesToRemove = new HashSet<>();
+        for(Node node: nodes){
+            for(Node otherNode: nodes){
+                if (node!=otherNode){
+                    if(node.equalss(otherNode)){
+                        nodesToRemove.add(node);
+                    }
+                }
+            }
+        }
+        for(Node node: nodesToRemove){
+            nodes.remove(node);
+        }
+
         System.out.println("Total number of nodes: "+nodes.size());
         return nodes;
     }
@@ -167,8 +204,8 @@ public class Main {
             }
         };
         frame.add(panel);
-        panel.setBorder(BorderFactory.createLineBorder(Color.black));
-        frame.setSize(new Dimension(image.getWidth()+16,image.getHeight()+40));
+        panel.setPreferredSize(new Dimension(image.getWidth()-(image.getWidth()%gridSize),image.getHeight()-(image.getHeight()%gridSize)));
+        frame.pack();
         frame.setVisible(true);
     }
 

@@ -30,4 +30,51 @@ public class Cell {
     public HashSet<Edge> getEdges() {
         return edges;
     }
+
+
+    public void setSite(Node site) {
+        this.site = site;
+    }
+
+    public Node getCentre(){
+        Node centre;
+
+        HashSet<Node> points = new HashSet<>();
+
+//        System.out.println("Number of edges: "+edges.size());
+
+        for(Edge edge: edges){
+            Boolean startExists=false;
+            Boolean endExists=false;
+            for(Node point: points){
+                if(point.equalss(edge.getStart())){
+                    startExists=true;
+                }
+                if(point.equalss(edge.getEnd())){
+                    endExists=true;
+                }
+            }
+            if(!startExists){
+                points.add(edge.getStart());
+            }
+            if(!endExists){
+                points.add(edge.getEnd());
+            }
+        }
+
+//        System.out.println("Number of points: "+points.size());
+
+
+        double totalX=0;
+        double totalY=0;
+        for(Node point: points){
+            totalX+=point.getXpos();
+            totalY+=point.getYpos();
+        }
+        double averageX=totalX/points.size();
+        double averageY=totalY/points.size();
+        centre = new Node(averageX,averageY);
+
+        return centre;
+    }
 }
