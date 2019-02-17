@@ -85,7 +85,7 @@ public class LloydsAlgoMain {
                     }
                 }
                 if(!exists) {
-                    output.add(new Node(x, y));
+                    output.add(cell.getCentre());
                 }
             }
         }
@@ -365,7 +365,7 @@ public class LloydsAlgoMain {
                         cell.addEdge(tempEdge);
                         tempCell.addEdge(tempEdge);
                     }else if(intersectionPoints.size()>0 && intersectionPoints.size()!=2){
-                        System.out.println("Intersected edges in cell "+cell.getSite() + " when inserting "+site.toString() + " is more than 0 but not 2 therefor intersection points not added and intersected lines not broken " +intersectionPoints.size());
+//                        System.out.println("Intersected edges in cell "+cell.getSite() + " when inserting "+site.toString() + " is more than 0 but not 2 therefor intersection points not added and intersected lines not broken " +intersectionPoints.size());
                     }
 
 //                    HashSet<Edge> zeroEdges = new HashSet<>();

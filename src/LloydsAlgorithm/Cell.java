@@ -70,7 +70,7 @@ public class Cell {
         }
         double averageX=totalX/points.size();
         double averageY=totalY/points.size();
-        centre = new Node(Math.round(averageX),Math.round(averageY));
+        centre = new Node(averageX,averageY);
 
         return centre;
     }

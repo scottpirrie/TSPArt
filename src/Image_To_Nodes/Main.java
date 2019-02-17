@@ -50,7 +50,7 @@ public class Main {
 
         LloydsAlgoMain la = new LloydsAlgoMain(image.getWidth(),image.getHeight());
 //        la.display(LloydsAlgoMain.createDiagram(centres));
-        for(int x=0; x<1; x++) {
+        for(int x=0; x<50; x++) {
             centres = la.voronoiRedistribute(centres);
             System.out.println("Interation "+ (x+1) + " complete");
             System.out.println("Number of nodes in diagram: "+centres.size());
