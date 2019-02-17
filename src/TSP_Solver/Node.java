@@ -31,8 +31,8 @@ public class Node {
     }
 
     public Boolean equalss(Node input){
-        if(Math.abs(xpos-input.getXpos())<=1){
-            if(Math.abs(ypos-input.getYpos())<=1){
+        if(Math.abs(xpos-input.getXpos())<0.00000000001){
+            if(Math.abs(ypos-input.getYpos())<0.00000000001){
                 return true;
             }
         }

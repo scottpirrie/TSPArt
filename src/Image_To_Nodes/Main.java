@@ -25,7 +25,7 @@ public class Main {
 
     static int gridSize = 5;
 
-    static double maxNodes=3000;
+    static double maxNodes=5000;
     static int iterations=1;
 
 
@@ -49,17 +49,11 @@ public class Main {
         drawNodes(image,centres);
 
         LloydsAlgoMain la = new LloydsAlgoMain(image.getWidth(),image.getHeight());
-//        LloydsAlgoMain.display(LloydsAlgoMain.createDiagram(centres));
-        for(int x=0; x<50; x++) {
+//        la.display(LloydsAlgoMain.createDiagram(centres));
+        for(int x=0; x<1; x++) {
             centres = la.voronoiRedistribute(centres);
             System.out.println("Interation "+ (x+1) + " complete");
-            int nullCounter=0;
-            for(Node node: centres){
-                if(Double.isNaN(node.getXpos())){
-                    nullCounter++;
-                }
-            }
-            System.out.println(nullCounter);
+            System.out.println("Number of nodes in diagram: "+centres.size());
         }
         drawNodes(image,centres);
 
@@ -142,9 +136,10 @@ public class Main {
                 g.drawImage(image,0,0,null);
             }
         };
+        panel.setPreferredSize(new Dimension(image.getWidth(),image.getHeight()));
         frame.add(panel);
         frame.setVisible(true);
-        frame.setSize(new Dimension(image.getWidth()+16,image.getHeight()+40));
+        frame.pack();
     }
 
     private static HashSet<Node> displayImageAsNodes(BufferedImage image){

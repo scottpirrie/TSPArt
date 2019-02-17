@@ -41,7 +41,7 @@ public class Cell {
 
         HashSet<Node> points = new HashSet<>();
 
-//        System.out.println("Number of edges: "+edges.size());
+
 
         for(Edge edge: edges){
             Boolean startExists=false;
@@ -62,9 +62,6 @@ public class Cell {
             }
         }
 
-//        System.out.println("Number of points: "+points.size());
-
-
         double totalX=0;
         double totalY=0;
         for(Node point: points){
@@ -73,7 +70,7 @@ public class Cell {
         }
         double averageX=totalX/points.size();
         double averageY=totalY/points.size();
-        centre = new Node(averageX,averageY);
+        centre = new Node(Math.round(averageX),Math.round(averageY));
 
         return centre;
     }
