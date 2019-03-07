@@ -3,6 +3,7 @@ package LloydsAlgorithm;
 import TSP_Solver.Edge;
 import TSP_Solver.Node;
 
+import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Line2D;
@@ -22,11 +23,11 @@ public class LloydsAlgoMain {
     public static void main(String[] args) {
         height=800;
         width=800;
-//        HashSet<Node> nodes = generateRandomNodes();
+        HashSet<Node> nodes = generateRandomNodes();
 //        HashSet<Node> nodes = generateNodes();
-        HashSet<Node> nodes = getNodesFromFile("Nodes w800 h800 n3000");
+//        HashSet<Node> nodes = getNodesFromFile("Nodes w800 h800 n100");
         HashSet<Cell> cells = createDiagram(nodes);
-//        cells = cropDiagram(cells);
+        cells = cropDiagram(cells);
         display(cells);
 
     }
@@ -37,7 +38,7 @@ public class LloydsAlgoMain {
         double x;
         double y;
         int nodeCount=0;
-        while (nodeCount<3000) {
+        while (nodeCount<1000) {
             x=rnd.nextInt(width);
             y=rnd.nextInt(height);
             boolean exists=false;
@@ -156,16 +157,16 @@ public class LloydsAlgoMain {
     public static HashSet<Cell> createDiagram(HashSet<Node> sites){
         HashSet<Cell> cells = new HashSet<>();
 
-        Cell cell1 = new Cell(new Node((-width)*scaleFactor,-height*scaleFactor));
-        Cell cell2 = new Cell(new Node((2*width)*scaleFactor,(-height)*scaleFactor));
-        Cell cell3 = new Cell(new Node((2*width)*scaleFactor,(2*height)*scaleFactor));
-        Cell cell4 = new Cell(new Node((-width)*scaleFactor, (2*height)*scaleFactor));
+        Cell cell1 = new Cell(new Node(-width,-height));
+        Cell cell2 = new Cell(new Node(2*width,-height));
+        Cell cell3 = new Cell(new Node(2*width,2*height));
+        Cell cell4 = new Cell(new Node(-width, 2*height));
 
-        Node nodeMiddle = new Node((width/2)*scaleFactor,(height/2)*scaleFactor);
-        Node nodeTop = new Node((width/2)*scaleFactor,(-10*height)*scaleFactor);
-        Node nodeBottom = new Node((width/2)*scaleFactor,(10*height)*scaleFactor);
-        Node nodeLeft = new Node((-10*width)*scaleFactor,(height/2)*scaleFactor);
-        Node nodeRight = new Node((10*width)*scaleFactor,(height/2)*scaleFactor);
+        Node nodeMiddle = new Node(width/2,height/2);
+        Node nodeTop = new Node(width/2,-10*height);
+        Node nodeBottom = new Node(width/2,10*height);
+        Node nodeLeft = new Node(-10*width,height/2);
+        Node nodeRight = new Node(10*width,height/2);
 
         cell1.addEdge(new Edge(nodeMiddle,nodeTop));
         cell1.addEdge(new Edge(nodeTop,nodeLeft));
@@ -189,66 +190,59 @@ public class LloydsAlgoMain {
         cells.add(cell4);
 
         for (Node site: sites) {
-            try {
-                site.setXpos(site.getXpos() * scaleFactor);
-                site.setYpos(site.getYpos() * scaleFactor);
-                Cell tempCell = new Cell(site);
-                for (Cell cell : cells) {
-                    Node pbMid = new Node((site.getXpos() + cell.getSite().getXpos()) / 2, (site.getYpos() + cell.getSite().getYpos()) / 2);
-                    double grad = ((site.getYpos() - cell.getSite().getYpos()) / (site.getXpos() - cell.getSite().getXpos()));
-                    double pbGrad;
-                    if (grad == 0) {
-                        pbGrad = Double.POSITIVE_INFINITY;
-                    } else if (Double.isInfinite(grad)) {
-                        pbGrad = 0;
-                    } else {
-                        pbGrad = -1 / grad;
-                    }
-                    Node pbPoint1;
-                    Node pbPoint2;
-                    double yIntercept = 0;
-                    if (!Double.isInfinite(pbGrad)) {
-                        yIntercept = pbMid.getYpos() - (pbGrad * pbMid.getXpos());
-                        pbPoint1 = new Node((-10 * width) * scaleFactor, ((pbGrad * ((-10 * width) * scaleFactor)) + yIntercept));
-                        pbPoint2 = new Node((10 * width) * scaleFactor, ((pbGrad * ((10 * width) * scaleFactor)) + yIntercept));
-                    } else {
-                        pbPoint1 = new Node(pbMid.getXpos(), (-10 * height) * scaleFactor);
-                        pbPoint2 = new Node(pbMid.getXpos(), (10 * height) * scaleFactor);
-                    }
-                    Line2D.Double pb = new Line2D.Double(pbPoint1.getXpos(), pbPoint1.getYpos(), pbPoint2.getXpos(), pbPoint2.getYpos());
+            Cell tempCell = new Cell(site);
+            for (Cell cell : cells) {
+                Node pbMid = new Node((site.getXpos() + cell.getSite().getXpos()) / 2, (site.getYpos() + cell.getSite().getYpos()) / 2);
+                double grad = ((site.getYpos() - cell.getSite().getYpos()) / (site.getXpos() - cell.getSite().getXpos()));
+                double pbGrad;
+                if (grad == 0) {
+                    pbGrad = Double.POSITIVE_INFINITY;
+                } else if (Double.isInfinite(grad)) {
+                    pbGrad = 0;
+                } else {
+                    pbGrad = -1 / grad;
+                }
+                Node pbPoint1;
+                Node pbPoint2;
+                double yIntercept = 0;
+                if (!Double.isInfinite(pbGrad)) {
+                    yIntercept = pbMid.getYpos() - (pbGrad * pbMid.getXpos());
+                    pbPoint1 = new Node(-10 * width, (pbGrad * (-10 * width)) + yIntercept);
+                    pbPoint2 = new Node(10 * width, (pbGrad * (10 * width)) + yIntercept);
+                } else {
+                    pbPoint1 = new Node(pbMid.getXpos(), -10 * height);
+                    pbPoint2 = new Node(pbMid.getXpos(), 10 * height);
+                }
+                Line2D.Double pb = new Line2D.Double(pbPoint1.getXpos(), pbPoint1.getYpos(), pbPoint2.getXpos(), pbPoint2.getYpos());
 
-                    ArrayList<Node> intersectionPoints = new ArrayList<>();
-                    ArrayList<Edge> intersectedEdges = new ArrayList<>();
+                ArrayList<Node> intersectionPoints = new ArrayList<>();
+                ArrayList<Edge> intersectedEdges = new ArrayList<>();
 
-                    for (Edge edge : cell.getEdges()) {
-                        Line2D.Double edgeLine = new Line2D.Double(edge.getStart().getXpos(), edge.getStart().getYpos(), edge.getEnd().getXpos(), edge.getEnd().getYpos());
-                        if (edgeLine.intersectsLine(pb)) {
-                            intersectedEdges.add(edge);
-                            Node intersect;
-                            double edgeGrad = (edge.getEnd().getYpos() - edge.getStart().getYpos()) / (edge.getEnd().getXpos() - edge.getStart().getXpos());
-                            double edgeYIntercept;
-                            if (Double.isInfinite(pbGrad)) {
-                                edgeYIntercept = edge.getStart().getYpos() - (edgeGrad * edge.getStart().getXpos());
-                                intersect = new Node(pbMid.getXpos(), (edgeGrad * pbMid.getXpos()) + edgeYIntercept);
-                            } else if (Double.isInfinite(edgeGrad)) {
-                                intersect = new Node(edge.getStart().getXpos(), (pbGrad * edge.getStart().getXpos()) + yIntercept);
-                            } else if (edgeGrad == 0) {
-                                intersect = new Node(((edge.getStart().getYpos() - yIntercept) / pbGrad), edge.getStart().getYpos());
-                            } else {
-                                edgeYIntercept = edge.getStart().getYpos() - (edgeGrad * edge.getStart().getXpos());
-                                double x = (yIntercept - edgeYIntercept) / (edgeGrad - pbGrad);
-                                double y = (edgeGrad * x) + edgeYIntercept;
-                                intersect = new Node(x, y);
-                            }
-                            intersectionPoints.add(intersect);
+                for (Edge edge : cell.getEdges()) {
+                    Line2D.Double edgeLine = new Line2D.Double(edge.getStart().getXpos(), edge.getStart().getYpos(), edge.getEnd().getXpos(), edge.getEnd().getYpos());
+                    if (edgeLine.intersectsLine(pb)) {
+                        intersectedEdges.add(edge);
+                        Node intersect;
+                        double edgeGrad = (edge.getEnd().getYpos() - edge.getStart().getYpos()) / (edge.getEnd().getXpos() - edge.getStart().getXpos());
+                        double edgeYIntercept;
+                        if (Double.isInfinite(pbGrad)) {
+                            edgeYIntercept = edge.getStart().getYpos() - (edgeGrad * edge.getStart().getXpos());
+                            intersect = new Node(pbMid.getXpos(), (edgeGrad * pbMid.getXpos()) + edgeYIntercept);
+                        } else if (Double.isInfinite(edgeGrad)) {
+                            intersect = new Node(edge.getStart().getXpos(), (pbGrad * edge.getStart().getXpos()) + yIntercept);
+                        } else if (edgeGrad == 0) {
+                            intersect = new Node(((edge.getStart().getYpos() - yIntercept) / pbGrad), edge.getStart().getYpos());
+                        } else {
+                            edgeYIntercept = edge.getStart().getYpos() - (edgeGrad * edge.getStart().getXpos());
+                            double x = (yIntercept - edgeYIntercept) / (edgeGrad - pbGrad);
+                            double y = (edgeGrad * x) + edgeYIntercept;
+                            intersect = new Node(x, y);
                         }
+                        intersectionPoints.add(intersect);
                     }
-
-//                    if(intersectionPoints.size()>2){
-//                        System.out.println(site.toString() + " has "+intersectionPoints.size()+ " intersection points with cell "+cell.getSite().toString());
-//                    }
-
-                    if (intersectionPoints.size() == 4) {
+                }
+                if (intersectionPoints.size() == 4) {
+                    try {
                         //2 of the edges will share a point. find that point
                         // use has edge to find which edges have that point
                         // shared point will be same distance from point to cell and site. check to see which of the other ends of edges is closest to cell and site
@@ -273,27 +267,15 @@ public class LloydsAlgoMain {
                                 }
                             }
                             Edge badEdge;
-//                            if (edgesWithDuplicatePoint.size() == 0) {
-//                                System.out.println(cell.getSite().toString());
-//                                System.out.println(site.toString());
-//                                for (Edge edge2 : cell.getEdges()) {
-//                                    System.out.println(edge2.getStart().toString() + " | " + edge2.getEnd().toString());
-//                                }
-//                                System.out.println("Intersection points");
-//                                System.out.println(intersectionPoints.get(0).toString());
-//                                System.out.println(intersectionPoints.get(1).toString());
-//                                System.out.println(intersectionPoints.get(2).toString());
-//                                System.out.println(intersectionPoints.get(3).toString());
-//                            }
 
                             if (edgesWithDuplicatePoint.get(0).getStart().equalss(duplicatePoint)) {
-                                if (getDistance(edgesWithDuplicatePoint.get(0).getEnd(), cell.getSite()) < getDistance(edgesWithDuplicatePoint.get(0).getEnd(), site)) {
+                                if (edgesWithDuplicatePoint.get(0).getEnd().distanceTo(cell.getSite()) < edgesWithDuplicatePoint.get(0).getEnd().distanceTo(site)) {
                                     badEdge = edgesWithDuplicatePoint.get(1);
                                 } else {
                                     badEdge = edgesWithDuplicatePoint.get(0);
                                 }
                             } else {
-                                if (getDistance(edgesWithDuplicatePoint.get(0).getStart(), cell.getSite()) < getDistance(edgesWithDuplicatePoint.get(0).getStart(), site)) {
+                                if (edgesWithDuplicatePoint.get(0).getStart().distanceTo(cell.getSite()) < edgesWithDuplicatePoint.get(0).getStart().distanceTo(site)) {
                                     badEdge = edgesWithDuplicatePoint.get(1);
                                 } else {
                                     badEdge = edgesWithDuplicatePoint.get(0);
@@ -304,10 +286,10 @@ public class LloydsAlgoMain {
                         intersectionPoints.removeAll(duplicatePoints);
                         intersectedEdges.removeAll(edgesToRemove);
                         cell.getEdges().removeAll(edgesToRemove);
-//                        if(edgesToRemove.size()==2){
-//                            System.out.println("All bad edges successfully removed");
-//                        }
-                    } else if (intersectionPoints.size() == 3) {
+                    }catch(Exception e){
+                    }
+                } else if (intersectionPoints.size() == 3) {
+                    try {
                         //2 of the edges will share a point. find that point
                         // use has edge to find which edges have that point
                         // shared point will be same distance from point to cell and site. check to see which of the other ends of edges is closest to cell and site
@@ -325,13 +307,13 @@ public class LloydsAlgoMain {
                         }
                         Edge badEdge;
                         if (edgesWithDuplicatePoint.get(0).getStart().equalss(duplicatePoint)) {
-                            if (getDistance(edgesWithDuplicatePoint.get(0).getEnd(), cell.getSite()) < getDistance(edgesWithDuplicatePoint.get(0).getEnd(), site)) {
+                            if (edgesWithDuplicatePoint.get(0).getEnd().distanceTo(cell.getSite()) < edgesWithDuplicatePoint.get(0).getEnd().distanceTo(site)) {
                                 badEdge = edgesWithDuplicatePoint.get(1);
                             } else {
                                 badEdge = edgesWithDuplicatePoint.get(0);
                             }
                         } else {
-                            if (getDistance(edgesWithDuplicatePoint.get(0).getStart(), cell.getSite()) < getDistance(edgesWithDuplicatePoint.get(0).getStart(), site)) {
+                            if (edgesWithDuplicatePoint.get(0).getStart().distanceTo(cell.getSite()) < edgesWithDuplicatePoint.get(0).getStart().distanceTo(site)) {
                                 badEdge = edgesWithDuplicatePoint.get(1);
                             } else {
                                 badEdge = edgesWithDuplicatePoint.get(0);
@@ -340,21 +322,23 @@ public class LloydsAlgoMain {
                         intersectionPoints.remove(intersectedEdges.indexOf(badEdge));
                         intersectedEdges.remove(badEdge);
                         cell.getEdges().remove(badEdge);
-                        //System.out.println("Bad edge successfully removed");
+                    }catch(Exception e){
                     }
+                }
 
-                    HashSet<Node> badNodes = new HashSet<>();
-                    if (intersectionPoints.size() == 2) {
+                HashSet<Node> badNodes = new HashSet<>();
+                if (intersectionPoints.size() == 2) {
+                    try {
                         Edge tempEdge;
                         for (int x = 0; x < intersectionPoints.size(); x++) {
-                            if (getDistance(intersectedEdges.get(x).getStart(), cell.getSite()) < getDistance(intersectedEdges.get(x).getStart(), site)) {
+                            if (intersectedEdges.get(x).getStart().distanceTo(cell.getSite()) < intersectedEdges.get(x).getStart().distanceTo(site)) {
                                 tempEdge = new Edge(intersectedEdges.get(x).getStart(), intersectionPoints.get(x));
-                                if(!intersectionPoints.get(x).equalss(intersectedEdges.get(x).getEnd())){
+                                if (!intersectionPoints.get(x).equalss(intersectedEdges.get(x).getEnd())) {
                                     badNodes.add(intersectedEdges.get(x).getEnd());
                                 }
                             } else {
                                 tempEdge = new Edge(intersectedEdges.get(x).getEnd(), intersectionPoints.get(x));
-                                if(!intersectionPoints.get(x).equalss(intersectedEdges.get(x).getStart())){
+                                if (!intersectionPoints.get(x).equalss(intersectedEdges.get(x).getStart())) {
                                     badNodes.add(intersectedEdges.get(x).getStart());
                                 }
                             }
@@ -364,124 +348,63 @@ public class LloydsAlgoMain {
                         tempEdge = new Edge(intersectionPoints.get(0), intersectionPoints.get(1));
                         cell.addEdge(tempEdge);
                         tempCell.addEdge(tempEdge);
-                    }else if(intersectionPoints.size()>0 && intersectionPoints.size()!=2){
-//                        System.out.println("Intersected edges in cell "+cell.getSite() + " when inserting "+site.toString() + " is more than 0 but not 2 therefor intersection points not added and intersected lines not broken " +intersectionPoints.size());
+                    }catch(Exception e){
                     }
-
-//                    HashSet<Edge> zeroEdges = new HashSet<>();
-//                    for (Edge edge : cell.getEdges()) {
-//                        if (edge.getStart().equalss(edge.getEnd())) {
-//                            System.out.println("zero edge removed from cell "+cell.getSite().toString()+ " "+ edge.toString());
-//                            zeroEdges.add(edge);
-//                        }
-//                    }
-//                    if (!zeroEdges.isEmpty()) {
-//                        cell.getEdges().removeAll(zeroEdges);
-//                    }
-//                    zeroEdges.clear();
-//                    for (Edge edge : tempCell.getEdges()) {
-//                        if (edge.getStart().equalss(edge.getEnd())) {
-//                            System.out.println("zero edge removed from site "+site.toString()+" "+ edge.toString());
-//                            zeroEdges.add(edge);
-//                        }
-//                    }
-//                    if (!zeroEdges.isEmpty()) {
-//                        tempCell.getEdges().removeAll(zeroEdges);
-//                    }
+                }
 
 //----------------------------------------------------------------------------------------------------------
-                    Boolean unattachedEdges = true;
-                    while (unattachedEdges) {
-                        HashSet<Edge> edgesToRemove = new HashSet<>();
-                        HashSet<Node> addToBad = new HashSet<>();
-                        for (Node badNode : badNodes) {
-                            for (Edge edge : cell.getEdges()) {
-                                if (edge.hasNode(badNode)) {
-                                    edgesToRemove.add(edge);
-                                    if (edge.getStart().equalss(badNode)) {
-                                        addToBad.add(edge.getEnd());
-                                    } else {
-                                        addToBad.add(edge.getStart());
-                                    }
+                Boolean unattachedEdges = true;
+                while (unattachedEdges) {
+                    HashSet<Edge> edgesToRemove = new HashSet<>();
+                    HashSet<Node> addToBad = new HashSet<>();
+                    for (Node badNode : badNodes) {
+                        for (Edge edge : cell.getEdges()) {
+                            if (edge.hasNode(badNode)) {
+                                edgesToRemove.add(edge);
+                                if (edge.getStart().equalss(badNode)) {
+                                    addToBad.add(edge.getEnd());
+                                } else {
+                                    addToBad.add(edge.getStart());
                                 }
                             }
                         }
-                        badNodes.clear();
-                        badNodes.addAll(addToBad);
-                        if (edgesToRemove.isEmpty()){
-                            unattachedEdges=false;
-                        }else{
-                            cell.getEdges().removeAll(edgesToRemove);
-                        }
                     }
-
-//                    Boolean unattachedEdges = true;
-//                    while (unattachedEdges) {
-//                        HashSet<Edge> edgesToRemove = new HashSet<>();
-//                        for (Edge edge : cell.getEdges()) {
-//                            Boolean startConnected = false;
-//                            Boolean endConnected = false;
-//                            for (Edge otherEdge : cell.getEdges()) {
-//                                if (edge != otherEdge) {
-//                                    if (otherEdge.hasNode(edge.getStart())) {
-//                                        startConnected = true;
-//                                    }
-//                                    if (otherEdge.hasNode(edge.getEnd())) {
-//                                        endConnected = true;
-//                                    }
-//                                }
-//                            }
-//                            if (!(startConnected && endConnected)) {
-//                                edgesToRemove.add(edge);
-//                            }
-//                        }
-//                        for (Edge edge : edgesToRemove) {
-//                            cell.removeEdge(edge);
-//                        }
-//                        if (edgesToRemove.size() == 0) {
-//                            unattachedEdges = false;
-//                        } else {
-//                            unattachedEdges = true;
-//                        }
-//                        edgesToRemove.clear();
-//                    }
+                    badNodes.clear();
+                    badNodes.addAll(addToBad);
+                    if (edgesToRemove.isEmpty()){
+                        unattachedEdges=false;
+                    }else{
+                        cell.getEdges().removeAll(edgesToRemove);
+                    }
                 }
 
-
-                cells.add(tempCell);
-            }catch(IndexOutOfBoundsException e){
-                System.out.println(e);
+                HashSet<Edge> zeroEdges = new HashSet<>();
+                for (Edge edge : cell.getEdges()) {
+                    if (edge.getStart().equalss(edge.getEnd())) {
+                        zeroEdges.add(edge);
+                    }
+                }
+                if (!zeroEdges.isEmpty()) {
+                    cell.getEdges().removeAll(zeroEdges);
+                }
+                zeroEdges.clear();
+                for (Edge edge : tempCell.getEdges()) {
+                    if (edge.getStart().equalss(edge.getEnd())) {
+                        zeroEdges.add(edge);
+                    }
+                }
+                if (!zeroEdges.isEmpty()) {
+                    tempCell.getEdges().removeAll(zeroEdges);
+                }
             }
+
+            cells.add(tempCell);
         }
 
         cells.remove(cell1);
         cells.remove(cell2);
         cells.remove(cell3);
         cells.remove(cell4);
-
-        for(Cell cell:cells){
-            cell.getSite().setXpos(cell.getSite().getXpos()/scaleFactor);
-            cell.getSite().setYpos(cell.getSite().getYpos()/scaleFactor);
-            for(Edge edge: cell.getEdges()){
-                edge.getStart().setXpos(edge.getStart().getXpos()/Math.cbrt(scaleFactor));
-                edge.getStart().setYpos(edge.getStart().getYpos()/Math.cbrt(scaleFactor));
-                edge.getEnd().setXpos(edge.getEnd().getXpos()/Math.cbrt(scaleFactor));
-                edge.getEnd().setYpos(edge.getEnd().getYpos()/Math.cbrt(scaleFactor));
-            }
-        }
-
-//        for(Cell cell: cells){
-//            System.out.println("Site: "+cell.getSite());
-//            for(Edge edge: cell.getEdges()){
-//                System.out.println(edge.toString());
-//            }
-//        }
-
-//        for(Cell cell: cells){
-//            if (cell.getEdges().size()==0){
-//                System.out.println(cell.getSite().toString()+ " has no edges.");
-//            }
-//        }
 
         return cells;
     }
@@ -530,6 +453,11 @@ public class LloydsAlgoMain {
             HashSet<Edge> edgesToRemove = new HashSet<>();
             HashSet<Edge> edgesToAdd = new HashSet<>();
             ArrayList<Node> intersectionPoints = new ArrayList<>();
+            Boolean intersectsTop=false;
+            Boolean intersectsBottom=false;
+            Boolean intersectsLeft=false;
+            Boolean intersectsRight=false;
+
             for(Edge edge: cell.getEdges()){
                 Line2D.Double edgeLine = new Line2D.Double(edge.getStart().getXpos(),edge.getStart().getYpos(),edge.getEnd().getXpos(),edge.getEnd().getYpos());
                 double edgeGrad = (edge.getEnd().getYpos()-edge.getStart().getYpos())/(edge.getEnd().getXpos()-edge.getStart().getXpos());
@@ -634,9 +562,39 @@ public class LloydsAlgoMain {
                     }
                     edgesToAdd.add(newEdge);
                 }
+                if(edgeLine.intersectsLine(top)){
+                    intersectsTop=true;
+                }
+                if(edgeLine.intersectsLine(bottom)){
+                    intersectsBottom=true;
+                }
+                if(edgeLine.intersectsLine(left)){
+                    intersectsLeft=true;
+                }
+                if(edgeLine.intersectsLine(right)){
+                    intersectsRight=true;
+                }
             }
             if(intersectionPoints.size()==2){
-                edgesToAdd.add(new Edge(intersectionPoints.get(0),intersectionPoints.get(1)));
+                if(intersectsTop && intersectsLeft){
+                    Node topLeft = new Node(0,0);
+                    edgesToAdd.add(new Edge(intersectionPoints.get(0),topLeft));
+                    edgesToAdd.add(new Edge(intersectionPoints.get(1),topLeft));
+                }else if(intersectsTop && intersectsRight){
+                    Node topRight = new Node(width,0);
+                    edgesToAdd.add(new Edge(intersectionPoints.get(0),topRight));
+                    edgesToAdd.add(new Edge(intersectionPoints.get(1),topRight));
+                }else if(intersectsBottom && intersectsLeft){
+                    Node bottomLeft = new Node(0,height);
+                    edgesToAdd.add(new Edge(intersectionPoints.get(0),bottomLeft));
+                    edgesToAdd.add(new Edge(intersectionPoints.get(1),bottomLeft));
+                }else if(intersectsBottom && intersectsRight){
+                    Node bottomRight = new Node(width,height);
+                    edgesToAdd.add(new Edge(intersectionPoints.get(0),bottomRight));
+                    edgesToAdd.add(new Edge(intersectionPoints.get(1),bottomRight));
+                }else {
+                    edgesToAdd.add(new Edge(intersectionPoints.get(0), intersectionPoints.get(1)));
+                }
             }
             for(Edge edge: edgesToRemove){
                 cell.removeEdge(edge);
@@ -646,5 +604,105 @@ public class LloydsAlgoMain {
             }
         }
         return cells;
+    }
+
+    private static void displayFailure(Cell cell, Node site){
+        JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        JPanel panel = new JPanel() {
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2 = (Graphics2D) g;
+                g2.setStroke(new BasicStroke(1));
+
+
+            }
+        };
+        panel.setPreferredSize(new Dimension(width,height));
+        frame.add(panel);
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+    private static void displayIndividualCells(HashSet<JPanel> panels){
+        JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        JTabbedPane tabs = new JTabbedPane();
+        for(JPanel panel:panels) {
+            tabs.add(panel.getName(),panel);
+        }
+        frame.add(tabs);
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+    private static JPanel makePanel(Cell cell, Node site){
+        double lowestX=Double.POSITIVE_INFINITY;
+        double lowestY=Double.POSITIVE_INFINITY;
+
+        for(Edge edge: cell.getEdges()){
+            if(edge.getStart().getXpos()<lowestX){
+                lowestX=edge.getStart().getXpos();
+            }
+            if(edge.getEnd().getXpos()<lowestX){
+                lowestX=edge.getEnd().getXpos();
+            }
+            if(edge.getStart().getYpos()<lowestY){
+                lowestY=edge.getStart().getYpos();
+            }
+            if(edge.getEnd().getYpos()<lowestY){
+                lowestY=edge.getEnd().getYpos();
+            }
+        }
+        if(site.getXpos()<lowestX){
+            lowestX=site.getXpos();
+        }
+        if(site.getYpos()<lowestY){
+            lowestY=site.getYpos();
+        }
+
+        int lowestXInt = (int)lowestX-10;
+        int lowestYInt = (int)lowestY-10;
+
+        JPanel panel = new JPanel() {
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2 = (Graphics2D) g;
+                g.fillOval((int)cell.getSite().getXpos()-2,(int)cell.getSite().getYpos()-2,4,4);
+
+                for(Edge edge: cell.getEdges()){
+                    g2.drawLine((int)edge.getStart().getXpos(), (int)edge.getStart().getYpos(), (int)edge.getEnd().getXpos(), (int)edge.getEnd().getYpos());
+                }
+                g.setColor(Color.RED);
+                g.fillOval((int)site.getXpos()-2,(int)site.getYpos()-2,4,4);
+                g2.drawLine((int)site.getXpos()-2,(int)site.getYpos()-2,(int)cell.getSite().getXpos()-2,(int)cell.getSite().getYpos()-2);
+
+//                Node pbMid = new Node((site.getXpos() + cell.getSite().getXpos()) / 2, (site.getYpos() + cell.getSite().getYpos()) / 2);
+//                double grad = ((site.getYpos() - cell.getSite().getYpos()) / (site.getXpos() - cell.getSite().getXpos()));
+//                double pbGrad;
+//                if (grad == 0) {
+//                    pbGrad = Double.POSITIVE_INFINITY;
+//                } else if (Double.isInfinite(grad)) {
+//                    pbGrad = 0;
+//                } else {
+//                    pbGrad = -1 / grad;
+//                }
+//                Node pbPoint1;
+//                Node pbPoint2;
+//                double yIntercept = 0;
+//                if (!Double.isInfinite(pbGrad)) {
+//                    yIntercept = pbMid.getYpos() - (pbGrad * pbMid.getXpos());
+//                    pbPoint1 = new Node((-10 * width) * scaleFactor, ((pbGrad * ((-10 * width) * scaleFactor)) + yIntercept));
+//                    pbPoint2 = new Node((10 * width) * scaleFactor, ((pbGrad * ((10 * width) * scaleFactor)) + yIntercept));
+//                } else {
+//                    pbPoint1 = new Node(pbMid.getXpos(), (-10 * height) * scaleFactor);
+//                    pbPoint2 = new Node(pbMid.getXpos(), (10 * height) * scaleFactor);
+//                }
+//                g2.drawLine(((int)pbPoint1.getXpos()-lowestXInt)*factor,((int)pbPoint1.getYpos()-lowestYInt)*factor,((int)pbPoint2.getXpos()-lowestXInt)*factor,((int)pbPoint2.getYpos()-lowestYInt)*factor);
+            }
+        };
+        panel.setName(cell.getSite().toString());
+        panel.setPreferredSize(new Dimension(width, height));
+        return panel;
     }
 }

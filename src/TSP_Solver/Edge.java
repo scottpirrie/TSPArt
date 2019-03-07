@@ -41,6 +41,30 @@ public class Edge {
         return false;
     }
 
+    public Boolean isConnectedTo(Edge input){
+        if(Math.abs(start.getXpos()-input.getStart().getXpos())<0.5){
+            if(Math.abs(start.getYpos()-input.getStart().getYpos())<0.5){
+                return true;
+            }
+        }
+        if(Math.abs(start.getXpos()-input.getEnd().getXpos())<0.5){
+            if(Math.abs(start.getYpos()-input.getEnd().getYpos())<0.5){
+                return true;
+            }
+        }
+        if(Math.abs(end.getXpos()-input.getStart().getXpos())<0.5){
+            if(Math.abs(end.getYpos()-input.getStart().getYpos())<0.5){
+                return true;
+            }
+        }
+        if(Math.abs(end.getXpos()-input.getEnd().getXpos())<0.5){
+            if(Math.abs(end.getYpos()-input.getEnd().getYpos())<0.5){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public String toString(){
         return start+" | "+end;
     }

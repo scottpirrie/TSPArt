@@ -44,20 +44,26 @@ public class Cell {
 
 
         for(Edge edge: edges){
-            Boolean startExists=false;
-            Boolean endExists=false;
-            for(Node point: points){
-                if(point.equalss(edge.getStart())){
-                    startExists=true;
-                }
-                if(point.equalss(edge.getEnd())){
-                    endExists=true;
-                }
-            }
-            if(!startExists){
+//            Boolean startExists=false;
+//            Boolean endExists=false;
+//            for(Node point: points){
+//                if(point.equalss(edge.getStart())){
+//                    startExists=true;
+//                }
+//                if(point.equalss(edge.getEnd())){
+//                    endExists=true;
+//                }
+//            }
+//            if(!startExists){
+//                points.add(edge.getStart());
+//            }
+//            if(!endExists){
+//                points.add(edge.getEnd());
+//            }
+            if(!Double.isNaN(edge.getStart().getXpos()) && !Double.isNaN(edge.getStart().getYpos())){
                 points.add(edge.getStart());
             }
-            if(!endExists){
+            if(!Double.isNaN(edge.getEnd().getXpos()) && !Double.isNaN(edge.getEnd().getYpos())){
                 points.add(edge.getEnd());
             }
         }
@@ -71,6 +77,7 @@ public class Cell {
         double averageX=totalX/points.size();
         double averageY=totalY/points.size();
         centre = new Node(averageX,averageY);
+//        centre = new Node(Math.floor(averageX+0.5),Math.floor(averageY+0.5));
 
         return centre;
     }
