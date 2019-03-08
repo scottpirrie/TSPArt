@@ -52,7 +52,6 @@ public class ImageToNodes {
     }
 
     public HashSet<Node> getNodes(){
-        System.out.println("Total number of nodes: "+nodes.size());
         return nodes;
     }
 }

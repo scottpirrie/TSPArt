@@ -1,10 +1,17 @@
 package Final;
 
+import TSP_Solver.Node;
+
 import java.awt.geom.Line2D;
 
 public class test {
     public static void main(String[] args) {
 
-        System.out.println(Double.POSITIVE_INFINITY == Double.POSITIVE_INFINITY);
+        Node node1 = new Node(Double.NaN,Double.NaN);
+        Node node2 = new Node(Double.NaN,Double.NaN);
+
+
+
+        System.out.println(node1.equals(node2));
     }
 }

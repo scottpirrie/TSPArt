@@ -14,9 +14,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        nodes=createStarNodeMap();
-        //nodes=randomNodeMap();
-        edges=plotRoute(nodes);
+//        nodes=createStarNodeMap();
+        nodes=randomNodeMap();
+//        edges=plotRoute(nodes);
+        edges=solveTSPNearest(nodes);
         displayTSP(edges);
     }
 
@@ -122,6 +123,74 @@ public class Main {
 
             visited.add(farthestNode);
             unvisited.remove(farthestNode);
+        }
+
+        return edges;
+    }
+
+    private static HashSet<Edge> solveTSPNearest(HashSet<Node> nodes){
+        Node nearestStart=null;
+        Node nearestEnd=null;
+        HashSet<Node> unvisited = new HashSet<>(nodes);
+        HashSet<Node> visited = new HashSet<>();
+
+        double nearest = Double.MAX_VALUE;
+        for(Node n1: nodes){
+            for(Node n2: nodes){
+                if(n1.distanceTo(n2)<nearest){
+                    nearestStart=n1;
+                    nearestEnd=n2;
+                    nearest=n1.distanceTo(n2);
+                }
+            }
+        }
+
+        visited.add(nearestStart);
+        unvisited.remove(nearestStart);
+        visited.add(nearestEnd);
+        unvisited.remove(nearestEnd);
+
+        HashSet<Edge> edges = new HashSet<>();
+
+        edges.add(new Edge(nearestStart,nearestEnd));
+        edges.add(new Edge(nearestEnd,nearestStart));
+
+        while(!unvisited.isEmpty()) {
+            Node nearestNode = null;
+            //this was set to double.max
+            double nearestDist = Double.MAX_VALUE;
+            for (Node unvisitedNode : unvisited) {
+                double maxDist = 0;
+                for (Node visitedNode : visited) {
+                    if(nearestNode==null){
+                        nearestNode=unvisitedNode;
+                        maxDist = unvisitedNode.distanceTo(visitedNode);
+                    }else if(unvisitedNode.distanceTo(visitedNode) > maxDist){
+                        maxDist = unvisitedNode.distanceTo(visitedNode);
+                    }
+                }
+                if (maxDist < nearestDist) {
+                    nearestDist = maxDist;
+                    nearestNode = unvisitedNode;
+                }
+            }
+
+            double smallestChange=Double.MAX_VALUE;
+            Edge smallestEdge=null;
+            for(Edge edge : edges){
+                double distDiff=edge.getStart().distanceTo(nearestNode)+nearestNode.distanceTo(edge.getEnd())-edge.getWeight();
+                if(distDiff<smallestChange){
+                    smallestChange=distDiff;
+                    smallestEdge=edge;
+                }
+
+            }
+            edges.add(new Edge(smallestEdge.getStart(),nearestNode));
+            edges.add(new Edge(smallestEdge.getEnd(),nearestNode));
+            edges.remove(smallestEdge);
+
+            visited.add(nearestNode);
+            unvisited.remove(nearestNode);
         }
 
         return edges;

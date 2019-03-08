@@ -60,10 +60,10 @@ public class Cell {
 //            if(!endExists){
 //                points.add(edge.getEnd());
 //            }
-            if(!Double.isNaN(edge.getStart().getXpos()) && !Double.isNaN(edge.getStart().getYpos())){
+            if(!(Double.isNaN(edge.getStart().getXpos()) || Double.isNaN(edge.getStart().getYpos()))){
                 points.add(edge.getStart());
             }
-            if(!Double.isNaN(edge.getEnd().getXpos()) && !Double.isNaN(edge.getEnd().getYpos())){
+            if(!(Double.isNaN(edge.getEnd().getXpos()) || Double.isNaN(edge.getEnd().getYpos()))){
                 points.add(edge.getEnd());
             }
         }

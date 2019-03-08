@@ -1,5 +1,8 @@
 package Final;
 
+import GUI.GUI2;
+import LloydsAlgorithm.LloydsAlgoMain;
+import TSP_Solver.Edge;
 import TSP_Solver.Node;
 
 import javax.swing.*;
@@ -44,16 +47,24 @@ public class TSPArt {
     }
 
     private void createTSP() throws IOException {
+        GUI2 gui2 = new GUI2(limitNodeCount,voronoiRedistribute);
+        gui2.createGUI();
+
         ImageHandler ih = new ImageHandler(file,gridSize);
+
+        gui2.setStipplingMin(0);
+        gui2.setStipplingMax(3);
 
         HashSet<JPanel> panels = new HashSet<>();
         PanelCreator pc = new PanelCreator(ih.getImage());
         BufferedImage originalImage = cloneImage(ih.getImage());
         panels.add(pc.createImagePanel(originalImage, "Original Image"));
+        gui2.setStipplingProgress(1);
 
         BufferedImage image = ih.getBlackAndWhite();
         BufferedImage blackAndWhiteImage = cloneImage(image);
         panels.add(pc.createImagePanel(blackAndWhiteImage, "Halftoned Image"));
+        gui2.setStipplingProgress(2);
 
         if(boostContrast){
             ContrastBooster cb = new ContrastBooster(image);
@@ -67,20 +78,27 @@ public class TSPArt {
         nodes = itn.getNodes();
         HashSet<Node> cityDistribution = (HashSet<Node>) nodes.clone();
         panels.add(pc.createNodePanel(cityDistribution, "City Distribution"));
+        gui2.setStipplingProgress(3);
 
         if(limitNodeCount){
+            gui2.setReductionMin(0);
+            gui2.setReductionMax(1);
             NodeReducer nr = new NodeReducer(nodes, maxNodes);
             nodes = nr.getNodes();
             HashSet<Node> reducedNodes = (HashSet<Node>) nodes.clone();
             panels.add(pc.createNodePanel(reducedNodes, "Reduced Nodes"));
+            gui2.setReductionProgress(1);
         }
 
         if(voronoiRedistribute){
+            gui2.setVoronoiMin(0);
+            gui2.setVoronoiMax(voronoiIterations);
+            System.out.println("node size before voronoi " +nodes.size());
             Voronoi voro = new Voronoi(nodes,image);
+            LloydsAlgoMain la = new LloydsAlgoMain(image.getWidth(),image.getHeight());
             for(int x=0; x<voronoiIterations; x++) {
                 voro.redestribute();
-                System.out.println(voro.getNodes().size());
-                System.out.println(x + " ----------------------------------------------------------------------------------------------------------------");
+                gui2.setReductionProgress(x+1);
             }
             voro.removeWhiteNodes();
             nodes = voro.getNodes();
@@ -90,11 +108,16 @@ public class TSPArt {
 
         System.out.println("Post voronoi size " + nodes.size());
 
+        HashSet<Edge> edges;
         if(farthestInsertion){
-
+            FarthestInsertion fi = new FarthestInsertion(nodes);
+            edges = fi.solveTSP();
         }else{
-            //do nearest insertion
+            NearestInsertion ni = new NearestInsertion(nodes);
+            edges = ni.solveTSP();
         }
+
+        panels.add(pc.createEdgePanel(edges,"Solved TSP"));
 
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -105,12 +128,11 @@ public class TSPArt {
         frame.add(tabs);
         frame.pack();
         frame.setVisible(true);
+        try {
+            Thread.sleep(3000);
+        }catch(Exception e){
 
-
-
-
-
-
+        }
     }
 
     static BufferedImage cloneImage(BufferedImage bi) {

@@ -31,7 +31,7 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException {
-        File inputImage = new File("mona-closeup.jpg");
+        File inputImage = new File("linear_gradient.png");
         HashSet<Node> nodes;
         HashSet<Edge> edges;
         HashSet<Node> centres;
@@ -51,7 +51,7 @@ public class Main {
 
         LloydsAlgoMain la = new LloydsAlgoMain(image.getWidth(),image.getHeight());
 //        la.display(LloydsAlgoMain.createDiagram(centres));
-        for(int x=0; x<5; x++) {
+        for(int x=0; x<2; x++) {
             centres = la.voronoiRedistribute(centres);
             System.out.println("Interation "+ (x+1) + " complete");
             System.out.println("Number of nodes in diagram: "+centres.size());

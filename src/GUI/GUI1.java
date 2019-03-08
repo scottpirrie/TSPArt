@@ -32,7 +32,6 @@ public class GUI1 {
     private void createGUI(){
         frame = new JFrame("TSP Art");
         frame.setLayout(new BoxLayout(frame.getContentPane(),BoxLayout.PAGE_AXIS));
-//        frame.setLayout(new GridLayout(3,1));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         JLabel label;

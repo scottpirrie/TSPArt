@@ -33,46 +33,46 @@ public class Voronoi {
     private HashSet<Cell> createGraph(HashSet<Node> nodes) {
         HashSet<Cell> cells = new HashSet<>();
 
-        Cell cell1 = new Cell(new Node(-width,-height));
-        Cell cell2 = new Cell(new Node(2*width,-height));
-        Cell cell3 = new Cell(new Node(2*width,2*height));
-        Cell cell4 = new Cell(new Node(-width, 2*height));
+        Cell cell1 = new Cell(new Node(-width, -height));
+        Cell cell2 = new Cell(new Node(2 * width, -height));
+        Cell cell3 = new Cell(new Node(2 * width, 2 * height));
+        Cell cell4 = new Cell(new Node(-width, 2 * height));
 
-        Node nodeMiddle = new Node(width/2,height/2);
-        Node nodeTop = new Node(width/2,-10*height);
-        Node nodeBottom = new Node(width/2,10*height);
-        Node nodeLeft = new Node(-10*width,height/2);
-        Node nodeRight = new Node(10*width,height/2);
+        Node nodeMiddle = new Node(width / 2, height / 2);
+        Node nodeTop = new Node(width / 2, -10 * height);
+        Node nodeBottom = new Node(width / 2, 10 * height);
+        Node nodeLeft = new Node(-10 * width, height / 2);
+        Node nodeRight = new Node(10 * width, height / 2);
 
-        cell1.addEdge(new Edge(nodeMiddle,nodeTop));
-        cell1.addEdge(new Edge(nodeTop,nodeLeft));
-        cell1.addEdge(new Edge(nodeLeft,nodeMiddle));
+        cell1.addEdge(new Edge(nodeMiddle, nodeTop));
+        cell1.addEdge(new Edge(nodeTop, nodeLeft));
+        cell1.addEdge(new Edge(nodeLeft, nodeMiddle));
 
-        cell2.addEdge(new Edge(nodeMiddle,nodeTop));
-        cell2.addEdge(new Edge(nodeTop,nodeRight));
-        cell2.addEdge(new Edge(nodeRight,nodeMiddle));
+        cell2.addEdge(new Edge(nodeMiddle, nodeTop));
+        cell2.addEdge(new Edge(nodeTop, nodeRight));
+        cell2.addEdge(new Edge(nodeRight, nodeMiddle));
 
-        cell3.addEdge(new Edge(nodeMiddle,nodeBottom));
-        cell3.addEdge(new Edge(nodeBottom,nodeRight));
-        cell3.addEdge(new Edge(nodeRight,nodeMiddle));
+        cell3.addEdge(new Edge(nodeMiddle, nodeBottom));
+        cell3.addEdge(new Edge(nodeBottom, nodeRight));
+        cell3.addEdge(new Edge(nodeRight, nodeMiddle));
 
-        cell4.addEdge(new Edge(nodeMiddle,nodeBottom));
-        cell4.addEdge(new Edge(nodeBottom,nodeLeft));
-        cell4.addEdge(new Edge(nodeLeft,nodeMiddle));
+        cell4.addEdge(new Edge(nodeMiddle, nodeBottom));
+        cell4.addEdge(new Edge(nodeBottom, nodeLeft));
+        cell4.addEdge(new Edge(nodeLeft, nodeMiddle));
 
         cells.add(cell1);
         cells.add(cell2);
         cells.add(cell3);
         cells.add(cell4);
 
-        for (Node site: nodes) {
+        for (Node site : nodes) {
             boolean nodeExists = false;
-            for(Cell cell: cells){
-                if(site.equals(cell.getSite())){
-                    nodeExists=true;
+            for (Cell cell : cells) {
+                if (site.equals(cell.getSite())) {
+                    nodeExists = true;
                 }
             }
-            if(!nodeExists) {
+            if (!nodeExists) {
                 Cell tempCell = new Cell(site);
                 for (Cell cell : cells) {
                     Node pbMid = new Node((site.getXpos() + cell.getSite().getXpos()) / 2, (site.getYpos() + cell.getSite().getYpos()) / 2);
@@ -171,6 +171,23 @@ public class Voronoi {
                             intersectedEdges.removeAll(edgesToRemove);
                             cell.getEdges().removeAll(edgesToRemove);
                         } catch (Exception e) {
+//                            System.out.println("4 Intersection points");
+//                            System.out.println("Site: " + site);
+//                            System.out.println("Cell Site: " + cell.getSite());
+//                            System.out.println("PB Mid: " + pbMid);
+//                            System.out.println("--Edges--");
+//                            for (Edge edge : cell.getEdges()) {
+//                                System.out.println(edge.toString());
+//                            }
+//                            System.out.println("--Intersected Edges--");
+//                            for (Edge intersectedEdge : intersectedEdges) {
+//                                System.out.println(intersectedEdge.toString());
+//                            }
+//                            System.out.println("--Intersection Points--");
+//                            for (Node iPoint : intersectionPoints) {
+//                                System.out.println(iPoint.toString());
+//                            }
+//                            System.out.println();
                         }
                     } else if (intersectionPoints.size() == 3) {
                         try {
@@ -207,6 +224,23 @@ public class Voronoi {
                             intersectedEdges.remove(badEdge);
                             cell.getEdges().remove(badEdge);
                         } catch (Exception e) {
+//                            System.out.println("3 Intersection points");
+//                            System.out.println("Site: " + site);
+//                            System.out.println("Cell Site: " + cell.getSite());
+//                            System.out.println("PB Mid: " + pbMid);
+//                            System.out.println("--Edges--");
+//                            for (Edge edge : cell.getEdges()) {
+//                                System.out.println(edge.toString());
+//                            }
+//                            System.out.println("--Intersected Edges--");
+//                            for (Edge intersectedEdge : intersectedEdges) {
+//                                System.out.println(intersectedEdge.toString());
+//                            }
+//                            System.out.println("--Intersection Points--");
+//                            for (Node iPoint : intersectionPoints) {
+//                                System.out.println(iPoint.toString());
+//                            }
+//                            System.out.println();
                         }
                     }
 
@@ -233,6 +267,8 @@ public class Voronoi {
                             cell.addEdge(tempEdge);
                             tempCell.addEdge(tempEdge);
                         } catch (Exception e) {
+                            System.out.println("2 Intersection Point error");
+                            System.out.println();
                         }
                     }
 
@@ -479,7 +515,7 @@ public class Voronoi {
                 }
             }
             nodes.removeAll(whiteNodes);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return nodes;
