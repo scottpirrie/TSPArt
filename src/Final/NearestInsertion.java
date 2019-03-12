@@ -42,15 +42,10 @@ public class NearestInsertion {
 
         while(!unvisited.isEmpty()) {
             Node nearestNode = null;
-            //this was set to double.max
-            double nearestDist = Double.MAX_VALUE;
             for (Node unvisitedNode : unvisited) {
                 double minDist = Double.MAX_VALUE;
                 for (Node visitedNode : visited) {
-                    if(nearestNode==null){
-                        nearestNode=unvisitedNode;
-                        minDist = unvisitedNode.distanceTo(visitedNode);
-                    }else if(unvisitedNode.distanceTo(visitedNode) < minDist){
+                    if (unvisitedNode.distanceTo(visitedNode) < minDist || nearestNode==null){
                         nearestNode=unvisitedNode;
                         minDist = unvisitedNode.distanceTo(visitedNode);
                     }

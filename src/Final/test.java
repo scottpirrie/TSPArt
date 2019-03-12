@@ -2,8 +2,6 @@ package Final;
 
 import TSP_Solver.Node;
 
-import java.awt.geom.Line2D;
-
 public class test {
     public static void main(String[] args) {
 

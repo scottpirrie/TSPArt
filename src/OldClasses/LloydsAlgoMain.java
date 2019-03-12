@@ -1,5 +1,6 @@
-package LloydsAlgorithm;
+package OldClasses;
 
+import LloydsAlgorithm.Cell;
 import TSP_Solver.Edge;
 import TSP_Solver.Node;
 
@@ -244,10 +245,10 @@ public class LloydsAlgoMain {
                             // use has edge to find which edges have that point
                             // shared point will be same distance from point to cell and site. check to see which of the other ends of edges is closest to cell and site
                             ArrayList<Node> duplicatePoints = new ArrayList<>();
-                            if (intersectionPoints.get(0).equalss(intersectionPoints.get(1))) {
+                            if (intersectionPoints.get(0).equals(intersectionPoints.get(1))) {
                                 duplicatePoints.add(intersectionPoints.get(0));
                                 duplicatePoints.add(intersectionPoints.get(2));
-                            } else if (intersectionPoints.get(0).equalss(intersectionPoints.get(2))) {
+                            } else if (intersectionPoints.get(0).equals(intersectionPoints.get(2))) {
                                 duplicatePoints.add(intersectionPoints.get(0));
                                 duplicatePoints.add(intersectionPoints.get(1));
                             } else {
@@ -265,7 +266,7 @@ public class LloydsAlgoMain {
                                 }
                                 Edge badEdge;
 
-                                if (edgesWithDuplicatePoint.get(0).getStart().equalss(duplicatePoint)) {
+                                if (edgesWithDuplicatePoint.get(0).getStart().equals(duplicatePoint)) {
                                     if (edgesWithDuplicatePoint.get(0).getEnd().distanceTo(cell.getSite()) < edgesWithDuplicatePoint.get(0).getEnd().distanceTo(site)) {
                                         badEdge = edgesWithDuplicatePoint.get(1);
                                     } else {
@@ -291,7 +292,7 @@ public class LloydsAlgoMain {
                             // use has edge to find which edges have that point
                             // shared point will be same distance from point to cell and site. check to see which of the other ends of edges is closest to cell and site
                             Node duplicatePoint;
-                            if (intersectionPoints.get(0).equalss(intersectionPoints.get(1))) {
+                            if (intersectionPoints.get(0).equals(intersectionPoints.get(1))) {
                                 duplicatePoint = intersectionPoints.get(0);
                             } else {
                                 duplicatePoint = intersectionPoints.get(2);
@@ -303,7 +304,7 @@ public class LloydsAlgoMain {
                                 }
                             }
                             Edge badEdge;
-                            if (edgesWithDuplicatePoint.get(0).getStart().equalss(duplicatePoint)) {
+                            if (edgesWithDuplicatePoint.get(0).getStart().equals(duplicatePoint)) {
                                 if (edgesWithDuplicatePoint.get(0).getEnd().distanceTo(cell.getSite()) < edgesWithDuplicatePoint.get(0).getEnd().distanceTo(site)) {
                                     badEdge = edgesWithDuplicatePoint.get(1);
                                 } else {
@@ -330,12 +331,12 @@ public class LloydsAlgoMain {
                             for (int x = 0; x < intersectionPoints.size(); x++) {
                                 if (intersectedEdges.get(x).getStart().distanceTo(cell.getSite()) < intersectedEdges.get(x).getStart().distanceTo(site)) {
                                     tempEdge = new Edge(intersectedEdges.get(x).getStart(), intersectionPoints.get(x));
-                                    if (!intersectionPoints.get(x).equalss(intersectedEdges.get(x).getEnd())) {
+                                    if (!intersectionPoints.get(x).equals(intersectedEdges.get(x).getEnd())) {
                                         badNodes.add(intersectedEdges.get(x).getEnd());
                                     }
                                 } else {
                                     tempEdge = new Edge(intersectedEdges.get(x).getEnd(), intersectionPoints.get(x));
-                                    if (!intersectionPoints.get(x).equalss(intersectedEdges.get(x).getStart())) {
+                                    if (!intersectionPoints.get(x).equals(intersectedEdges.get(x).getStart())) {
                                         badNodes.add(intersectedEdges.get(x).getStart());
                                     }
                                 }
@@ -358,7 +359,7 @@ public class LloydsAlgoMain {
                             for (Edge edge : cell.getEdges()) {
                                 if (edge.hasNode(badNode)) {
                                     edgesToRemove.add(edge);
-                                    if (edge.getStart().equalss(badNode)) {
+                                    if (edge.getStart().equals(badNode)) {
                                         addToBad.add(edge.getEnd());
                                     } else {
                                         addToBad.add(edge.getStart());
@@ -377,7 +378,7 @@ public class LloydsAlgoMain {
 
                     HashSet<Edge> zeroEdges = new HashSet<>();
                     for (Edge edge : cell.getEdges()) {
-                        if (edge.getStart().equalss(edge.getEnd())) {
+                        if (edge.getStart().equals(edge.getEnd())) {
                             zeroEdges.add(edge);
                         }
                     }
@@ -386,7 +387,7 @@ public class LloydsAlgoMain {
                     }
                     zeroEdges.clear();
                     for (Edge edge : tempCell.getEdges()) {
-                        if (edge.getStart().equalss(edge.getEnd())) {
+                        if (edge.getStart().equals(edge.getEnd())) {
                             zeroEdges.add(edge);
                         }
                     }

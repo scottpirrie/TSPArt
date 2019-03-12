@@ -6,11 +6,12 @@ import java.util.HashSet;
 
 public class Cluster {
 
-    private Node centre;
-    private HashSet<Node> nodes = new HashSet<>();
+    private Node site;
+    private HashSet<Node> nodes;
 
     public Cluster(Node centre){
-        this.centre=centre;
+        this.site=centre;
+        this.nodes = new HashSet<>();
     }
 
     public void addNode(Node node){
@@ -25,11 +26,7 @@ public class Cluster {
         nodes.clear();
     }
 
-    public Node getCentre() {
-        return centre;
-    }
-
-    public void setCentre(Node centre) {
-        this.centre = centre;
+    public Node getSite() {
+        return site;
     }
 }

@@ -78,7 +78,7 @@ public class GUI1 {
         boostFactorPanel.setBorder(new EmptyBorder(0,30,0,20));
         label = new JLabel("Contrast Boost Factor");
         boostFactorPanel.add(label);
-        boostFactor = new JSpinner(new SpinnerNumberModel(2,1,5,1));
+        boostFactor = new JSpinner(new SpinnerNumberModel(2,1,5,0.1));
         boostFactor.setEnabled(false);
         boostFactorPanel.add(boostFactor);
         imagePanel.add(boostFactorPanel);
@@ -221,10 +221,10 @@ public class GUI1 {
                 try {
                     if (ImageIO.read(new File(fileChooser.getSelectedFile().getPath())) != null) {
                         frame.dispose();
-                        TSPArt tspArt = new TSPArt(
+                        Thread t1 = new Thread(new TSPArt(
                                 fileChooser.getSelectedFile(),
                                 boostContrast.isSelected(),
-                                (int) boostFactor.getValue(),
+                                (double) boostFactor.getValue(),
                                 (int) gridSize.getValue(),
                                 limitNodeCount.isSelected(),
                                 (int) maxNodes.getValue(),
@@ -232,12 +232,14 @@ public class GUI1 {
                                 (int) voronoiIterations.getValue(),
                                 farthestInsertion.isSelected(),
                                 nearestInsertion.isSelected()
-                        );
+                        ));
+                        t1.start();
                     } else {
                         JOptionPane.showMessageDialog(null,"Selected file must be an image");
                     }
                 } catch (Exception e) {
-                    System.out.println(e);
+                    e.printStackTrace();
+                    System.out.println("Exception in GUI1 " +e);
                 }
             }else{
                 JOptionPane.showMessageDialog(null,"You must select an image to create TSP Art");

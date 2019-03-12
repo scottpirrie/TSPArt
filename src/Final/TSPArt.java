@@ -1,12 +1,10 @@
 package Final;
 
 import GUI.GUI2;
-import LloydsAlgorithm.LloydsAlgoMain;
 import TSP_Solver.Edge;
 import TSP_Solver.Node;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.WritableRaster;
@@ -14,11 +12,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
 
-public class TSPArt {
+public class TSPArt implements Runnable{
 
     private File file;
     private boolean boostContrast;
-    private int boostFactor;
+    private double boostFactor;
     private int gridSize;
     private boolean limitNodeCount;
     private int maxNodes;
@@ -27,30 +25,34 @@ public class TSPArt {
     private boolean farthestInsertion;
     private boolean nearestInsertion;
 
-    public TSPArt(File fileChooser, Boolean boostContrast, int boostFactor, int gridSize, boolean limitNodeCount, int maxNodes, boolean voronoiRedistribute, int voronoiIterations, boolean farthestInsertion, boolean nearestInsertion){
-        this.file=fileChooser;
-        this.boostContrast=boostContrast;
-        this.boostFactor=boostFactor;
-        this.gridSize=gridSize;
-        this.limitNodeCount=limitNodeCount;
-        this.maxNodes=maxNodes;
-        this.voronoiRedistribute=voronoiRedistribute;
-        this.voronoiIterations=voronoiIterations;
-        this.farthestInsertion=farthestInsertion;
-        this.nearestInsertion=nearestInsertion;
+    public TSPArt(File fileChooser, Boolean boostContrast, double boostFactor, int gridSize, boolean limitNodeCount, int maxNodes, boolean voronoiRedistribute, int voronoiIterations, boolean farthestInsertion, boolean nearestInsertion) {
+        this.file = fileChooser;
+        this.boostContrast = boostContrast;
+        this.boostFactor = boostFactor;
+        this.gridSize = gridSize;
+        this.limitNodeCount = limitNodeCount;
+        this.maxNodes = maxNodes;
+        this.voronoiRedistribute = voronoiRedistribute;
+        this.voronoiIterations = voronoiIterations;
+        this.farthestInsertion = farthestInsertion;
+        this.nearestInsertion = nearestInsertion;
 
+
+    }
+
+    public void run(){
         try {
             createTSP();
-        }catch(Exception e){
-            System.out.println(e);
+        } catch (Exception e) {
+            System.out.println("Exception in TSPArt "+e);
         }
     }
 
     private void createTSP() throws IOException {
-        GUI2 gui2 = new GUI2(limitNodeCount,voronoiRedistribute);
+        GUI2 gui2 = new GUI2(limitNodeCount, voronoiRedistribute);
         gui2.createGUI();
 
-        ImageHandler ih = new ImageHandler(file,gridSize);
+        ImageHandler ih = new ImageHandler(file, gridSize);
 
         gui2.setStipplingMin(0);
         gui2.setStipplingMax(3);
@@ -66,7 +68,7 @@ public class TSPArt {
         panels.add(pc.createImagePanel(blackAndWhiteImage, "Halftoned Image"));
         gui2.setStipplingProgress(2);
 
-        if(boostContrast){
+        if (boostContrast) {
             ContrastBooster cb = new ContrastBooster(image);
             image = cb.getBoostedImage(boostFactor);
             BufferedImage boostedImage = cloneImage(image);
@@ -74,13 +76,13 @@ public class TSPArt {
         }
 
         HashSet<Node> nodes;
-        ImageToNodes itn = new ImageToNodes(image,gridSize);
+        ImageToNodes itn = new ImageToNodes(image, gridSize);
         nodes = itn.getNodes();
         HashSet<Node> cityDistribution = (HashSet<Node>) nodes.clone();
         panels.add(pc.createNodePanel(cityDistribution, "City Distribution"));
         gui2.setStipplingProgress(3);
 
-        if(limitNodeCount){
+        if (limitNodeCount) {
             gui2.setReductionMin(0);
             gui2.setReductionMax(1);
             NodeReducer nr = new NodeReducer(nodes, maxNodes);
@@ -90,49 +92,46 @@ public class TSPArt {
             gui2.setReductionProgress(1);
         }
 
-        if(voronoiRedistribute){
+        if (voronoiRedistribute) {
             gui2.setVoronoiMin(0);
             gui2.setVoronoiMax(voronoiIterations);
-            System.out.println("node size before voronoi " +nodes.size());
-            Voronoi voro = new Voronoi(nodes,image);
-            LloydsAlgoMain la = new LloydsAlgoMain(image.getWidth(),image.getHeight());
-            for(int x=0; x<voronoiIterations; x++) {
+            System.out.println("node size before voronoi " + nodes.size());
+            Voronoi voro = new Voronoi(nodes, image);
+            for (int x = 0; x < voronoiIterations; x++) {
                 voro.redestribute();
-                gui2.setReductionProgress(x+1);
+                gui2.setReductionProgress(x + 1);
+                System.out.println("Voronoi iterations completed "+(x+1)+"/"+voronoiIterations);
+                System.out.println(voro.getNodes().size());
             }
             voro.removeWhiteNodes();
             nodes = voro.getNodes();
             HashSet<Node> voronoiDistribution = (HashSet<Node>) nodes.clone();
-            panels.add(pc.createNodePanel(voronoiDistribution,"Voronoi Distribution"));
+            panels.add(pc.createNodePanel(voronoiDistribution, "Voronoi Distribution"));
+            System.out.println("Post voronoi size " + nodes.size());
         }
 
-        System.out.println("Post voronoi size " + nodes.size());
 
         HashSet<Edge> edges;
-        if(farthestInsertion){
-            FarthestInsertion fi = new FarthestInsertion(nodes);
-            edges = fi.solveTSP();
-        }else{
-            NearestInsertion ni = new NearestInsertion(nodes);
-            edges = ni.solveTSP();
-        }
+//        if (farthestInsertion) {
+//            FarthestInsertion fi = new FarthestInsertion(nodes);
+//            edges = fi.solveTSP();
+//        } else {
+//            NearestInsertion ni = new NearestInsertion(nodes);
+//            edges = ni.solveTSP();
+//        }
 
-        panels.add(pc.createEdgePanel(edges,"Solved TSP"));
+//        panels.add(pc.createEdgePanel(edges, "Solved TSP"));
 
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         JTabbedPane tabs = new JTabbedPane();
-        for(JPanel panel: panels) {
-            tabs.add(panel.getName(),panel);
+        for (JPanel panel : panels) {
+            tabs.add(panel.getName(), panel);
         }
         frame.add(tabs);
         frame.pack();
         frame.setVisible(true);
-        try {
-            Thread.sleep(3000);
-        }catch(Exception e){
 
-        }
     }
 
     static BufferedImage cloneImage(BufferedImage bi) {

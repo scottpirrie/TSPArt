@@ -1,4 +1,7 @@
-package TSP_Solver;
+package OldClasses;
+
+import TSP_Solver.Edge;
+import TSP_Solver.Node;
 
 import javax.swing.*;
 import java.awt.*;
@@ -61,10 +64,6 @@ public class Main {
         double farthest = 0;
         for(Node n1: nodes){
             for(Node n2: nodes){
-//                System.out.println(n1.getXpos()+","+n1.getYpos());
-//                System.out.println(n2.getXpos()+","+n2.getYpos());
-//                System.out.println(getDistance(n1,n2));
-//                System.out.println();
                 if(getDistance(n1,n2)>farthest){
                     farthestStart=n1;
                     farthestEnd=n2;

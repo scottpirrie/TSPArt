@@ -131,10 +131,10 @@ public class Voronoi {
                             // use has edge to find which edges have that point
                             // shared point will be same distance from point to cell and site. check to see which of the other ends of edges is closest to cell and site
                             ArrayList<Node> duplicatePoints = new ArrayList<>();
-                            if (intersectionPoints.get(0).equalss(intersectionPoints.get(1))) {
+                            if (intersectionPoints.get(0).equals(intersectionPoints.get(1))) {
                                 duplicatePoints.add(intersectionPoints.get(0));
                                 duplicatePoints.add(intersectionPoints.get(2));
-                            } else if (intersectionPoints.get(0).equalss(intersectionPoints.get(2))) {
+                            } else if (intersectionPoints.get(0).equals(intersectionPoints.get(2))) {
                                 duplicatePoints.add(intersectionPoints.get(0));
                                 duplicatePoints.add(intersectionPoints.get(1));
                             } else {
@@ -152,7 +152,7 @@ public class Voronoi {
                                 }
                                 Edge badEdge;
 
-                                if (edgesWithDuplicatePoint.get(0).getStart().equalss(duplicatePoint)) {
+                                if (edgesWithDuplicatePoint.get(0).getStart().equals(duplicatePoint)) {
                                     if (edgesWithDuplicatePoint.get(0).getEnd().distanceTo(cell.getSite()) < edgesWithDuplicatePoint.get(0).getEnd().distanceTo(site)) {
                                         badEdge = edgesWithDuplicatePoint.get(1);
                                     } else {
@@ -171,23 +171,7 @@ public class Voronoi {
                             intersectedEdges.removeAll(edgesToRemove);
                             cell.getEdges().removeAll(edgesToRemove);
                         } catch (Exception e) {
-//                            System.out.println("4 Intersection points");
-//                            System.out.println("Site: " + site);
-//                            System.out.println("Cell Site: " + cell.getSite());
-//                            System.out.println("PB Mid: " + pbMid);
-//                            System.out.println("--Edges--");
-//                            for (Edge edge : cell.getEdges()) {
-//                                System.out.println(edge.toString());
-//                            }
-//                            System.out.println("--Intersected Edges--");
-//                            for (Edge intersectedEdge : intersectedEdges) {
-//                                System.out.println(intersectedEdge.toString());
-//                            }
-//                            System.out.println("--Intersection Points--");
-//                            for (Node iPoint : intersectionPoints) {
-//                                System.out.println(iPoint.toString());
-//                            }
-//                            System.out.println();
+                            System.out.println("Exception when 4 intersections "+e);
                         }
                     } else if (intersectionPoints.size() == 3) {
                         try {
@@ -195,7 +179,7 @@ public class Voronoi {
                             // use has edge to find which edges have that point
                             // shared point will be same distance from point to cell and site. check to see which of the other ends of edges is closest to cell and site
                             Node duplicatePoint;
-                            if (intersectionPoints.get(0).equalss(intersectionPoints.get(1))) {
+                            if (intersectionPoints.get(0).equals(intersectionPoints.get(1))) {
                                 duplicatePoint = intersectionPoints.get(0);
                             } else {
                                 duplicatePoint = intersectionPoints.get(2);
@@ -207,7 +191,7 @@ public class Voronoi {
                                 }
                             }
                             Edge badEdge;
-                            if (edgesWithDuplicatePoint.get(0).getStart().equalss(duplicatePoint)) {
+                            if (edgesWithDuplicatePoint.get(0).getStart().equals(duplicatePoint)) {
                                 if (edgesWithDuplicatePoint.get(0).getEnd().distanceTo(cell.getSite()) < edgesWithDuplicatePoint.get(0).getEnd().distanceTo(site)) {
                                     badEdge = edgesWithDuplicatePoint.get(1);
                                 } else {
@@ -224,23 +208,7 @@ public class Voronoi {
                             intersectedEdges.remove(badEdge);
                             cell.getEdges().remove(badEdge);
                         } catch (Exception e) {
-//                            System.out.println("3 Intersection points");
-//                            System.out.println("Site: " + site);
-//                            System.out.println("Cell Site: " + cell.getSite());
-//                            System.out.println("PB Mid: " + pbMid);
-//                            System.out.println("--Edges--");
-//                            for (Edge edge : cell.getEdges()) {
-//                                System.out.println(edge.toString());
-//                            }
-//                            System.out.println("--Intersected Edges--");
-//                            for (Edge intersectedEdge : intersectedEdges) {
-//                                System.out.println(intersectedEdge.toString());
-//                            }
-//                            System.out.println("--Intersection Points--");
-//                            for (Node iPoint : intersectionPoints) {
-//                                System.out.println(iPoint.toString());
-//                            }
-//                            System.out.println();
+                            System.out.println("Exception when 3 intersected Edges");
                         }
                     }
 
@@ -251,12 +219,12 @@ public class Voronoi {
                             for (int x = 0; x < intersectionPoints.size(); x++) {
                                 if (intersectedEdges.get(x).getStart().distanceTo(cell.getSite()) < intersectedEdges.get(x).getStart().distanceTo(site)) {
                                     tempEdge = new Edge(intersectedEdges.get(x).getStart(), intersectionPoints.get(x));
-                                    if (!intersectionPoints.get(x).equalss(intersectedEdges.get(x).getEnd())) {
+                                    if (!intersectionPoints.get(x).equals(intersectedEdges.get(x).getEnd())) {
                                         badNodes.add(intersectedEdges.get(x).getEnd());
                                     }
                                 } else {
                                     tempEdge = new Edge(intersectedEdges.get(x).getEnd(), intersectionPoints.get(x));
-                                    if (!intersectionPoints.get(x).equalss(intersectedEdges.get(x).getStart())) {
+                                    if (!intersectionPoints.get(x).equals(intersectedEdges.get(x).getStart())) {
                                         badNodes.add(intersectedEdges.get(x).getStart());
                                     }
                                 }
@@ -281,7 +249,7 @@ public class Voronoi {
                             for (Edge edge : cell.getEdges()) {
                                 if (edge.hasNode(badNode)) {
                                     edgesToRemove.add(edge);
-                                    if (edge.getStart().equalss(badNode)) {
+                                    if (edge.getStart().equals(badNode)) {
                                         addToBad.add(edge.getEnd());
                                     } else {
                                         addToBad.add(edge.getStart());
@@ -300,7 +268,7 @@ public class Voronoi {
 
                     HashSet<Edge> zeroEdges = new HashSet<>();
                     for (Edge edge : cell.getEdges()) {
-                        if (edge.getStart().equalss(edge.getEnd())) {
+                        if (edge.getStart().equals(edge.getEnd())) {
                             zeroEdges.add(edge);
                         }
                     }
@@ -309,7 +277,7 @@ public class Voronoi {
                     }
                     zeroEdges.clear();
                     for (Edge edge : tempCell.getEdges()) {
-                        if (edge.getStart().equalss(edge.getEnd())) {
+                        if (edge.getStart().equals(edge.getEnd())) {
                             zeroEdges.add(edge);
                         }
                     }
@@ -516,6 +484,7 @@ public class Voronoi {
             }
             nodes.removeAll(whiteNodes);
         } catch (Exception e) {
+            System.out.println("Exception in removeWhiteNodes()");
             e.printStackTrace();
         }
         return nodes;

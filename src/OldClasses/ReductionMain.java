@@ -1,5 +1,6 @@
-package ReductionAlgorithm;
+package OldClasses;
 
+import ReductionAlgorithm.Cluster;
 import TSP_Solver.Node;
 
 import javax.swing.*;
@@ -68,13 +69,13 @@ public class ReductionMain {
                 Node closestCentre=null;
                 for(Cluster cluster: clusters){
                     if (closestCentre==null){
-                        closestCentre=cluster.getCentre();
-                    }else if(getDistance(node,cluster.getCentre())<getDistance(node,closestCentre)){
-                        closestCentre=cluster.getCentre();
+                        closestCentre=cluster.getSite();
+                    }else if(getDistance(node,cluster.getSite())<getDistance(node,closestCentre)){
+                        closestCentre=cluster.getSite();
                     }
                 }
                 for(Cluster cluster: clusters){
-                    if(cluster.getCentre()==closestCentre){
+                    if(cluster.getSite()==closestCentre){
                         cluster.addNode(node);
                     }
                 }
@@ -90,14 +91,14 @@ public class ReductionMain {
                 }
                 double averageX=totalX/cluster.getNodes().size();
                 double averageY=totalY/cluster.getNodes().size();
-                cluster.getCentre().setXpos(averageX);
-                cluster.getCentre().setYpos(averageY);
+                cluster.getSite().setXpos(averageX);
+                cluster.getSite().setYpos(averageY);
                 cluster.clearNodes();
             }
         }
 
         for(Cluster cluster: clusters){
-            centres.add(cluster.getCentre());
+            centres.add(cluster.getSite());
         }
         return centres;
     }

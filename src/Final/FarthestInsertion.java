@@ -42,7 +42,6 @@ public class FarthestInsertion {
 
         while(!unvisited.isEmpty()) {
             Node farthestNode = null;
-            //this was set to double.max
             double farthestDist = 0;
             for (Node unvisitedNode : unvisited) {
                 double minDist = Double.MAX_VALUE;

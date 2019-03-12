@@ -37,7 +37,7 @@ public class NodeReducer {
                 for (Cluster cluster : clusters) {
                     if (closestCluster == null) {
                         closestCluster = cluster;
-                    } else if (node.distanceTo(cluster.getCentre()) < node.distanceTo(closestCluster.getCentre())) {
+                    } else if (node.distanceTo(cluster.getSite()) < node.distanceTo(closestCluster.getSite())) {
                         closestCluster = cluster;
                     }
                 }
@@ -55,15 +55,15 @@ public class NodeReducer {
                     }
                     double averageX = totalX / cluster.getNodes().size();
                     double averageY = totalY / cluster.getNodes().size();
-                    cluster.getCentre().setXpos(Math.floor(averageX+0.5));
-                    cluster.getCentre().setYpos(Math.floor(averageY+0.5));
+                    cluster.getSite().setXpos(Math.floor(averageX+0.5));
+                    cluster.getSite().setYpos(Math.floor(averageY+0.5));
                     cluster.clearNodes();
                 }
             }
 
 
             for (Cluster cluster : clusters) {
-                centres.add(cluster.getCentre());
+                centres.add(cluster.getSite());
             }
             System.out.println("Total number of nodes after reduction algorithm: " + centres.size());
             nodes = centres;

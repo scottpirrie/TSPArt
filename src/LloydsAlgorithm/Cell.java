@@ -23,6 +23,7 @@ public class Cell {
         edges.add(edge);
     }
 
+    //TODO put check here to see if the edge is contained in the set of edges.
     public void removeEdge(Edge edge){
         edges.remove(edge);
     }
@@ -31,35 +32,12 @@ public class Cell {
         return edges;
     }
 
-
-    public void setSite(Node site) {
-        this.site = site;
-    }
-
     public Node getCentre(){
         Node centre;
 
         HashSet<Node> points = new HashSet<>();
 
-
-
         for(Edge edge: edges){
-//            Boolean startExists=false;
-//            Boolean endExists=false;
-//            for(Node point: points){
-//                if(point.equalss(edge.getStart())){
-//                    startExists=true;
-//                }
-//                if(point.equalss(edge.getEnd())){
-//                    endExists=true;
-//                }
-//            }
-//            if(!startExists){
-//                points.add(edge.getStart());
-//            }
-//            if(!endExists){
-//                points.add(edge.getEnd());
-//            }
             if(!(Double.isNaN(edge.getStart().getXpos()) || Double.isNaN(edge.getStart().getYpos()))){
                 points.add(edge.getStart());
             }
@@ -77,7 +55,6 @@ public class Cell {
         double averageX=totalX/points.size();
         double averageY=totalY/points.size();
         centre = new Node(averageX,averageY);
-//        centre = new Node(Math.floor(averageX+0.5),Math.floor(averageY+0.5));
 
         return centre;
     }

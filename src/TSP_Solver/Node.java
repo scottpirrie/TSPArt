@@ -30,15 +30,6 @@ public class Node {
         return "("+xpos+","+ypos+")";
     }
 
-    public Boolean equalss(Node input){
-        if(Math.abs(xpos-input.getXpos())<0.00000000001){
-            if(Math.abs(ypos-input.getYpos())<0.00000000001){
-                return true;
-            }
-        }
-        return false;
-    }
-
     public double distanceTo(Node input){
         double a = Math.abs(xpos-input.getXpos());
         double b = Math.abs(ypos-input.getYpos());

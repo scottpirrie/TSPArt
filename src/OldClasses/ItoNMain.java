@@ -1,13 +1,10 @@
-package Image_To_Nodes;
+package OldClasses;
 
-import LloydsAlgorithm.Cell;
-import LloydsAlgorithm.LloydsAlgoMain;
 import ReductionAlgorithm.Cluster;
 import TSP_Solver.Edge;
 import TSP_Solver.Node;
 
 import javax.imageio.ImageIO;
-import javax.sound.midi.Soundbank;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -18,7 +15,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 
-public class Main {
+public class ItoNMain {
 
     static BufferedImage image = null;
 
@@ -321,13 +318,13 @@ public class Main {
                 Node closestCentre = null;
                 for (Cluster cluster : clusters) {
                     if (closestCentre == null) {
-                        closestCentre = cluster.getCentre();
-                    } else if (getDistance(node, cluster.getCentre()) < getDistance(node, closestCentre)) {
-                        closestCentre = cluster.getCentre();
+                        closestCentre = cluster.getSite();
+                    } else if (getDistance(node, cluster.getSite()) < getDistance(node, closestCentre)) {
+                        closestCentre = cluster.getSite();
                     }
                 }
                 for (Cluster cluster : clusters) {
-                    if (cluster.getCentre() == closestCentre) {
+                    if (cluster.getSite() == closestCentre) {
                         cluster.addNode(node);
                     }
                 }
@@ -344,15 +341,15 @@ public class Main {
                     }
                     double averageX = totalX / cluster.getNodes().size();
                     double averageY = totalY / cluster.getNodes().size();
-                    cluster.getCentre().setXpos(averageX);
-                    cluster.getCentre().setYpos(averageY);
+                    cluster.getSite().setXpos(averageX);
+                    cluster.getSite().setYpos(averageY);
                     cluster.clearNodes();
                 }
             }
 
 
             for (Cluster cluster : clusters) {
-                centres.add(cluster.getCentre());
+                centres.add(cluster.getSite());
             }
             System.out.println("Total number of nodes after reduction algorithm: " + centres.size());
             return centres;

@@ -11,10 +11,10 @@ public class ContrastBooster {
         this.image=image;
     }
 
-    public BufferedImage getBoostedImage(int factor){
+    public BufferedImage getBoostedImage(double factor){
         BufferedImage tempInput = image;
         BufferedImage output=image;
-        RescaleOp rescale = new RescaleOp(factor, 0, null);
+        RescaleOp rescale = new RescaleOp((float)factor, 0, null);
         rescale.filter(tempInput,output);
         return output;
     }
