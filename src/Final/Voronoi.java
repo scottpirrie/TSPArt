@@ -121,7 +121,6 @@ public class Voronoi {
                                 double y = (edgeGrad * x) + edgeYIntercept;
                                 intersect = new Node(x, y);
                             }
-//                            Node newIntersect = new Node (Math.round(intersect.getXpos()*1000)/1000,Math.round(intersect.getYpos()*1000)/1000);
                             intersectionPoints.add(intersect);
                         }
                     }

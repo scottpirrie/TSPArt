@@ -30,8 +30,8 @@ public class ImageToNodes {
                 imageArray[x][y] = new Color(image.getRGB(x, y)).getBlue();
             }
         }
-        for(int x=0; x<image.getWidth()-(image.getWidth()%gridSize); x=x+gridSize){
-            for(int y=0; y<image.getHeight()-(image.getHeight()%gridSize); y=y+gridSize){
+        for(int x=0; x<image.getWidth(); x=x+gridSize){
+            for(int y=0; y<image.getHeight(); y=y+gridSize){
                 int gridTotal = 0;
                 ArrayList<Node> possibleNodes = new ArrayList<>();
                 for(int i=0; i<gridSize; i++){
@@ -43,18 +43,12 @@ public class ImageToNodes {
                 double gridAverage = gridTotal/(gridSize*gridSize);
                 double gridNodeNum = Math.floor((gridAverage/255)*(gridSize*2));
 
-//                int gridNodeNum = (gridAverage*gridSize)/255;
                 int nodeCount=0;
                 while (nodeCount<gridNodeNum){
                     int random = rnd.nextInt(possibleNodes.size());
                     nodes.add(possibleNodes.get(random));
                     possibleNodes.remove(random);
                     nodeCount++;
-//                    Node tempNode = new Node(rnd.nextInt(gridSize)+x,rnd.nextInt(gridSize)+y);
-//                    if(!nodes.contains(tempNode)){
-//                        nodes.add(tempNode);
-//                        nodeCount++;
-//                    }
                 }
             }
         }

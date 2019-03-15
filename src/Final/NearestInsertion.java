@@ -1,5 +1,6 @@
 package Final;
 
+import GUI.GUI2;
 import TSP_Solver.Edge;
 import TSP_Solver.Node;
 
@@ -8,12 +9,17 @@ import java.util.HashSet;
 public class NearestInsertion {
 
     HashSet<Node> nodes;
+    GUI2 gui2;
 
-    public NearestInsertion(HashSet<Node> nodes){
+    public NearestInsertion(HashSet<Node> nodes, GUI2 gui2){
         this.nodes=nodes;
+        this.gui2=gui2;
     }
 
     public HashSet<Edge> solveTSP(){
+        gui2.setTspMin(0);
+        gui2.setTspMax(nodes.size()+1);
+
         Node nearestStart=null;
         Node nearestEnd=null;
         HashSet<Node> unvisited = new HashSet<>(nodes);
@@ -68,6 +74,8 @@ public class NearestInsertion {
 
             visited.add(nearestNode);
             unvisited.remove(nearestNode);
+
+            gui2.setTspProgress(edges.size());
         }
 
         return edges;

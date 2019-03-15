@@ -1,5 +1,6 @@
 package Final;
 
+import GUI.GUI2;
 import TSP_Solver.Edge;
 import TSP_Solver.Node;
 
@@ -8,12 +9,16 @@ import java.util.HashSet;
 public class FarthestInsertion {
 
     HashSet<Node> nodes;
-
-    public FarthestInsertion(HashSet<Node> nodes){
+    GUI2 gui2;
+    public FarthestInsertion(HashSet<Node> nodes, GUI2 gui2){
         this.nodes=nodes;
+        this.gui2=gui2;
     }
 
     public HashSet<Edge> solveTSP(){
+        gui2.setTspMin(0);
+        gui2.setTspMax(nodes.size()+1);
+
         Node farthestStart=null;
         Node farthestEnd=null;
         HashSet<Node> unvisited = new HashSet<>(nodes);
@@ -75,6 +80,8 @@ public class FarthestInsertion {
 
             visited.add(farthestNode);
             unvisited.remove(farthestNode);
+
+            gui2.setTspProgress(edges.size());
         }
 
         return edges;

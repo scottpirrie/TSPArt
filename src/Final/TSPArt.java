@@ -83,13 +83,13 @@ public class TSPArt implements Runnable{
         gui2.setStipplingProgress(3);
 
         if (limitNodeCount) {
-            gui2.setReductionMin(0);
-            gui2.setReductionMax(1);
-            NodeReducer nr = new NodeReducer(nodes, maxNodes);
+//            gui2.setReductionMin(0);
+//            gui2.setReductionMax(1);
+            NodeReducer nr = new NodeReducer(nodes, maxNodes, gui2);
             nodes = nr.getNodes();
             HashSet<Node> reducedNodes = (HashSet<Node>) nodes.clone();
             panels.add(pc.createNodePanel(reducedNodes, "Reduced Nodes"));
-            gui2.setReductionProgress(1);
+//            gui2.setReductionProgress(1);
         }
 
         if (voronoiRedistribute) {
@@ -99,7 +99,7 @@ public class TSPArt implements Runnable{
             Voronoi voro = new Voronoi(nodes, image);
             for (int x = 0; x < voronoiIterations; x++) {
                 voro.redestribute();
-                gui2.setReductionProgress(x + 1);
+                gui2.setVoronoiProgress(x + 1);
                 System.out.println("Voronoi iterations completed "+(x+1)+"/"+voronoiIterations);
                 System.out.println(voro.getNodes().size());
             }
@@ -112,15 +112,15 @@ public class TSPArt implements Runnable{
 
 
         HashSet<Edge> edges;
-//        if (farthestInsertion) {
-//            FarthestInsertion fi = new FarthestInsertion(nodes);
-//            edges = fi.solveTSP();
-//        } else {
-//            NearestInsertion ni = new NearestInsertion(nodes);
-//            edges = ni.solveTSP();
-//        }
+        if (farthestInsertion) {
+            FarthestInsertion fi = new FarthestInsertion(nodes, gui2);
+            edges = fi.solveTSP();
+        } else {
+            NearestInsertion ni = new NearestInsertion(nodes, gui2);
+            edges = ni.solveTSP();
+        }
 
-//        panels.add(pc.createEdgePanel(edges, "Solved TSP"));
+        panels.add(pc.createEdgePanel(edges, "Solved TSP"));
 
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

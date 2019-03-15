@@ -19,9 +19,12 @@ public class Main {
 
 //        nodes=createStarNodeMap();
         nodes=randomNodeMap();
-//        edges=plotRoute(nodes);
-        edges=solveTSPNearest(nodes);
+        edges=plotRoute(nodes);
+        HashSet<Edge> edges2 = new HashSet<>();
+        edges2=plotRoute2(nodes);
+//        edges=solveTSPNearest(nodes);
         displayTSP(edges);
+        displayTSP(edges2);
     }
 
     private static HashSet<Node> createStarNodeMap(){
@@ -51,7 +54,7 @@ public class Main {
     private static HashSet<Node> randomNodeMap(){
         HashSet<Node> nodes = new HashSet<>();
         Random rnd = new Random();
-        for(int x=0; x<500; x++){
+        for(int x=0; x<50; x++){
             nodes.add(new Node(rnd.nextInt(800),rnd.nextInt(800)));
         }
         return nodes;
@@ -71,10 +74,6 @@ public class Main {
                 }
             }
         }
-//        System.out.println(farthestStart.getXpos()+","+farthestStart.getYpos());
-//        System.out.println(farthestEnd.getXpos()+","+farthestEnd.getYpos());
-//        System.out.println(farthest);
-
         visited.add(farthestStart);
         unvisited.remove(farthestStart);
         visited.add(farthestEnd);
@@ -110,6 +109,72 @@ public class Main {
             for(Edge edge : edges){
                 //Was checking only distance to start node and not to end node
                 double distDiff=getDistance(edge.getStart(),farthestNode)+getDistance(farthestNode,edge.getEnd())-edge.getWeight();
+                if(distDiff<smallestChange){
+                    smallestChange=distDiff;
+                    smallestEdge=edge;
+                }
+
+            }
+            edges.add(new Edge(smallestEdge.getStart(),farthestNode));
+            edges.add(new Edge(smallestEdge.getEnd(),farthestNode));
+            edges.remove(smallestEdge);
+
+            visited.add(farthestNode);
+            unvisited.remove(farthestNode);
+        }
+
+        return edges;
+    }
+
+    private static HashSet<Edge> plotRoute2(HashSet<Node> nodes){
+        HashSet<Node> unvisited = new HashSet<>(nodes);
+        HashSet<Node> visited = new HashSet<>();
+
+        double farthest = 0;
+        for(Node n1: nodes){
+            for(Node n2: nodes){
+                if(getDistance(n1,n2)>farthest){
+                    farthestStart=n1;
+                    farthestEnd=n2;
+                    farthest=getDistance(n1,n2);
+                }
+            }
+        }
+        visited.add(farthestStart);
+        unvisited.remove(farthestStart);
+        visited.add(farthestEnd);
+        unvisited.remove(farthestEnd);
+
+        HashSet<Edge> edges = new HashSet<>();
+
+        edges.add(new Edge(farthestStart,farthestEnd));
+        edges.add(new Edge(farthestEnd,farthestStart));
+
+        while(!unvisited.isEmpty()) {
+            Node farthestNode = null;
+            //this was set to double.max
+            double farthestDist = 0;
+            for (Node unvisitedNode : unvisited) {
+                double minDist = Double.MAX_VALUE;
+                for (Node visitedNode : visited) {
+                    if(farthestNode==null){
+                        farthestNode=unvisitedNode;
+                        minDist = getDistance(unvisitedNode, visitedNode);
+                    }else if(getDistance(unvisitedNode, visitedNode) < minDist){
+                        minDist = getDistance(unvisitedNode, visitedNode);
+                    }
+                }
+                if (minDist > farthestDist) {
+                    farthestDist = minDist;
+                    farthestNode = unvisitedNode;
+                }
+            }
+
+            double smallestChange=Double.MAX_VALUE;
+            Edge smallestEdge=null;
+            for(Edge edge : edges){
+                //Was checking only distance to start node and not to end node
+                double distDiff=getDistance(edge.getStart(),farthestNode)+getDistance(farthestNode,edge.getStart())-edge.getWeight();
                 if(distDiff<smallestChange){
                     smallestChange=distDiff;
                     smallestEdge=edge;
@@ -212,15 +277,6 @@ public class Main {
                     g.fillOval((int)node.getXpos()-1,(int)node.getYpos()-1,2,2);
                 }
                 for(Edge edge : edges){
-                    int thickness;
-                    if(edge.getWeight()<10){
-                        thickness=3;
-                    }else if(edge.getWeight()<50){
-                        thickness=2;
-                    }else{
-                        thickness=1;
-                    }
-                    g2.setStroke(new BasicStroke(thickness));
                     g2.drawLine((int)edge.getStart().getXpos(), (int)edge.getStart().getYpos(), (int)edge.getEnd().getXpos(), (int)edge.getEnd().getYpos());
                 }
             }

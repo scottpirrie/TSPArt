@@ -75,11 +75,11 @@ public class GUI2{
 
 
     public void setReductionMax(int input){
-        stipplingProgress.setMaximum(input);
+        reductionProgress.setMaximum(input);
     }
 
     public void setReductionMin(int input){
-        stipplingProgress.setMinimum(input);
+        reductionProgress.setMinimum(input);
     }
 
     public void setReductionProgress(int input){
@@ -88,11 +88,11 @@ public class GUI2{
 
 
     public void setVoronoiMax(int input){
-        stipplingProgress.setMaximum(input);
+        voronoiProgress.setMaximum(input);
     }
 
     public void setVoronoiMin(int input){
-        stipplingProgress.setMinimum(input);
+        voronoiProgress.setMinimum(input);
     }
 
     public void setVoronoiProgress(int input){
@@ -101,11 +101,11 @@ public class GUI2{
 
 
     public void setTspMax(int input){
-        stipplingProgress.setMaximum(input);
+        tspProgress.setMaximum(input);
     }
 
     public void setTspMin(int input){
-        stipplingProgress.setMinimum(input);
+        tspProgress.setMinimum(input);
     }
 
     public void setTspProgress(int input){
