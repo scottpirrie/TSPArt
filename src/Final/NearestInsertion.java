@@ -18,7 +18,14 @@ public class NearestInsertion {
 
     public HashSet<Edge> solveTSP(){
         gui2.setTspMin(0);
-        gui2.setTspMax(nodes.size()+1);
+        gui2.setTspMax(nodes.size());
+
+        HashSet<Edge> edges = new HashSet<>();
+
+        if(nodes.size()<2){
+            gui2.setTspProgress(nodes.size());
+            return edges;
+        }
 
         Node nearestStart=null;
         Node nearestEnd=null;
@@ -41,15 +48,13 @@ public class NearestInsertion {
         visited.add(nearestEnd);
         unvisited.remove(nearestEnd);
 
-        HashSet<Edge> edges = new HashSet<>();
-
         edges.add(new Edge(nearestStart,nearestEnd));
         edges.add(new Edge(nearestEnd,nearestStart));
 
         while(!unvisited.isEmpty()) {
             Node nearestNode = null;
+            double minDist = Double.MAX_VALUE;
             for (Node unvisitedNode : unvisited) {
-                double minDist = Double.MAX_VALUE;
                 for (Node visitedNode : visited) {
                     if (unvisitedNode.distanceTo(visitedNode) < minDist || nearestNode==null){
                         nearestNode=unvisitedNode;

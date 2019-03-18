@@ -41,7 +41,7 @@ public class ImageToNodes {
                     }
                 }
                 double gridAverage = gridTotal/(gridSize*gridSize);
-                double gridNodeNum = Math.floor((gridAverage/255)*(gridSize*2));
+                double gridNodeNum = Math.floor((gridAverage/255)*((gridSize*gridSize)/2));
 
                 int nodeCount=0;
                 while (nodeCount<gridNodeNum){

@@ -44,11 +44,29 @@ public class PanelCreator {
         return panel;
     }
 
-    public JPanel createEdgePanel(HashSet<Edge> edges, String name){
+    public JPanel createEdgePanel(HashSet<Edge> edges, String name, boolean varyThickness){
         JPanel panel = new JPanel() {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
+                Graphics2D g2 = (Graphics2D) g;
+                double thickness=1;
                 for(Edge edge : edges){
+                    if(varyThickness){
+                        if(edge.getWeight()>8){
+                            thickness=0.1;
+                        }else if(edge.getWeight()<2){
+                            thickness=2;
+                        }else if(edge.getWeight()<4){
+                            thickness=1.6;
+                        }else if(edge.getWeight()<6){
+                            thickness=1.4;
+                        }else if(edge.getWeight()<8){
+                            thickness=1.2;
+                        }else{
+                            thickness=1;
+                        }
+                    }
+                    g2.setStroke(new BasicStroke((float)thickness));
                     g.drawLine((int)edge.getStart().getXpos(), (int)edge.getStart().getYpos(), (int)edge.getEnd().getXpos(), (int)edge.getEnd().getYpos());
                 }
             }

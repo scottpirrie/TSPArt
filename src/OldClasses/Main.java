@@ -17,12 +17,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-//        nodes=createStarNodeMap();
         nodes=randomNodeMap();
         edges=plotRoute(nodes);
-        HashSet<Edge> edges2 = new HashSet<>();
+        HashSet<Edge> edges2;
         edges2=plotRoute2(nodes);
-//        edges=solveTSPNearest(nodes);
         displayTSP(edges);
         displayTSP(edges2);
     }
@@ -54,8 +52,8 @@ public class Main {
     private static HashSet<Node> randomNodeMap(){
         HashSet<Node> nodes = new HashSet<>();
         Random rnd = new Random();
-        for(int x=0; x<50; x++){
-            nodes.add(new Node(rnd.nextInt(800),rnd.nextInt(800)));
+        for(int x=0; x<25; x++){
+            nodes.add(new Node(rnd.nextInt(256),rnd.nextInt(256)));
         }
         return nodes;
     }
@@ -274,7 +272,7 @@ public class Main {
                 super.paintComponent(g);
                 Graphics2D g2 = (Graphics2D) g;
                 for(Node node : nodes){
-                    g.fillOval((int)node.getXpos()-1,(int)node.getYpos()-1,2,2);
+                    g.fillOval((int)node.getXpos()-2,(int)node.getYpos()-2,4,4);
                 }
                 for(Edge edge : edges){
                     g2.drawLine((int)edge.getStart().getXpos(), (int)edge.getStart().getYpos(), (int)edge.getEnd().getXpos(), (int)edge.getEnd().getYpos());
@@ -282,9 +280,8 @@ public class Main {
             }
         };
         frame.add(panel);
-        panel.setSize(new Dimension(800,800));
-        panel.setBorder(BorderFactory.createLineBorder(Color.black));
-        frame.setSize(new Dimension(850,850));
+        panel.setPreferredSize(new Dimension(256,256));
+        frame.pack();
         frame.setVisible(true);
     }
 }

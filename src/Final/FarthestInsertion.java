@@ -17,7 +17,15 @@ public class FarthestInsertion {
 
     public HashSet<Edge> solveTSP(){
         gui2.setTspMin(0);
-        gui2.setTspMax(nodes.size()+1);
+        gui2.setTspMax(nodes.size());
+
+        HashSet<Edge> edges = new HashSet<>();
+
+
+        if(nodes.size()<2){
+            gui2.setTspProgress(nodes.size());
+            return edges;
+        }
 
         Node farthestStart=null;
         Node farthestEnd=null;
@@ -40,8 +48,6 @@ public class FarthestInsertion {
         visited.add(farthestEnd);
         unvisited.remove(farthestEnd);
 
-        HashSet<Edge> edges = new HashSet<>();
-
         edges.add(new Edge(farthestStart,farthestEnd));
         edges.add(new Edge(farthestEnd,farthestStart));
 
@@ -51,14 +57,11 @@ public class FarthestInsertion {
             for (Node unvisitedNode : unvisited) {
                 double minDist = Double.MAX_VALUE;
                 for (Node visitedNode : visited) {
-                    if(farthestNode==null){
-                        farthestNode=unvisitedNode;
-                        minDist = unvisitedNode.distanceTo(visitedNode);
-                    }else if(unvisitedNode.distanceTo(visitedNode) < minDist){
+                    if(unvisitedNode.distanceTo(visitedNode) < minDist){
                         minDist = unvisitedNode.distanceTo(visitedNode);
                     }
                 }
-                if (minDist > farthestDist) {
+                if (minDist > farthestDist || farthestNode == null) {
                     farthestDist = minDist;
                     farthestNode = unvisitedNode;
                 }
@@ -72,7 +75,6 @@ public class FarthestInsertion {
                     smallestChange=distDiff;
                     smallestEdge=edge;
                 }
-
             }
             edges.add(new Edge(smallestEdge.getStart(),farthestNode));
             edges.add(new Edge(smallestEdge.getEnd(),farthestNode));

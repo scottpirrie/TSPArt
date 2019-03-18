@@ -24,6 +24,7 @@ public class GUI1 {
     private JSpinner voronoiIterations;
     private JRadioButton farthestInsertion;
     private JRadioButton nearestInsertion;
+    private JCheckBox varyThickness;
 
     public GUI1(){
         createGUI();
@@ -104,7 +105,7 @@ public class GUI1 {
         gridSizePanel.setBorder(new EmptyBorder(0,30,0,20));
         label = new JLabel("Grid Size");
         gridSizePanel.add(label);
-        gridSize = new JSpinner(new SpinnerNumberModel(5,3,10,1));
+        gridSize = new JSpinner(new SpinnerNumberModel(5,3,15,1));
         gridSizePanel.add(gridSize);
         stipplingPanel.add(gridSizePanel);
 
@@ -193,6 +194,23 @@ public class GUI1 {
         nearestInsertionPanel.add(nearestInsertion);
         TSPPanel.add(nearestInsertionPanel);
 
+        JPanel renderingPanel = new JPanel();
+        renderingPanel.setLayout(new GridLayout(4,1));
+        renderingPanel.setPreferredSize(new Dimension(400,120));
+
+        JLabel renderingHeading = new JLabel("Rendering");
+        renderingHeading.setBorder(new EmptyBorder(0,10,0,0));
+        renderingPanel.add(renderingHeading);
+
+        JPanel varyThicknessPanel = new JPanel();
+        varyThicknessPanel.setLayout(new GridLayout(1,2));
+        varyThicknessPanel.setBorder(new EmptyBorder(0,30,0,20));
+        label = new JLabel("Vary Line Thickness");
+        varyThicknessPanel.add(label);
+        varyThickness = new JCheckBox();
+        varyThicknessPanel.add(varyThickness);
+        renderingPanel.add(varyThicknessPanel);
+
         JPanel buttonPanel = new JPanel();
 //        buttonPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         JButton button = new JButton("Create TSP Art");
@@ -207,6 +225,7 @@ public class GUI1 {
         frame.add(imagePanel);
         frame.add(stipplingPanel);
         frame.add(TSPPanel);
+        frame.add(renderingPanel);
         frame.add(buttonPanel);
 
         frame.pack();
@@ -231,7 +250,8 @@ public class GUI1 {
                                 voronoiRedistribute.isSelected(),
                                 (int) voronoiIterations.getValue(),
                                 farthestInsertion.isSelected(),
-                                nearestInsertion.isSelected()
+                                nearestInsertion.isSelected(),
+                                varyThickness.isSelected()
                         ));
                         t1.start();
                     } else {
@@ -242,7 +262,7 @@ public class GUI1 {
                     System.out.println("Exception in GUI1 " +e);
                 }
             }else{
-                JOptionPane.showMessageDialog(null,"You must select an image to create TSP Art");
+                JOptionPane.showMessageDialog(null,"You must select an image to create TSP Art (accepted file type: PNG, JPG");
             }
         }else{
             JOptionPane.showMessageDialog(null,"You must select an image to create TSP Art");

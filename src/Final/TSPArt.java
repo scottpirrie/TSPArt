@@ -24,8 +24,9 @@ public class TSPArt implements Runnable{
     private int voronoiIterations;
     private boolean farthestInsertion;
     private boolean nearestInsertion;
+    private boolean varyThickness;
 
-    public TSPArt(File fileChooser, Boolean boostContrast, double boostFactor, int gridSize, boolean limitNodeCount, int maxNodes, boolean voronoiRedistribute, int voronoiIterations, boolean farthestInsertion, boolean nearestInsertion) {
+    public TSPArt(File fileChooser, Boolean boostContrast, double boostFactor, int gridSize, boolean limitNodeCount, int maxNodes, boolean voronoiRedistribute, int voronoiIterations, boolean farthestInsertion, boolean nearestInsertion, boolean varyThickness) {
         this.file = fileChooser;
         this.boostContrast = boostContrast;
         this.boostFactor = boostFactor;
@@ -36,7 +37,7 @@ public class TSPArt implements Runnable{
         this.voronoiIterations = voronoiIterations;
         this.farthestInsertion = farthestInsertion;
         this.nearestInsertion = nearestInsertion;
-
+        this.varyThickness = varyThickness;
 
     }
 
@@ -54,11 +55,12 @@ public class TSPArt implements Runnable{
 
         ImageHandler ih = new ImageHandler(file, gridSize);
 
+        HashSet<JPanel> panels = new HashSet<>();
+        PanelCreator pc = new PanelCreator(ih.getImage());
+
         gui2.setStipplingMin(0);
         gui2.setStipplingMax(3);
 
-        HashSet<JPanel> panels = new HashSet<>();
-        PanelCreator pc = new PanelCreator(ih.getImage());
         BufferedImage originalImage = cloneImage(ih.getImage());
         panels.add(pc.createImagePanel(originalImage, "Original Image"));
         gui2.setStipplingProgress(1);
@@ -111,16 +113,16 @@ public class TSPArt implements Runnable{
         }
 
 
-        HashSet<Edge> edges;
-        if (farthestInsertion) {
-            FarthestInsertion fi = new FarthestInsertion(nodes, gui2);
-            edges = fi.solveTSP();
-        } else {
-            NearestInsertion ni = new NearestInsertion(nodes, gui2);
-            edges = ni.solveTSP();
-        }
-
-        panels.add(pc.createEdgePanel(edges, "Solved TSP"));
+//        HashSet<Edge> edges;
+//        if (farthestInsertion) {
+//            FarthestInsertion fi = new FarthestInsertion(nodes, gui2);
+//            edges = fi.solveTSP();
+//        } else {
+//            NearestInsertion ni = new NearestInsertion(nodes, gui2);
+//            edges = ni.solveTSP();
+//        }
+//
+//        panels.add(pc.createEdgePanel(edges, "Solved TSP", varyThickness));
 
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

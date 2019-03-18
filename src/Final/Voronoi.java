@@ -170,7 +170,7 @@ public class Voronoi {
                             intersectedEdges.removeAll(edgesToRemove);
                             cell.getEdges().removeAll(edgesToRemove);
                         } catch (Exception e) {
-                            System.out.println("Exception when 4 intersections "+e);
+//                            System.out.println("Exception when 4 intersections "+e);
                         }
                     } else if (intersectionPoints.size() == 3) {
                         try {
@@ -207,7 +207,7 @@ public class Voronoi {
                             intersectedEdges.remove(badEdge);
                             cell.getEdges().remove(badEdge);
                         } catch (Exception e) {
-                            System.out.println("Exception when 3 intersected Edges");
+//                            System.out.println("Exception when 3 intersected Edges");
                         }
                     }
 
