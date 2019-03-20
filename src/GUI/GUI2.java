@@ -111,4 +111,8 @@ public class GUI2{
     public void setTspProgress(int input){
         tspProgress.setValue(input);
     }
+
+    public void close(){
+        frame.setVisible(false);
+    }
 }

@@ -10,7 +10,10 @@ import java.awt.image.ColorModel;
 import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.TimeZone;
 
 public class TSPArt implements Runnable{
 
@@ -24,9 +27,8 @@ public class TSPArt implements Runnable{
     private int voronoiIterations;
     private boolean farthestInsertion;
     private boolean nearestInsertion;
-    private boolean varyThickness;
 
-    public TSPArt(File fileChooser, Boolean boostContrast, double boostFactor, int gridSize, boolean limitNodeCount, int maxNodes, boolean voronoiRedistribute, int voronoiIterations, boolean farthestInsertion, boolean nearestInsertion, boolean varyThickness) {
+    public TSPArt(File fileChooser, Boolean boostContrast, double boostFactor, int gridSize, boolean limitNodeCount, int maxNodes, boolean voronoiRedistribute, int voronoiIterations, boolean farthestInsertion, boolean nearestInsertion) {
         this.file = fileChooser;
         this.boostContrast = boostContrast;
         this.boostFactor = boostFactor;
@@ -37,7 +39,6 @@ public class TSPArt implements Runnable{
         this.voronoiIterations = voronoiIterations;
         this.farthestInsertion = farthestInsertion;
         this.nearestInsertion = nearestInsertion;
-        this.varyThickness = varyThickness;
 
     }
 
@@ -50,6 +51,7 @@ public class TSPArt implements Runnable{
     }
 
     private void createTSP() throws IOException {
+        long startTime = System.nanoTime();
         GUI2 gui2 = new GUI2(limitNodeCount, voronoiRedistribute);
         gui2.createGUI();
 
@@ -113,16 +115,18 @@ public class TSPArt implements Runnable{
         }
 
 
-//        HashSet<Edge> edges;
-//        if (farthestInsertion) {
-//            FarthestInsertion fi = new FarthestInsertion(nodes, gui2);
-//            edges = fi.solveTSP();
-//        } else {
-//            NearestInsertion ni = new NearestInsertion(nodes, gui2);
-//            edges = ni.solveTSP();
-//        }
-//
-//        panels.add(pc.createEdgePanel(edges, "Solved TSP", varyThickness));
+        HashSet<Edge> edges;
+        if (farthestInsertion) {
+            FarthestInsertion fi = new FarthestInsertion(nodes, gui2);
+            edges = fi.solveTSP();
+        } else {
+            NearestInsertion ni = new NearestInsertion(nodes, gui2);
+            edges = ni.solveTSP();
+        }
+
+        panels.add(pc.createEdgePanel(edges, "Solved TSP"));
+
+        gui2.close();
 
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -134,6 +138,22 @@ public class TSPArt implements Runnable{
         frame.pack();
         frame.setVisible(true);
 
+        long endTime = System.nanoTime();
+        long totalTime = endTime-startTime;
+
+        totalTime = (int)Math.floor(totalTime/1000000);
+
+        Date date = new Date(totalTime);
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss:SSS");
+        format.setTimeZone(TimeZone.getTimeZone("GMT"));
+        String time = format.format(date);
+
+        if(boostContrast){
+            System.out.println("Contrast boost: "+boostFactor);
+        }
+        System.out.println("Grid size: "+gridSize);
+        System.out.println("Time taken to generate TSP Art " +time);
+
     }
 
     static BufferedImage cloneImage(BufferedImage bi) {
@@ -142,6 +162,5 @@ public class TSPArt implements Runnable{
         WritableRaster raster = bi.copyData(null);
         return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
     }
-
 
 }
