@@ -12,6 +12,7 @@ import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.TimeZone;
@@ -58,7 +59,7 @@ public class TSPArt implements Runnable{
 
         ImageHandler ih = new ImageHandler(file, gridSize);
 
-        HashSet<JPanel> panels = new HashSet<>();
+        ArrayList<JPanel> panels = new ArrayList<>();
         PanelCreator pc = new PanelCreator(ih.getImage());
 
         gui2.setStipplingMin(0);
