@@ -22,11 +22,11 @@ public class LloydsAlgoMain {
     static int scaleFactor = 1;
 
     public static void main(String[] args) {
-        height = 800;
-        width = 800;
-//        HashSet<Node> nodes = generateRandomNodes();
+        height = 400;
+        width = 400;
+        HashSet<Node> nodes = generateRandomNodes();
 //        HashSet<Node> nodes = generateNodes();
-        HashSet<Node> nodes = getNodesFromFile("Nodes w800 h800 n500");
+//        HashSet<Node> nodes = getNodesFromFile("Nodes w800 h800 n500");
 //        HashSet<Cell> cells = createDiagram(nodes);
 //        cells = cropDiagram(cells);
 //        display(cells);
@@ -46,7 +46,7 @@ public class LloydsAlgoMain {
         double x;
         double y;
         int nodeCount = 0;
-        while (nodeCount < 500) {
+        while (nodeCount < 10) {
             x = rnd.nextInt(width);
             y = rnd.nextInt(height);
             boolean exists = false;
@@ -734,15 +734,10 @@ public class LloydsAlgoMain {
 
         while(!unvisited.isEmpty()) {
             Node nearestNode = null;
-            //this was set to double.max
-            double nearestDist = Double.MAX_VALUE;
+            double minDist = Double.MAX_VALUE;
             for (Node unvisitedNode : unvisited) {
-                double minDist = Double.MAX_VALUE;
                 for (Node visitedNode : visited) {
-                    if(nearestNode==null){
-                        nearestNode=unvisitedNode;
-                        minDist = unvisitedNode.distanceTo(visitedNode);
-                    }else if(unvisitedNode.distanceTo(visitedNode) < minDist){
+                   if(unvisitedNode.distanceTo(visitedNode) < minDist){
                         nearestNode=unvisitedNode;
                         minDist = unvisitedNode.distanceTo(visitedNode);
                     }
@@ -753,7 +748,7 @@ public class LloydsAlgoMain {
             Edge smallestEdge=null;
             for(Edge edge : edges){
                 double distDiff=edge.getStart().distanceTo(nearestNode)+nearestNode.distanceTo(edge.getEnd())-edge.getWeight();
-                if(distDiff<smallestChange){
+                if(distDiff<smallestChange || nearestNode==null){
                     smallestChange=distDiff;
                     smallestEdge=edge;
                 }
@@ -846,6 +841,8 @@ public class LloydsAlgoMain {
                 super.paintComponent(g);
                 Graphics2D g2 = (Graphics2D) g;
                 for(Edge edge : edges){
+                    g.fillOval((int)edge.getStart().getXpos()-2, (int)edge.getStart().getYpos()-2,4,4);
+                    g.fillOval((int)edge.getEnd().getXpos()-2, (int)edge.getEnd().getYpos()-2,4,4);
                     g.drawLine((int)edge.getStart().getXpos(), (int)edge.getStart().getYpos(), (int)edge.getEnd().getXpos(), (int)edge.getEnd().getYpos());
                 }
             }

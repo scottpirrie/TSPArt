@@ -2,11 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="04c8427c-32ce-4680-9787-fd18094cc8b0" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/GUI/GUI3.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/black with circle.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Final/test.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/GUI/GUIMain.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/total black.png" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Final/PanelCreator.java" afterPath="$PROJECT_DIR$/src/Final/PanelCreator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Final/TSPArt.java" afterPath="$PROJECT_DIR$/src/Final/TSPArt.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GUI/GUI1.java" afterPath="$PROJECT_DIR$/src/GUI/GUI1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GUI/GUI2.java" afterPath="$PROJECT_DIR$/src/GUI/GUI2.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/OldClasses/LloydsAlgoMain.java" afterPath="$PROJECT_DIR$/src/OldClasses/LloydsAlgoMain.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,50 +21,43 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="NearestInsertion.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Final/NearestInsertion.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1003">
-              <caret line="63" column="13" lean-forward="false" selection-start-line="63" selection-start-column="13" selection-end-line="63" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="TSPArt.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Final/TSPArt.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+            <state relative-caret-position="646">
+              <caret line="149" column="0" lean-forward="true" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PanelCreator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Final/PanelCreator.java">
+      <file leaf-file-name="ImageToNodes.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Final/ImageToNodes.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="816">
-              <caret line="54" column="10" lean-forward="false" selection-start-line="54" selection-start-column="10" selection-end-line="54" selection-end-column="10" />
+            <state relative-caret-position="334">
+              <caret line="43" column="88" lean-forward="false" selection-start-line="43" selection-start-column="88" selection-end-line="43" selection-end-column="88" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FarthestInsertion.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Final/FarthestInsertion.java">
+      <file leaf-file-name="FinalMain.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Final/FinalMain.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1241">
-              <caret line="77" column="13" lean-forward="false" selection-start-line="77" selection-start-column="13" selection-end-line="77" selection-end-column="13" />
-              <folding />
+            <state relative-caret-position="85">
+              <caret line="6" column="9" lean-forward="false" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
+              <folding>
+                <element signature="e#102#103#0" expanded="true" />
+                <element signature="e#140#141#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GUI1.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GUI1.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GUI/GUI1.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
+            <state relative-caret-position="2312">
               <caret line="150" column="70" lean-forward="false" selection-start-line="150" selection-start-column="70" selection-end-line="150" selection-end-column="70" />
               <folding />
             </state>
@@ -77,6 +73,16 @@
                 <element signature="e#3038#3039#0" expanded="true" />
                 <element signature="e#3077#3078#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PanelCreator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Final/PanelCreator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="32" column="68" lean-forward="false" selection-start-line="32" selection-start-column="68" selection-end-line="32" selection-end-column="68" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -149,20 +155,21 @@
         <option value="$PROJECT_DIR$/src/Final/ImageHandler.java" />
         <option value="$PROJECT_DIR$/src/Final/ContrastBooster.java" />
         <option value="$PROJECT_DIR$/src/Final/FinalMain.java" />
-        <option value="$PROJECT_DIR$/src/GUI/GUI3.java" />
         <option value="$PROJECT_DIR$/src/GUI/GUIMain.java" />
         <option value="$PROJECT_DIR$/src/Final/test.java" />
         <option value="$PROJECT_DIR$/src/LloydsAlgorithm/LloydsAlgoMain.java" />
         <option value="$PROJECT_DIR$/src/Final/NodeReducer.java" />
         <option value="$PROJECT_DIR$/src/Final/Voronoi.java" />
         <option value="$PROJECT_DIR$/src/OldClasses/Main.java" />
-        <option value="$PROJECT_DIR$/src/Final/ImageToNodes.java" />
         <option value="$PROJECT_DIR$/src/Final/FarthestInsertion.java" />
         <option value="$PROJECT_DIR$/src/Final/NearestInsertion.java" />
         <option value="$PROJECT_DIR$/src/GUI/GUI2.java" />
         <option value="$PROJECT_DIR$/src/Final/PanelCreator.java" />
-        <option value="$PROJECT_DIR$/src/Final/TSPArt.java" />
         <option value="$PROJECT_DIR$/src/GUI/GUI1.java" />
+        <option value="$PROJECT_DIR$/src/OldClasses/LloydsAlgoMain.java" />
+        <option value="$PROJECT_DIR$/src/GUI/GUI3.java" />
+        <option value="$PROJECT_DIR$/src/Final/ImageToNodes.java" />
+        <option value="$PROJECT_DIR$/src/Final/TSPArt.java" />
       </list>
     </option>
   </component>
@@ -175,8 +182,8 @@
   <component name="PhpDebugGeneral" listening_started="true" />
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="94" />
-    <option name="y" value="-18" />
+    <option name="x" value="1473" />
+    <option name="y" value="-27" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
@@ -196,6 +203,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -248,10 +258,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
-      <pane id="AndroidView" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -469,9 +476,9 @@
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Application.FinalMain (1)" />
         <item index="1" class="java.lang.String" itemvalue="Application.FinalMain" />
-        <item index="2" class="java.lang.String" itemvalue="Application.Main" />
-        <item index="3" class="java.lang.String" itemvalue="Application.Main (1)" />
-        <item index="4" class="java.lang.String" itemvalue="Application.LloydsAlgoMain" />
+        <item index="2" class="java.lang.String" itemvalue="Application.LloydsAlgoMain" />
+        <item index="3" class="java.lang.String" itemvalue="Application.Main" />
+        <item index="4" class="java.lang.String" itemvalue="Application.Main (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -541,7 +548,9 @@
       <workItem from="1552827366466" duration="26343000" />
       <workItem from="1552919358366" duration="20975000" />
       <workItem from="1553000582418" duration="8663000" />
-      <workItem from="1553077737740" duration="11000" />
+      <workItem from="1553077737740" duration="7476000" />
+      <workItem from="1553173002053" duration="7738000" />
+      <workItem from="1553264436168" duration="272000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1547770560559</created>
@@ -683,29 +692,36 @@
       <option name="project" value="LOCAL" />
       <updated>1552868007633</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="removed line thickness variation">
+      <created>1553077785012</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1553077785012</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="544709000" />
+    <option name="totallyTimeSpent" value="560184000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31495228" sideWeight="0.3171875" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.49791667" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31495228" sideWeight="0.6828125" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2969247" sideWeight="0.6828125" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.10989583" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.10989583" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Statistic" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -718,7 +734,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -779,7 +794,8 @@
     <MESSAGE value="Changed node distribution algo and refactoring" />
     <MESSAGE value="multi threaded gui 2 working now" />
     <MESSAGE value="fixed nearest insertion method" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed nearest insertion method" />
+    <MESSAGE value="removed line thickness variation" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed line thickness variation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -788,20 +804,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/OldClasses/ItoNMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1122">
-          <caret line="66" column="23" lean-forward="false" selection-start-line="66" selection-start-column="23" selection-end-line="66" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/OldClasses/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2278">
-          <caret line="137" column="70" lean-forward="false" selection-start-line="137" selection-start-column="8" selection-end-line="137" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/OldClasses/ItoNMain.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
@@ -828,8 +830,8 @@
         <state relative-caret-position="306">
           <caret line="21" column="19" lean-forward="false" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
           <folding>
-            <element signature="e#397#398#0" expanded="true" />
-            <element signature="e#426#427#0" expanded="true" />
+            <element signature="e#397#398#0" expanded="false" />
+            <element signature="e#426#427#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -860,8 +862,8 @@
         <state relative-caret-position="306">
           <caret line="21" column="19" lean-forward="false" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
           <folding>
-            <element signature="e#397#398#0" expanded="true" />
-            <element signature="e#426#427#0" expanded="true" />
+            <element signature="e#397#398#0" expanded="false" />
+            <element signature="e#426#427#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -912,11 +914,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/black with circle.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk-9/lib/src.zip!/java.base/java/lang/Object.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
@@ -942,26 +939,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Final/FinalMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="9" lean-forward="false" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
-          <folding>
-            <element signature="e#102#103#0" expanded="false" />
-            <element signature="e#140#141#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Final/test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="8" lean-forward="false" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GUI/GUI3.java" />
+    <entry file="file://$PROJECT_DIR$/src/Final/test.java" />
     <entry file="file://$PROJECT_DIR$/src/LloydsAlgorithm/Cell.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -992,14 +970,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/GUI/GUIMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Final/NodeReducer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
@@ -1024,28 +994,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/OldClasses/LloydsAlgoMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/OldClasses/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="980">
-          <caret line="267" column="0" lean-forward="false" selection-start-line="267" selection-start-column="0" selection-end-line="267" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Final/ImageToNodes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="36" column="9" lean-forward="false" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Final/Voronoi.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3784">
@@ -1061,19 +1009,8 @@
         <state relative-caret-position="187">
           <caret line="11" column="44" lean-forward="true" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
           <folding>
-            <element signature="e#397#398#0" expanded="true" />
-            <element signature="e#426#427#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GUI/GUI2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1513">
-          <caret line="115" column="31" lean-forward="false" selection-start-line="115" selection-start-column="31" selection-end-line="115" selection-end-column="31" />
-          <folding>
-            <element signature="e#3038#3039#0" expanded="true" />
-            <element signature="e#3077#3078#0" expanded="true" />
+            <element signature="e#397#398#0" expanded="false" />
+            <element signature="e#426#427#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1094,26 +1031,451 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/OldClasses/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="587">
+          <caret line="267" column="0" lean-forward="false" selection-start-line="267" selection-start-column="0" selection-end-line="267" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Final/PanelCreator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="816">
-          <caret line="54" column="10" lean-forward="false" selection-start-line="54" selection-start-column="10" selection-end-line="54" selection-end-column="10" />
+        <state relative-caret-position="442">
+          <caret line="32" column="68" lean-forward="false" selection-start-line="32" selection-start-column="68" selection-end-line="32" selection-end-column="68" />
           <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/OldClasses/LloydsAlgoMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="454">
+          <caret line="852" column="31" lean-forward="true" selection-start-line="852" selection-start-column="31" selection-end-line="852" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://JAVA/">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement />
+          <nodes>
+            <node x="187.0" y="152.451171875">ReductionAlgorithm</node>
+            <node x="460.0" y="524.451171875">com</node>
+            <node x="565.0" y="450.451171875">images</node>
+            <node x="394.0" y="450.451171875">netscape</node>
+            <node x="0.0" y="524.451171875">oracle</node>
+            <node x="0.0" y="152.451171875">LloydsAlgorithm</node>
+            <node x="288.0" y="598.451171875">org</node>
+            <node x="192.51971726190473" y="13.451171875">TSP_Solver</node>
+            <node x="477.5" y="0.0">toolbarButtonGraphics</node>
+            <node x="145.0" y="598.451171875">sun</node>
+            <node x="215.0" y="450.451171875">META-INF</node>
+            <node x="430.0" y="598.451171875">jdk</node>
+            <node x="0.0" y="598.451171875">java</node>
+            <node x="310.0" y="524.451171875">javax</node>
+            <node x="293.9616815476191" y="340.451171875">GUI</node>
+            <node x="156.0" y="524.451171875">javafx</node>
+            <node x="274.54315476190476" y="241.451171875">Final</node>
+            <node x="0.0" y="450.451171875">Image_To_Nodes</node>
+          </nodes>
+          <notes />
+          <edges>
+            <edge source="Final" target="LloydsAlgorithm">
+              <point x="-29.714285714285722" y="-14.5" />
+              <point x="296.82886904761904" y="211.451171875" />
+              <point x="125.25" y="211.451171875" />
+              <point x="41.75" y="14.5" />
+            </edge>
+            <edge source="GUI" target="GUI">
+              <point x="24.5" y="14.5" />
+              <point x="367.4616815476191" y="399.451171875" />
+              <point x="263.9616815476191" y="399.451171875" />
+              <point x="263.9616815476191" y="347.701171875" />
+              <point x="-49.0" y="-7.25" />
+            </edge>
+            <edge source="LloydsAlgorithm" target="TSP_Solver">
+              <point x="-62.625" y="-14.5" />
+              <point x="20.875" y="92.451171875" />
+              <point x="220.85305059523807" y="92.451171875" />
+              <point x="-39.66666666666667" y="14.5" />
+            </edge>
+            <edge source="GUI" target="Final">
+              <point x="-36.75" y="-14.5" />
+              <point x="306.2116815476191" y="320.451171875" />
+              <point x="317.87648809523813" y="320.451171875" />
+              <point x="-8.666666666666657" y="14.5" />
+            </edge>
+            <edge source="Final" target="Final">
+              <point x="-25.999999999999996" y="14.5" />
+              <point x="300.54315476190476" y="300.451171875" />
+              <point x="244.54315476190476" y="300.451171875" />
+              <point x="244.54315476190476" y="248.701171875" />
+              <point x="-52.0" y="-7.25" />
+            </edge>
+            <edge source="Final" target="GUI">
+              <point x="8.666666666666686" y="14.5" />
+              <point x="335.20982142857144" y="320.451171875" />
+              <point x="330.7116815476191" y="320.451171875" />
+              <point x="-12.25" y="-14.5" />
+            </edge>
+            <edge source="ReductionAlgorithm" target="TSP_Solver">
+              <point x="-62.33333333333337" y="-14.5" />
+              <point x="218.16666666666663" y="132.451171875" />
+              <point x="266.18638392857144" y="132.451171875" />
+              <point x="5.666666666666686" y="14.5" />
+            </edge>
+            <edge source="Final" target="TSP_Solver">
+              <point x="29.71428571428572" y="-14.5" />
+              <point x="356.2574404761905" y="211.451171875" />
+              <point x="395.5" y="211.451171875" />
+              <point x="395.5" y="112.451171875" />
+              <point x="311.5197172619048" y="112.451171875" />
+              <point x="51.00000000000006" y="14.5" />
+            </edge>
+            <edge source="TSP_Solver" target="TSP_Solver">
+              <point x="-62.33333333333334" y="14.5" />
+              <point x="198.1863839285714" y="62.451171875" />
+              <point x="172.51971726190473" y="62.451171875" />
+              <point x="172.51971726190473" y="35.201171875" />
+              <point x="-68.0" y="7.25" />
+            </edge>
+            <edge source="Final" target="ReductionAlgorithm">
+              <point x="-14.857142857142833" y="-14.5" />
+              <point x="311.6860119047619" y="201.451171875" />
+              <point x="233.75" y="201.451171875" />
+              <point x="-46.75" y="14.5" />
+            </edge>
+          </edges>
+          <settings layout="Hierarchic Group" zoom="1.0" x="-371.0" y="120.0" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Final/FinalMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="6" column="9" lean-forward="false" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
+          <folding>
+            <element signature="e#102#103#0" expanded="true" />
+            <element signature="e#140#141#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GUI/GUI2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1513">
+          <caret line="115" column="31" lean-forward="false" selection-start-line="115" selection-start-column="31" selection-end-line="115" selection-end-column="31" />
+          <folding>
+            <element signature="e#3038#3039#0" expanded="true" />
+            <element signature="e#3077#3078#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GUI/GUIMain.java" />
+    <entry file="file://$PROJECT_DIR$/src/GUI/GUI1.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2312">
+          <caret line="150" column="70" lean-forward="false" selection-start-line="150" selection-start-column="70" selection-end-line="150" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://JAVA/Final.ContrastBooster">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>Final.ContrastBooster</OriginalElement>
+          <nodes>
+            <node x="622.1038606263762" y="407.0">Final.Voronoi</node>
+            <node x="153.0" y="407.0">Final.NodeReducer</node>
+            <node x="627.4000000000001" y="298.0">LloydsAlgorithm.Cell</node>
+            <node x="556.5" y="566.0">Final.TSPArt</node>
+            <node x="562.0" y="645.0">GUI.GUI1</node>
+            <node x="452.0" y="407.0">Final.FarthestInsertion</node>
+            <node x="0.0" y="407.0">Final.ContrastBooster</node>
+            <node x="393.875" y="298.0">GUI.GUI2</node>
+            <node x="548.5" y="724.0">Final.FinalMain</node>
+            <node x="1011.9000000000001" y="407.0">java.lang.Runnable</node>
+            <node x="985.9000000000001" y="298.0">java.lang.FunctionalInterface</node>
+            <node x="293.0" y="407.0">Final.NearestInsertion</node>
+            <node x="572.6202097505669" y="-23.75">TSP_Solver.Node</node>
+            <node x="117.5" y="179.0">ReductionAlgorithm.Cluster</node>
+            <node x="1129.9" y="407.0">Final.ImageHandler</node>
+            <node x="738.4000000000001" y="298.0">Final.PanelCreator</node>
+            <node x="549.4833333333333" y="179.0">TSP_Solver.Edge</node>
+            <node x="835.9000000000001" y="179.0">Final.ImageToNodes</node>
+          </nodes>
+          <notes />
+          <edges>
+            <edge source="TSP_Solver.Edge" target="TSP_Solver.Node">
+              <point x="18.5" y="-14.5" />
+              <point x="604.9833333333333" y="159.0" />
+              <point x="611.1202097505669" y="159.0" />
+              <point x="0.0" y="14.5" />
+            </edge>
+            <edge source="Final.FarthestInsertion" target="TSP_Solver.Node">
+              <point x="11.333333333333314" y="-14.5" />
+              <point x="531.3333333333333" y="387.0" />
+              <point x="526.6830157908574" y="387.0" />
+              <point x="526.6830157908574" y="139.0" />
+              <point x="604.4245575766539" y="139.0" />
+              <point x="-6.695652173913004" y="14.5" />
+            </edge>
+            <edge source="Final.FarthestInsertion" target="GUI.GUI2">
+              <point x="-34.0" y="-14.5" />
+              <point x="486.0" y="377.0" />
+              <point x="462.3125" y="377.0" />
+              <point x="31.9375" y="14.5" />
+            </edge>
+            <edge source="ReductionAlgorithm.Cluster" target="TSP_Solver.Node">
+              <point x="0.0" y="-14.5" />
+              <point x="160.0" y="69.0" />
+              <point x="580.9897749679582" y="69.0" />
+              <point x="-30.130434782608745" y="14.5" />
+            </edge>
+            <edge source="Final.TSPArt" target="Final.NearestInsertion">
+              <point x="-20.0" y="-14.5" />
+              <point x="578.5" y="496.0" />
+              <point x="393.5" y="496.0" />
+              <point x="33.5" y="14.5" />
+            </edge>
+            <edge source="Final.TSPArt" target="Final.ImageHandler">
+              <point x="36.0" y="-14.5" />
+              <point x="634.5" y="536.0" />
+              <point x="1160.65" y="536.0" />
+              <point x="-30.75" y="14.5" />
+            </edge>
+            <edge source="Final.TSPArt" target="GUI.GUI2">
+              <point x="-12.0" y="-14.5" />
+              <point x="586.5" y="476.0" />
+              <point x="441.5" y="476.0" />
+              <point x="441.5" y="387.0" />
+              <point x="444.0625" y="387.0" />
+              <point x="13.6875" y="14.5" />
+            </edge>
+            <edge source="java.lang.Runnable" target="java.lang.FunctionalInterface">
+              <point x="0.0" y="-14.5" />
+              <point x="0.0" y="14.5" />
+            </edge>
+            <edge source="Final.NearestInsertion" target="GUI.GUI2">
+              <point x="55.833333333333314" y="-14.5" />
+              <point x="415.8333333333333" y="387.0" />
+              <point x="425.8125" y="387.0" />
+              <point x="-4.5625" y="14.5" />
+            </edge>
+            <edge source="Final.NodeReducer" target="TSP_Solver.Node">
+              <point x="-51.428571428571445" y="-14.5" />
+              <point x="161.57142857142856" y="387.0" />
+              <point x="107.0" y="387.0" />
+              <point x="107.0" y="49.0" />
+              <point x="574.2941227940452" y="49.0" />
+              <point x="-36.82608695652175" y="14.5" />
+            </edge>
+            <edge source="Final.FarthestInsertion" target="TSP_Solver.Edge">
+              <point x="56.666666666666686" y="-14.5" />
+              <point x="576.6666666666667" y="387.0" />
+              <point x="567.2871939597095" y="387.0" />
+              <point x="567.2871939597095" y="278.0" />
+              <point x="575.3833333333333" y="278.0" />
+              <point x="-11.100000000000023" y="14.5" />
+            </edge>
+            <edge source="Final.ImageToNodes" target="TSP_Solver.Node">
+              <point x="43.0" y="-14.5" />
+              <point x="943.4000000000001" y="59.0" />
+              <point x="644.5984706201322" y="59.0" />
+              <point x="33.47826086956525" y="14.5" />
+            </edge>
+            <edge source="Final.PanelCreator" target="TSP_Solver.Node">
+              <point x="29.0" y="-14.5" />
+              <point x="825.4000000000001" y="89.0" />
+              <point x="634.5549923592625" y="89.0" />
+              <point x="23.434782608695627" y="14.5" />
+            </edge>
+            <edge source="Final.TSPArt" target="Final.ContrastBooster">
+              <point x="-36.0" y="-14.5" />
+              <point x="562.5" y="536.0" />
+              <point x="99.75" y="536.0" />
+              <point x="33.25" y="14.5" />
+            </edge>
+            <edge source="Final.PanelCreator" target="TSP_Solver.Edge">
+              <point x="-29.0" y="-14.5" />
+              <point x="767.4000000000001" y="228.0" />
+              <point x="619.7833333333334" y="228.0" />
+              <point x="33.30000000000007" y="14.5" />
+            </edge>
+            <edge source="Final.Voronoi" target="TSP_Solver.Node">
+              <point x="38.571428571428555" y="-14.5" />
+              <point x="705.6752891978048" y="387.0" />
+              <point x="727.9000000000001" y="387.0" />
+              <point x="727.9000000000001" y="99.0" />
+              <point x="631.207166272306" y="99.0" />
+              <point x="20.086956521739125" y="14.5" />
+            </edge>
+            <edge source="Final.TSPArt" target="TSP_Solver.Edge">
+              <point x="0.0" y="-14.5" />
+              <point x="598.5" y="278.0" />
+              <point x="582.7833333333333" y="278.0" />
+              <point x="-3.7000000000000455" y="14.5" />
+            </edge>
+            <edge source="LloydsAlgorithm.Cell" target="TSP_Solver.Edge">
+              <point x="-27.200000000000045" y="-14.5" />
+              <point x="634.2" y="248.0" />
+              <point x="604.9833333333333" y="248.0" />
+              <point x="18.5" y="14.5" />
+            </edge>
+            <edge source="Final.NodeReducer" target="GUI.GUI2">
+              <point x="34.28571428571428" y="-14.5" />
+              <point x="247.28571428571428" y="357.0" />
+              <point x="398.4375" y="357.0" />
+              <point x="-31.9375" y="14.5" />
+            </edge>
+            <edge source="Final.TSPArt" target="java.lang.Runnable">
+              <point x="32.0" y="-14.5" />
+              <point x="630.5" y="526.0" />
+              <point x="1060.9" y="526.0" />
+              <point x="0.0" y="14.5" />
+            </edge>
+            <edge source="Final.NearestInsertion" target="TSP_Solver.Edge">
+              <point x="-11.166666666666657" y="-14.5" />
+              <point x="348.83333333333337" y="347.0" />
+              <point x="344.07052729304286" y="347.0" />
+              <point x="344.07052729304286" y="248.0" />
+              <point x="553.1833333333334" y="248.0" />
+              <point x="-33.299999999999955" y="14.5" />
+            </edge>
+            <edge source="LloydsAlgorithm.Cell" target="TSP_Solver.Node">
+              <point x="27.200000000000045" y="-14.5" />
+              <point x="688.6000000000001" y="278.0" />
+              <point x="692.9760869565218" y="278.0" />
+              <point x="692.9760869565218" y="129.0" />
+              <point x="621.1636880114365" y="129.0" />
+              <point x="10.04347826086962" y="14.5" />
+            </edge>
+            <edge source="Final.FinalMain" target="GUI.GUI1">
+              <point x="-25.0" y="-14.5" />
+              <point x="573.5" y="699.0" />
+              <point x="580.25" y="699.0" />
+              <point x="-18.25" y="14.5" />
+            </edge>
+            <edge source="Final.NearestInsertion" target="TSP_Solver.Node">
+              <point x="-33.5" y="-14.5" />
+              <point x="326.5" y="347.0" />
+              <point x="322.30862253113816" y="347.0" />
+              <point x="322.30862253113816" y="119.0" />
+              <point x="597.7289054027408" y="119.0" />
+              <point x="-13.391304347826122" y="14.5" />
+            </edge>
+            <edge source="Final.TSPArt" target="Final.NodeReducer">
+              <point x="-32.0" y="-14.5" />
+              <point x="566.5" y="526.0" />
+              <point x="183.0" y="526.0" />
+              <point x="-30.0" y="14.5" />
+            </edge>
+            <edge source="Final.TSPArt" target="TSP_Solver.Node">
+              <point x="28.0" y="-14.5" />
+              <point x="626.5" y="516.0" />
+              <point x="975.4000000000001" y="516.0" />
+              <point x="975.4000000000001" y="49.0" />
+              <point x="647.9462967070887" y="49.0" />
+              <point x="36.82608695652175" y="14.5" />
+            </edge>
+            <edge source="Final.Voronoi" target="LloydsAlgorithm.Cell">
+              <point x="0.0" y="-14.5" />
+              <point x="667.1038606263762" y="357.0" />
+              <point x="678.4000000000001" y="357.0" />
+              <point x="17.0" y="14.5" />
+            </edge>
+            <edge source="Final.TSPArt" target="Final.ImageToNodes">
+              <point x="20.0" y="-14.5" />
+              <point x="618.5" y="496.0" />
+              <point x="893.5844954648527" y="496.0" />
+              <point x="893.5844954648527" y="278.0" />
+              <point x="868.1500000000001" y="278.0" />
+              <point x="-32.25" y="14.5" />
+            </edge>
+            <edge source="Final.NodeReducer" target="ReductionAlgorithm.Cluster">
+              <point x="-34.28571428571428" y="-14.5" />
+              <point x="178.71428571428572" y="377.0" />
+              <point x="154.5" y="377.0" />
+              <point x="154.5" y="278.0" />
+              <point x="138.75" y="278.0" />
+              <point x="-21.25" y="14.5" />
+            </edge>
+            <edge source="Final.TSPArt" target="Final.PanelCreator">
+              <point x="16.0" y="-14.5" />
+              <point x="614.5" y="486.0" />
+              <point x="793.5844954648527" y="486.0" />
+              <point x="793.5844954648527" y="387.0" />
+              <point x="825.4000000000001" y="387.0" />
+              <point x="29.0" y="14.5" />
+            </edge>
+            <edge source="Final.TSPArt" target="Final.FarthestInsertion">
+              <point x="-4.0" y="-14.5" />
+              <point x="594.5" y="456.0" />
+              <point x="554.0" y="456.0" />
+              <point x="34.0" y="14.5" />
+            </edge>
+            <edge source="Final.Voronoi" target="TSP_Solver.Edge">
+              <point x="-38.571428571428555" y="-14.5" />
+              <point x="628.5324320549477" y="387.0" />
+              <point x="605.9000000000001" y="387.0" />
+              <point x="605.9000000000001" y="268.0" />
+              <point x="590.1833333333334" y="268.0" />
+              <point x="3.7000000000000455" y="14.5" />
+            </edge>
+            <edge source="GUI.GUI1" target="Final.TSPArt">
+              <point x="0.0" y="-14.5" />
+              <point x="0.0" y="14.5" />
+            </edge>
+            <edge source="Final.TSPArt" target="Final.Voronoi">
+              <point x="8.0" y="-14.5" />
+              <point x="606.5" y="466.0" />
+              <point x="689.6038606263762" y="466.0" />
+              <point x="22.5" y="14.5" />
+            </edge>
+          </edges>
+          <settings layout="Hierarchic Group" zoom="0.8" x="-486.0" y="253.0" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/black with circle.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Final/TSPArt.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+        <state relative-caret-position="646">
+          <caret line="149" column="0" lean-forward="true" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/GUI/GUI1.java">
+    <entry file="file://$PROJECT_DIR$/src/GUI/GUI3.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="150" column="70" lean-forward="false" selection-start-line="150" selection-start-column="70" selection-end-line="150" selection-end-column="70" />
+        <state relative-caret-position="170">
+          <caret line="10" column="27" lean-forward="false" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#152#153#0" expanded="true" />
+            <element signature="e#186#187#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Final/ImageToNodes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="43" column="88" lean-forward="false" selection-start-line="43" selection-start-column="88" selection-end-line="43" selection-end-column="88" />
           <folding />
         </state>
       </provider>

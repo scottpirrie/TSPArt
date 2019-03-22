@@ -1,6 +1,7 @@
 package Final;
 
 import GUI.GUI2;
+import GUI.GUI3;
 import TSP_Solver.Edge;
 import TSP_Solver.Node;
 
@@ -128,26 +129,17 @@ public class TSPArt implements Runnable{
 
         gui2.close();
 
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JTabbedPane tabs = new JTabbedPane();
-        for (JPanel panel : panels) {
-            tabs.add(panel.getName(), panel);
-        }
-        frame.add(tabs);
-        frame.pack();
-        frame.setVisible(true);
+        GUI3 gui3 = new GUI3(panels);
+        gui3.display();
 
+        //These are all just things to print to console to show what settings you used.
         long endTime = System.nanoTime();
         long totalTime = endTime-startTime;
-
         totalTime = (int)Math.floor(totalTime/1000000);
-
         Date date = new Date(totalTime);
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss:SSS");
         format.setTimeZone(TimeZone.getTimeZone("GMT"));
         String time = format.format(date);
-
         if(boostContrast){
             System.out.println("Contrast boost: "+boostFactor);
         }
