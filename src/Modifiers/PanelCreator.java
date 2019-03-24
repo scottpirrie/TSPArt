@@ -1,7 +1,7 @@
-package Final;
+package Modifiers;
 
-import TSP_Solver.Edge;
-import TSP_Solver.Node;
+import DataClasses.Edge;
+import DataClasses.Node;
 
 import javax.swing.*;
 import java.awt.*;

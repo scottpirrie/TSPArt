@@ -1,8 +1,8 @@
-package Final;
+package Modifiers;
 
 import GUI.GUI2;
-import ReductionAlgorithm.Cluster;
-import TSP_Solver.Node;
+import DataClasses.Cluster;
+import DataClasses.Node;
 
 import java.util.ArrayList;
 import java.util.HashSet;

@@ -1,6 +1,6 @@
 package GUI;
 
-import Final.TSPArt;
+import Modifiers.TSPArt;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

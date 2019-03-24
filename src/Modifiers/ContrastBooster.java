@@ -1,4 +1,4 @@
-package Final;
+package Modifiers;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;

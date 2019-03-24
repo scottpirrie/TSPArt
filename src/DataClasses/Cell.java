@@ -1,7 +1,4 @@
-package LloydsAlgorithm;
-
-import TSP_Solver.Edge;
-import TSP_Solver.Node;
+package DataClasses;
 
 import java.util.HashSet;
 
@@ -23,9 +20,10 @@ public class Cell {
         edges.add(edge);
     }
 
-    //TODO put check here to see if the edge is contained in the set of edges.
     public void removeEdge(Edge edge){
-        edges.remove(edge);
+        if(edges.contains(edge)) {
+            edges.remove(edge);
+        }
     }
 
     public HashSet<Edge> getEdges() {

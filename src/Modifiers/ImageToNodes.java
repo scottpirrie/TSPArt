@@ -1,6 +1,6 @@
-package Final;
+package Modifiers;
 
-import TSP_Solver.Node;
+import DataClasses.Node;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

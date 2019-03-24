@@ -1,13 +1,14 @@
 package GUI;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class GUI3 {
 
-    HashSet<JPanel> panels;
+    ArrayList<JPanel> panels;
 
-    public GUI3(HashSet<JPanel> panels){
+    public GUI3(ArrayList<JPanel> panels){
         this.panels=panels;
     }
 

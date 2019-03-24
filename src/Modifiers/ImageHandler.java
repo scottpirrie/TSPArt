@@ -1,4 +1,4 @@
-package Final;
+package Modifiers;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

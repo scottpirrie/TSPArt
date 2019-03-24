@@ -1,9 +1,9 @@
-package Final;
+package Modifiers;
 
 import GUI.GUI2;
 import GUI.GUI3;
-import TSP_Solver.Edge;
-import TSP_Solver.Node;
+import DataClasses.Edge;
+import DataClasses.Node;
 
 import javax.swing.*;
 import java.awt.image.BufferedImage;

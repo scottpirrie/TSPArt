@@ -1,6 +1,4 @@
-package ReductionAlgorithm;
-
-import TSP_Solver.Node;
+package DataClasses;
 
 import java.util.HashSet;
 

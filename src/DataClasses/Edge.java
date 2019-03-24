@@ -1,4 +1,4 @@
-package TSP_Solver;
+package DataClasses;
 
 public class Edge {
 

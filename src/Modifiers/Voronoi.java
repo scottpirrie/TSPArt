@@ -1,151 +1,36 @@
-package OldClasses;
+package Modifiers;
 
-import LloydsAlgorithm.Cell;
-import TSP_Solver.Edge;
-import TSP_Solver.Node;
+import DataClasses.Cell;
+import DataClasses.Edge;
+import DataClasses.Node;
 
-import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Line2D;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.PrintWriter;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Random;
 
-public class LloydsAlgoMain {
+public class Voronoi {
 
-    static int height;
-    static int width;
-    static int scaleFactor = 1;
+    HashSet<Node> nodes;
+    BufferedImage image;
+    int width;
+    int height;
 
-    public static void main(String[] args) {
-        height = 400;
-        width = 400;
-        HashSet<Node> nodes = generateRandomNodes();
-//        HashSet<Node> nodes = generateNodes();
-//        HashSet<Node> nodes = getNodesFromFile("Nodes w800 h800 n500");
-//        HashSet<Cell> cells = createDiagram(nodes);
-//        cells = cropDiagram(cells);
-//        display(cells);
-        HashSet<Edge> edgesF = solveTSPF(nodes);
-        HashSet<Edge> edgesN = solveTSPN(nodes);
-        displayTSP(edgesF,"farthest");
-        displayTSP(edgesN,"nearest");
-
-
-
-
+    public Voronoi(HashSet<Node> nodes, BufferedImage image) {
+        this.nodes = nodes;
+        this.image = image;
+        this.width = image.getWidth();
+        this.height = image.getHeight();
     }
 
-    private static HashSet<Node> generateRandomNodes() {
-        HashSet<Node> nodes = new HashSet<>();
-        Random rnd = new Random();
-        double x;
-        double y;
-        int nodeCount = 0;
-        while (nodeCount < 10) {
-            x = rnd.nextInt(width);
-            y = rnd.nextInt(height);
-            boolean exists = false;
-            for (Node node : nodes) {
-                if (node.getXpos() == x && node.getYpos() == y) {
-                    exists = true;
-                }
-            }
-            if (!exists) {
-                nodes.add(new Node(x, y));
-                nodeCount++;
-            }
-        }
-        //save random distribution to file
-        try {
-            PrintWriter writer = new PrintWriter("Nodes w" + width + " h" + height + " n" + nodes.size(), "UTF-8");
-            for (Node node : nodes) {
-                writer.println(node.getXpos());
-                writer.println(node.getYpos());
-            }
-            writer.close();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return nodes;
+    public void redestribute() {
+        HashSet<Cell> cells = createGraph(nodes);
+        cells = cropGraph(cells);
+        nodes = getCentres(cells);
     }
 
-    public LloydsAlgoMain(int width, int height) {
-        this.width = width;
-        this.height = height;
-    }
-
-    public static HashSet<Node> voronoiRedistribute(HashSet<Node> nodes) {
-        HashSet<Node> output = new HashSet<>();
-        HashSet<Cell> cells = createDiagram(nodes);
-        cells = cropDiagram(cells);
-        for (Cell cell : cells) {
-            if(!Double.isNaN(cell.getCentre().getXpos()) && !Double.isNaN(cell.getCentre().getYpos())) {
-                output.add(cell.getCentre());
-            }
-        }
-        return output;
-    }
-
-    private static HashSet<Node> getNodesFromFile(String filepath) {
-        HashSet<Node> nodes = new HashSet<>();
-        try {
-            FileReader fr = new FileReader(filepath);
-            BufferedReader reader = new BufferedReader(fr);
-
-            String line = reader.readLine();
-
-            double x;
-            double y;
-            while (!line.equals("")) {
-                x = Double.parseDouble(line);
-                line = reader.readLine();
-                y = Double.parseDouble(line);
-                line = reader.readLine();
-                nodes.add(new Node(x, y));
-            }
-            reader.close();
-        } catch (Exception e) {
-            System.out.println("Exception while loading from file");
-            System.out.println(e);
-        }
-
-
-        return nodes;
-    }
-
-
-    private static HashSet<Node> generateNodes() {
-        HashSet<Node> nodes = new HashSet<>();
-
-        nodes.add(new Node(470, 430));
-        nodes.add(new Node(430, 410));
-        nodes.add(new Node(430, 400));
-        nodes.add(new Node(400, 400));
-        nodes.add(new Node(440, 420));
-        nodes.add(new Node(430, 480));
-        nodes.add(new Node(400, 460));
-        nodes.add(new Node(440, 460));
-        nodes.add(new Node(490, 460));
-        nodes.add(new Node(420, 400));
-        nodes.add(new Node(790, 790));
-
-        nodes.add(new Node(425, 415));
-        nodes.add(new Node(425, 411));
-        nodes.add(new Node(427, 413));
-        nodes.add(new Node(429, 417));
-        nodes.add(new Node(424, 413));
-        nodes.add(new Node(410, 410));
-
-
-        return nodes;
-    }
-
-    public static HashSet<Cell> createDiagram(HashSet<Node> sites) {
+    private HashSet<Cell> createGraph(HashSet<Node> nodes) {
         HashSet<Cell> cells = new HashSet<>();
 
         Cell cell1 = new Cell(new Node(-width, -height));
@@ -180,7 +65,7 @@ public class LloydsAlgoMain {
         cells.add(cell3);
         cells.add(cell4);
 
-        for (Node site : sites) {
+        for (Node site : nodes) {
             boolean nodeExists = false;
             for (Cell cell : cells) {
                 if (site.equals(cell.getSite())) {
@@ -285,6 +170,7 @@ public class LloydsAlgoMain {
                             intersectedEdges.removeAll(edgesToRemove);
                             cell.getEdges().removeAll(edgesToRemove);
                         } catch (Exception e) {
+//                            System.out.println("Exception when 4 intersections "+e);
                         }
                     } else if (intersectionPoints.size() == 3) {
                         try {
@@ -321,6 +207,7 @@ public class LloydsAlgoMain {
                             intersectedEdges.remove(badEdge);
                             cell.getEdges().remove(badEdge);
                         } catch (Exception e) {
+//                            System.out.println("Exception when 3 intersected Edges");
                         }
                     }
 
@@ -347,6 +234,8 @@ public class LloydsAlgoMain {
                             cell.addEdge(tempEdge);
                             tempCell.addEdge(tempEdge);
                         } catch (Exception e) {
+                            System.out.println("2 Intersection Point error");
+                            System.out.println();
                         }
                     }
 
@@ -408,41 +297,7 @@ public class LloydsAlgoMain {
         return cells;
     }
 
-    private static double getDistance(Node n1, Node n2) {
-        double a = Math.abs(n1.getXpos() - n2.getXpos());
-        double b = Math.abs(n1.getYpos() - n2.getYpos());
-        return Math.sqrt((a * a) + (b * b));
-    }
-
-    public static void display(HashSet<Cell> cells) {
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JPanel panel = new JPanel() {
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2 = (Graphics2D) g;
-                for (Cell cell : cells) {
-                    if (cell.getSite().getXpos() == 440 && cell.getSite().getYpos() == 420) {
-                        g2.setStroke(new BasicStroke(1));
-                    } else {
-                        g2.setStroke(new BasicStroke(1));
-                    }
-                    g.fillOval((int) cell.getSite().getXpos() - 2, (int) cell.getSite().getYpos() - 2, 4, 4);
-                    for (Edge edge : cell.getEdges()) {
-                        g2.drawLine((int) edge.getStart().getXpos(), (int) edge.getStart().getYpos(), (int) edge.getEnd().getXpos(), (int) edge.getEnd().getYpos());
-                    }
-//                    g.fillOval((int)cell.getCentre().getXpos()-1,(int)cell.getCentre().getYpos()-1,2,2);
-                }
-
-            }
-        };
-        panel.setPreferredSize(new Dimension(width, height));
-        frame.add(panel);
-        frame.pack();
-        frame.setVisible(true);
-    }
-
-    private static HashSet<Cell> cropDiagram(HashSet<Cell> cells) {
+    private HashSet<Cell> cropGraph(HashSet<Cell> cells) {
         Line2D.Double top = new Line2D.Double(0, 0, width, 0);
         Line2D.Double bottom = new Line2D.Double(0, height, width, height);
         Line2D.Double left = new Line2D.Double(0, 0, 0, height);
@@ -605,251 +460,37 @@ public class LloydsAlgoMain {
         return cells;
     }
 
-    private static void displayFailure(Cell cell, Node site) {
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JPanel panel = new JPanel() {
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2 = (Graphics2D) g;
-                g2.setStroke(new BasicStroke(1));
-
-
+    private HashSet<Node> getCentres(HashSet<Cell> cells) {
+        HashSet<Node> output = new HashSet<>();
+        for (Cell cell : cells) {
+            Node centre = cell.getCentre();
+            if (!Double.isNaN(centre.getXpos()) && !Double.isNaN(centre.getYpos())) {
+                if (!output.contains(centre)) {
+                    output.add(centre);
+                }
             }
-        };
-        panel.setPreferredSize(new Dimension(width, height));
-        frame.add(panel);
-        frame.pack();
-        frame.setVisible(true);
+        }
+        return output;
     }
 
-    private static void displayIndividualCells(HashSet<JPanel> panels) {
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JTabbedPane tabs = new JTabbedPane();
-        for (JPanel panel : panels) {
-            tabs.add(panel.getName(), panel);
+    public HashSet<Node> removeWhiteNodes() {
+        try {
+            HashSet<Node> whiteNodes = new HashSet<>();
+            for (Node node : nodes) {
+                if (image.getRGB((int) node.getXpos(), (int) node.getYpos()) == Color.WHITE.getRGB()) {
+                    whiteNodes.add(node);
+                }
+            }
+            nodes.removeAll(whiteNodes);
+        } catch (Exception e) {
+            System.out.println("Exception in removeWhiteNodes()");
+            e.printStackTrace();
         }
-        frame.add(tabs);
-        frame.pack();
-        frame.setVisible(true);
+        return nodes;
+
     }
 
-    private static JPanel makePanel(Cell cell, Node site) {
-        double lowestX = Double.POSITIVE_INFINITY;
-        double lowestY = Double.POSITIVE_INFINITY;
-
-        for (Edge edge : cell.getEdges()) {
-            if (edge.getStart().getXpos() < lowestX) {
-                lowestX = edge.getStart().getXpos();
-            }
-            if (edge.getEnd().getXpos() < lowestX) {
-                lowestX = edge.getEnd().getXpos();
-            }
-            if (edge.getStart().getYpos() < lowestY) {
-                lowestY = edge.getStart().getYpos();
-            }
-            if (edge.getEnd().getYpos() < lowestY) {
-                lowestY = edge.getEnd().getYpos();
-            }
-        }
-        if (site.getXpos() < lowestX) {
-            lowestX = site.getXpos();
-        }
-        if (site.getYpos() < lowestY) {
-            lowestY = site.getYpos();
-        }
-
-        int lowestXInt = (int) lowestX - 10;
-        int lowestYInt = (int) lowestY - 10;
-
-        JPanel panel = new JPanel() {
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2 = (Graphics2D) g;
-                g.fillOval((int) cell.getSite().getXpos() - 2, (int) cell.getSite().getYpos() - 2, 4, 4);
-
-                for (Edge edge : cell.getEdges()) {
-                    g2.drawLine((int) edge.getStart().getXpos(), (int) edge.getStart().getYpos(), (int) edge.getEnd().getXpos(), (int) edge.getEnd().getYpos());
-                }
-                g.setColor(Color.RED);
-                g.fillOval((int) site.getXpos() - 2, (int) site.getYpos() - 2, 4, 4);
-                g2.drawLine((int) site.getXpos() - 2, (int) site.getYpos() - 2, (int) cell.getSite().getXpos() - 2, (int) cell.getSite().getYpos() - 2);
-
-//                Node pbMid = new Node((site.getXpos() + cell.getSite().getXpos()) / 2, (site.getYpos() + cell.getSite().getYpos()) / 2);
-//                double grad = ((site.getYpos() - cell.getSite().getYpos()) / (site.getXpos() - cell.getSite().getXpos()));
-//                double pbGrad;
-//                if (grad == 0) {
-//                    pbGrad = Double.POSITIVE_INFINITY;
-//                } else if (Double.isInfinite(grad)) {
-//                    pbGrad = 0;
-//                } else {
-//                    pbGrad = -1 / grad;
-//                }
-//                Node pbPoint1;
-//                Node pbPoint2;
-//                double yIntercept = 0;
-//                if (!Double.isInfinite(pbGrad)) {
-//                    yIntercept = pbMid.getYpos() - (pbGrad * pbMid.getXpos());
-//                    pbPoint1 = new Node((-10 * width) * scaleFactor, ((pbGrad * ((-10 * width) * scaleFactor)) + yIntercept));
-//                    pbPoint2 = new Node((10 * width) * scaleFactor, ((pbGrad * ((10 * width) * scaleFactor)) + yIntercept));
-//                } else {
-//                    pbPoint1 = new Node(pbMid.getXpos(), (-10 * height) * scaleFactor);
-//                    pbPoint2 = new Node(pbMid.getXpos(), (10 * height) * scaleFactor);
-//                }
-//                g2.drawLine(((int)pbPoint1.getXpos()-lowestXInt)*factor,((int)pbPoint1.getYpos()-lowestYInt)*factor,((int)pbPoint2.getXpos()-lowestXInt)*factor,((int)pbPoint2.getYpos()-lowestYInt)*factor);
-            }
-        };
-        panel.setName(cell.getSite().toString());
-        panel.setPreferredSize(new Dimension(width, height));
-        return panel;
-    }
-
-    public static HashSet<Edge> solveTSPN(HashSet<Node>nodes){
-        Node nearestStart=null;
-        Node nearestEnd=null;
-        HashSet<Node> unvisited = new HashSet<>(nodes);
-        HashSet<Node> visited = new HashSet<>();
-
-        double nearest = Double.MAX_VALUE;
-        for(Node n1: nodes){
-            for(Node n2: nodes){
-                if(n1.distanceTo(n2)<nearest){
-                    nearestStart=n1;
-                    nearestEnd=n2;
-                    nearest=n1.distanceTo(n2);
-                }
-            }
-        }
-
-        visited.add(nearestStart);
-        unvisited.remove(nearestStart);
-        visited.add(nearestEnd);
-        unvisited.remove(nearestEnd);
-
-        HashSet<Edge> edges = new HashSet<>();
-
-        edges.add(new Edge(nearestStart,nearestEnd));
-        edges.add(new Edge(nearestEnd,nearestStart));
-
-        while(!unvisited.isEmpty()) {
-            Node nearestNode = null;
-            double minDist = Double.MAX_VALUE;
-            for (Node unvisitedNode : unvisited) {
-                for (Node visitedNode : visited) {
-                   if(unvisitedNode.distanceTo(visitedNode) < minDist){
-                        nearestNode=unvisitedNode;
-                        minDist = unvisitedNode.distanceTo(visitedNode);
-                    }
-                }
-            }
-
-            double smallestChange=Double.MAX_VALUE;
-            Edge smallestEdge=null;
-            for(Edge edge : edges){
-                double distDiff=edge.getStart().distanceTo(nearestNode)+nearestNode.distanceTo(edge.getEnd())-edge.getWeight();
-                if(distDiff<smallestChange || nearestNode==null){
-                    smallestChange=distDiff;
-                    smallestEdge=edge;
-                }
-
-            }
-            edges.add(new Edge(smallestEdge.getStart(),nearestNode));
-            edges.add(new Edge(smallestEdge.getEnd(),nearestNode));
-            edges.remove(smallestEdge);
-
-            visited.add(nearestNode);
-            unvisited.remove(nearestNode);
-        }
-
-        return edges;
-    }
-
-    public static HashSet<Edge> solveTSPF(HashSet<Node> nodes){
-        Node farthestStart=null;
-        Node farthestEnd=null;
-        HashSet<Node> unvisited = new HashSet<>(nodes);
-        HashSet<Node> visited = new HashSet<>();
-
-        double farthest = 0;
-        for(Node n1: nodes){
-            for(Node n2: nodes){
-                if(n1.distanceTo(n2)>farthest){
-                    farthestStart=n1;
-                    farthestEnd=n2;
-                    farthest=n1.distanceTo(n2);
-                }
-            }
-        }
-
-        visited.add(farthestStart);
-        unvisited.remove(farthestStart);
-        visited.add(farthestEnd);
-        unvisited.remove(farthestEnd);
-
-        HashSet<Edge> edges = new HashSet<>();
-
-        edges.add(new Edge(farthestStart,farthestEnd));
-        edges.add(new Edge(farthestEnd,farthestStart));
-
-        while(!unvisited.isEmpty()) {
-            Node farthestNode = null;
-            //this was set to double.max
-            double farthestDist = 0;
-            for (Node unvisitedNode : unvisited) {
-                double minDist = Double.MAX_VALUE;
-                for (Node visitedNode : visited) {
-                    if(farthestNode==null){
-                        farthestNode=unvisitedNode;
-                        minDist = unvisitedNode.distanceTo(visitedNode);
-                    }else if(unvisitedNode.distanceTo(visitedNode) < minDist){
-                        minDist = unvisitedNode.distanceTo(visitedNode);
-                    }
-                }
-                if (minDist > farthestDist) {
-                    farthestDist = minDist;
-                    farthestNode = unvisitedNode;
-                }
-            }
-
-            double smallestChange=Double.MAX_VALUE;
-            Edge smallestEdge=null;
-            for(Edge edge : edges){
-                double distDiff=edge.getStart().distanceTo(farthestNode)+farthestNode.distanceTo(edge.getEnd())-edge.getWeight();
-                if(distDiff<smallestChange){
-                    smallestChange=distDiff;
-                    smallestEdge=edge;
-                }
-
-            }
-            edges.add(new Edge(smallestEdge.getStart(),farthestNode));
-            edges.add(new Edge(smallestEdge.getEnd(),farthestNode));
-            edges.remove(smallestEdge);
-
-            visited.add(farthestNode);
-            unvisited.remove(farthestNode);
-        }
-
-        return edges;
-    }
-
-    private static void displayTSP(HashSet<Edge> edges, String name){
-        JFrame frame = new JFrame(name);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JPanel panel = new JPanel() {
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2 = (Graphics2D) g;
-                for(Edge edge : edges){
-                    g.fillOval((int)edge.getStart().getXpos()-2, (int)edge.getStart().getYpos()-2,4,4);
-                    g.fillOval((int)edge.getEnd().getXpos()-2, (int)edge.getEnd().getYpos()-2,4,4);
-                    g.drawLine((int)edge.getStart().getXpos(), (int)edge.getStart().getYpos(), (int)edge.getEnd().getXpos(), (int)edge.getEnd().getYpos());
-                }
-            }
-        };
-        frame.add(panel);
-        panel.setPreferredSize(new Dimension(width,height));
-        frame.pack();
-        frame.setVisible(true);
+    public HashSet<Node> getNodes() {
+        return nodes;
     }
 }
