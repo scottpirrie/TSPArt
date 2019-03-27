@@ -149,10 +149,10 @@ public class TSPArt implements Runnable{
 
     }
 
-    static BufferedImage cloneImage(BufferedImage bi) {
-        ColorModel cm = bi.getColorModel();
+    static BufferedImage cloneImage(BufferedImage input) {
+        ColorModel cm = input.getColorModel();
         boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
-        WritableRaster raster = bi.copyData(null);
+        WritableRaster raster = input.copyData(null);
         return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
     }
 
